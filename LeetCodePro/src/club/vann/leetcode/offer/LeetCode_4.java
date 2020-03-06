@@ -89,6 +89,10 @@ public class LeetCode_4 {
 //		result = leetCode.findNumberIn2DArray(matrix9, 5);
 //		System.out.println("Result:[true] : " + result);
 		
+		int[][] matrix10 = {};
+		result = leetCode.findNumberIn2DArray(matrix10, 0);
+		System.out.println("Result:[false] : " + result);
+		
 	}
 	
 	/**
@@ -103,55 +107,51 @@ public class LeetCode_4 {
 			return false;
 		}
 		//解法一：暴力解法，递归方法判断（LeetCode测试后超时）
-//		return findNumberIn2DArray1(matrix, target, 0, 0);
+//		return findNumberIn2DArray1(matrix, target);
 		
-		return findNumberIn2DArray2(matrix, target, 0, 0, matrix[0].length, matrix.length);
+		return findNumberIn2DArray2(matrix, target);
     }
 	
-	private boolean findNumberIn2DArray1(int[][] matrix, int target, int xIndex, int yIndex) {
-		if(xIndex < matrix[0].length && yIndex < matrix.length) {
-			int value = matrix[yIndex][xIndex];
-			if(value < target) {
-				return findNumberIn2DArray1(matrix, target, xIndex+1, yIndex) || findNumberIn2DArray1(matrix, target, xIndex, yIndex+1);
-			} else if(value == target) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
+	private boolean findNumberIn2DArray1(int[][] matrix, int target) {
+		if(matrix == null || matrix.length == 0) {
 			return false;
 		}
+		
+		int size_y = matrix.length;
+		int size_x = matrix[0].length;
+		for(int y = 0; y < size_y; y ++) {
+			for(int x = 0; x < size_x; x ++) {
+				if(matrix[y][x] == target) {
+					return true;
+				}
+			}
+		}
+		return false;
 		
 	}
 	
 	/**
 	 * 解法二：
-	 *       
+	 *  左上角排序法
 	 * @param matrix
 	 * @param target
 	 * @return
 	 */
-	private boolean findNumberIn2DArray2(int[][] matrix, int target, int x, int y, int max_x, int max_y) {
-		int point_x = matrix[0].length-1;
-		int point_y = matrix.length-1;
+	private boolean findNumberIn2DArray2(int[][] matrix, int target) {
+		if(matrix == null || matrix.length == 0) {
+			return false;
+		}
 		
-		while(x >= 0 && x < max_x && y >= 0 && y < max_y) {
+		int size_y = matrix.length, size_x = matrix[0].length;
+		int x = size_x-1, y = 0; // 从左上角开始搜索
+		while(x>=0 && y < size_y) {
 			int value = matrix[y][x];
-			
 			if(value == target) {
 				return true;
-			} else if (value < target) {
-				if(max_x - x < max_y - y) {
-					y ++;
-				} else if(max_x - x == max_y - y) {
-					x ++;
-					y ++;
-				} else {
-					x ++;
-				}
-				
+			} else if(value < target) {
+				y ++;
 			} else {
-				return findNumberIn2DArray2(matrix, target, x, 0, point_x, y-1) || findNumberIn2DArray2(matrix, target, 0, y, x-1, point_y);
+				x --;
 			}
 		}
 		
