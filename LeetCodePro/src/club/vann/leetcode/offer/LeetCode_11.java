@@ -1,4 +1,4 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 /**
  * Easy 旋转数组的最小数字

@@ -1,4 +1,4 @@
-package leetcode;
+package club.vann.leetcode;
 
 /**
  * 回文子串。

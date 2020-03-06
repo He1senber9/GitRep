@@ -1,4 +1,4 @@
-package leetcode.common;
+package club.vann.leetcode.common;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

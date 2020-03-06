@@ -1,9 +1,10 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import leetcode.common.TreeNode;
+import club.vann.leetcode.common.TreeNode;
+
 
 /**
  * Midum

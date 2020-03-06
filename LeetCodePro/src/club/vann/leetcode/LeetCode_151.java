@@ -1,7 +1,7 @@
 /**
  * 
  */
-package leetcode;
+package club.vann.leetcode;
 
 /**
  * Midum 翻转字符串里的单词

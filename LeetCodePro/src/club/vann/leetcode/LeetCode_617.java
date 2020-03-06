@@ -1,4 +1,4 @@
-package leetcode;
+package club.vann.leetcode;
 
 public class LeetCode_617 {
 	public static void main(String[] args) {

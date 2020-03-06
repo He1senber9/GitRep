@@ -1,9 +1,8 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 import java.util.LinkedList;
-import java.util.Stack;
+import club.vann.leetcode.common.TreeNode;
 
-import leetcode.common.TreeNode;
 
 /**
  * Midum 对称的二叉树

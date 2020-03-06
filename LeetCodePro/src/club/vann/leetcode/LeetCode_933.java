@@ -1,4 +1,4 @@
-package leetcode;
+package club.vann.leetcode;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 

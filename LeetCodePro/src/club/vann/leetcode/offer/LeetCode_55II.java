@@ -1,8 +1,9 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 import java.util.Stack;
 
-import leetcode.common.TreeNode;
+import club.vann.leetcode.common.TreeNode;
+
 
 /**
  * Easy 平衡二叉树

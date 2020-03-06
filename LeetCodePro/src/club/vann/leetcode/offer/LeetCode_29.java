@@ -1,4 +1,4 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

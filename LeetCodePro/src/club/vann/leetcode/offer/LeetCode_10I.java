@@ -1,4 +1,4 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 /**
  * Easy 斐波那契数列 

@@ -1,4 +1,4 @@
-package leetcode;
+package club.vann.leetcode;
 
 /**
  * 在一个 8 x 8 的棋盘上，有一个白色车（rook）。也可能有空方块，白色的象（bishop）和黑色的卒（pawn）。它们分别以字符

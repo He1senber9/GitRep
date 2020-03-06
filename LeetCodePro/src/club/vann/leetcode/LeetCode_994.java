@@ -1,7 +1,7 @@
 /**
  * 
  */
-package leetcode;
+package club.vann.leetcode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

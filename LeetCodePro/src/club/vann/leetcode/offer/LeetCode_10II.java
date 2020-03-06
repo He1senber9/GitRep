@@ -1,4 +1,4 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 /**
  * Easy 青蛙跳台阶问题

@@ -1,4 +1,4 @@
-package leetcode.common;
+package club.vann.leetcode.common;
 
 public class ListNode {
 	public int val;

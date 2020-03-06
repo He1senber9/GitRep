@@ -1,4 +1,4 @@
-package leetcode.daily;
+package club.vann.leetcode.offer.daily;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -6,12 +6,12 @@ import java.util.List;
 
 /**
  * Easy 
- * ¸¯ÀÃµÄéÙ×Ó
+ * ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
  * @author fanyu
  *
  */
 public class LeetCode_994 {
-	// ÓÃÓÚÕÒµ½Ö¸¶¨½ÚµãµÄÉÏÏÂ×óÓÒ½Úµã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½Ö¸ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½Úµï¿½
 	private int[] dr = {-1, 0, 0, 1};
 	private int[] dc = {0, -1, 1, 0};
 
@@ -49,7 +49,7 @@ public class LeetCode_994 {
 		int xSize = grid[0].length;
 		
 		LinkedList<List<Integer>> list = new LinkedList<List<Integer>>();
-		// Ìô³öËùÓĞµ±Ç°¸¯ÀÃµÄ½Úµã
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½Ç°ï¿½ï¿½ï¿½ÃµÄ½Úµï¿½
 		for(int y = 0; y < ySize; y ++) {
 			for(int x = 0; x < xSize; x ++) {
 				if(grid[y][x] == 2) { 
@@ -61,20 +61,20 @@ public class LeetCode_994 {
 			}
 		}
 		
-//		if(list.size() == 0) { // µ±Ç°ÁĞ±íÖĞÃ»ÓĞ¸¯»µ½Úµã
+//		if(list.size() == 0) { // ï¿½ï¿½Ç°ï¿½Ğ±ï¿½ï¿½ï¿½Ã»ï¿½Ğ¸ï¿½ï¿½ï¿½ï¿½Úµï¿½
 //			return -1;
 //		}
 	
 		while(!list.isEmpty()) {
 			int len = list.size();
 			
-			// ¶ÓÁĞÖĞËùÓĞÔªËØÊÇÍ¬Ò»²ã
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½
 			for(int t=0; t < len; t ++) {
 				List<Integer> ll = list.pollFirst();
 				int x = ll.get(0);
 				int y = ll.get(1);
 				
-				// ±éÀúÉÏÏÂ×óÓÒ4¸ö½Úµã
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½ï¿½Úµï¿½
 				for(int k = 0; k < 4; k ++) {
 					int tmpX = x + dr[k];
 					int tmpY = y + dc[k];

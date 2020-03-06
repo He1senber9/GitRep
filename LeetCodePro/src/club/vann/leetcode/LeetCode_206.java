@@ -1,4 +1,4 @@
-package leetcode;
+package club.vann.leetcode;
 
 /**
  * 反转一个单链表。

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package leetcode.offer.daily;
+package club.vann.leetcode.offer.daily;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package leetcode.offer;
+package club.vann.leetcode.offer;
 
 /**
  * Midum 树的子结构
