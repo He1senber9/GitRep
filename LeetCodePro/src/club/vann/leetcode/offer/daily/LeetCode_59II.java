@@ -1,6 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,6 +45,15 @@ public class LeetCode_59II {
 		System.out.print(pop_front + ", ");
 		max_val = queue.max_value();
 		System.out.print(max_val);
+		
+		System.out.println("--------------------------------");
+		
+		MaxQueue queue1 = leetCode.new MaxQueue();
+		int pop_val = queue1.pop_front();
+		System.out.print(pop_val + ", ");
+		int max_val1 = queue1.max_value();
+		System.out.print(max_val1 + ", ");
+		
 	}
 
 	/**
@@ -54,9 +64,12 @@ public class LeetCode_59II {
 	 */
 	class MaxQueue {
 
-		volatile int a = 0;
+		private LinkedList<Integer> dataLinked = null;
+		private LinkedList<Integer> indexLinked = null;
+		
 		public MaxQueue() {
-			List<Integer> list = new ArrayList<Integer>();
+			dataLinked = new LinkedList<Integer>();
+			indexLinked = new LinkedList<Integer>();
 		}
 
 		/**
@@ -65,7 +78,10 @@ public class LeetCode_59II {
 		 * @return 如果队列为空，返回 -1
 		 */
 		public int max_value() {
-			return 0;
+			if(dataLinked.isEmpty()) {
+				return -1;
+			}
+			return indexLinked.peekFirst();
 		}
 
 		/**
@@ -73,7 +89,17 @@ public class LeetCode_59II {
 		 * @param value
 		 */
 		public void push_back(int value) {
-
+			dataLinked.offer(value);
+			
+			if(!indexLinked.isEmpty()) {
+				if(indexLinked.peekLast() < value) {
+					indexLinked.pollLast();
+				}
+				
+				indexLinked.offer(value);
+			} else {
+				indexLinked.offer(value);
+			}
 		}
 
 		/**
@@ -83,7 +109,15 @@ public class LeetCode_59II {
 		 * @return 如果队列为空，返回-1
 		 */
 		public int pop_front() {
-			return 0;
+			if(dataLinked.isEmpty()) {
+				return -1;
+			}
+			
+			int v = dataLinked.pollFirst();
+			if(v == indexLinked.peekFirst()) {
+				indexLinked.pollFirst();
+			}
+			return v;
 		}
 	}
 }
