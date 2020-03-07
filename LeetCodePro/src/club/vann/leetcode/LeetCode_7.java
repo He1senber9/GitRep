@@ -34,8 +34,11 @@ public class LeetCode_7 {
 	public static void main(String[] args) {
 		LeetCode_7 leetCode = new LeetCode_7();
 
-		int n = 123;
-		int result = leetCode.reverse(n);
+		int n = 0;
+		int result = 0;
+		
+		n = 123;
+		result = leetCode.reverse(n);
 		System.out.println("Result [321]: " + result);
 
 		n = -123;
@@ -45,19 +48,34 @@ public class LeetCode_7 {
 		n = 120;
 		result = leetCode.reverse(n);
 		System.out.println("Result [21]: " + result);
+		
+		n = 1534236469;
+		result = leetCode.reverse(n);
+		System.out.println("Result [0]: " + result);
+		System.out.println(n < Integer.MAX_VALUE);
+		
+		n = 463847412;
+		result = leetCode.reverse(n);
+		System.out.println("Result [214748364]: " + result);
+		System.out.println(n < Integer.MAX_VALUE);
+		
+		n = 563847412;
+		result = leetCode.reverse(n);
+		System.out.println("Result [214748365]: " + result);
+		System.out.println(n < Integer.MAX_VALUE);
 	}
 
 	private int reverse(int x) {
 		int result = 0;
 		
-		int flag = 1; // 符号位：1表示正，-1表示负
-		
-		if(x >= 0) {
-			flag = 1;
-		} else {
-			flag = -1;
+		while(x != 0) {
+			if(result*10/10 != result) { // 证明溢出
+				return 0;
+			}
+			
+			result = result * 10 + x % 10;
+			x = x / 10;
 		}
-		
 		
 		
 		return result;
