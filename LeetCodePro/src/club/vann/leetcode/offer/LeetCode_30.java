@@ -1,5 +1,6 @@
 package club.vann.leetcode.offer;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -61,25 +62,35 @@ public class LeetCode_30 {
  */
 class MinStack {
 	/** initialize your data structure here. */
-	private Stack<Integer> stack = null;
+	private Stack<Integer> dataStack = null;
+	private Stack<Integer> minStack = null;
 	
     public MinStack() {
-    	stack = new Stack<Integer>();
+    	dataStack = new Stack<Integer>();
+    	minStack = new Stack<Integer>();
     }
     
     public void push(int x) {
-    	stack.push(x);
+    	dataStack.push(x);
+    	if(!minStack.isEmpty() && x <= minStack.peek()) {
+    		minStack.push(x);
+    	} else if(minStack.isEmpty()){
+    		minStack.push(x);
+    	}
     }
     
     public void pop() {
-    	stack.pop();
+    	int v = dataStack.pop();
+    	if(!minStack.isEmpty() && minStack.peek() == v) {
+    		minStack.pop();
+    	}
     }
     
     public int top() {
-    	return stack.peek();
+    	return dataStack.peek();
     }
     
     public int min() {
-    	return 0;
+    	return minStack.peek();
     }
 }
