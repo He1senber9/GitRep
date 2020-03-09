@@ -71,7 +71,8 @@ public class LeetCode_322 {
 	 */
 	private int coinChange(int[] coins, int amount) {
 //		return coinChange1(coins, amount, 0);
-		return coinChange2(coins, amount);
+//		return coinChange2(coins, amount);
+		return coinChange3(coins, amount, new int[amount]);
 	}
 
 	/**
@@ -118,6 +119,48 @@ public class LeetCode_322 {
 			}
 		}
 		return dp[amount] > amount ? -1 : dp[amount];
+	}
+
+	/**
+	 * 方法二、动态规划-自上而下
+	 * 
+	 * 我们能改进上面的指数时间复杂度的解吗？当然可以，利用动态规划，我们可以在多项式的时间范围内求解。首先，我们定义：
+	 * 
+	 *    F(S)：组成金额  S 所需的最少硬币数量。
+	 *    [C0,C1...Cn-1]:可选的 n 枚硬币面额值
+	 * 
+	 * 我们注意到这个问题有一个最优的子结构性质，这是解决动态规划问题的关键。最优解可以从其子问题的最优解构造出来。如何将问题分解成子问题？假设我们知道
+	 * F(S)，即组成金额  S 最少的硬币数，最后一枚硬币的面值是 C。那么由于问题的最优子结构，转移方程应为：
+	 * 
+	 *    F(S) = F(S - C) + 1
+	 * 
+	 * 但我们不知道最后一枚硬币的面值是多少，所以我们需要枚举每个硬币面额值 C0,C1,C2...Cn-1​ 并选择其中的最小值。下列递推关系成立：
+	 * 
+	 *    F(S) = min{i=0 ... n-1} { F(S - Ci) } + 1 {subject to}  S-Ci >= 0
+	 *    F(S)=0 ,when S=0
+	 *    F(S)=−1 ,when n=0
+	 * 
+	 * @param coins
+	 * @param amount
+	 * @param count
+	 * @return
+	 */
+	private int coinChange3(int[] coins, int amount, int[] count) {
+		if (amount < 0)
+			return -1;
+		if (amount == 0)
+			return 0;
+		if (count[amount - 1] != 0)
+			return count[amount - 1];
+		int min = Integer.MAX_VALUE;
+		for (int coin : coins) {
+			int res = coinChange3(coins, amount - coin, count);
+			if (res >= 0 && res < min)
+				min = 1 + res;
+		}
+		count[amount - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
+		return count[amount - 1];
+
 	}
 
 }
