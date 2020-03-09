@@ -1,5 +1,7 @@
 package club.vann.leetcode;
 
+import club.vann.leetcode.common.ListNode;
+
 /**
  * 反转一个单链表。
  * 
@@ -51,10 +53,4 @@ public class LeetCode_206 {
 		return recurrenceList(nextNode, next);
 	}
 
-}
-
-class ListNode {
-	int val;
-	ListNode next;
-	ListNode(int x) { val = x; }
 }
