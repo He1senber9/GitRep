@@ -41,17 +41,17 @@ public class LeetCode_121 {
 		int result = 0;
 		LeetCode_121 leetCode = new LeetCode_121();
 		
-//		prices = new int[]{7,1,5,3,6,4};
-//		result = leetCode.maxProfit(prices);
-//		System.out.println("Result: [5] " + result);
-//		
-//		prices = new int[]{7,6,4,3,1};
-//		result = leetCode.maxProfit(prices);
-//		System.out.println("Result: [0] " + result);
+		prices = new int[]{7,1,5,3,6,4};
+		result = leetCode.maxProfit(prices);
+		System.out.println("Result: [5] " + result);
 		
-//		prices = new int[]{1,2,3,4,5,6};
-//		result = leetCode.maxProfit(prices);
-//		System.out.println("Result: [5] " + result);
+		prices = new int[]{7,6,4,3,1};
+		result = leetCode.maxProfit(prices);
+		System.out.println("Result: [0] " + result);
+		
+		prices = new int[]{1,2,3,4,5,6};
+		result = leetCode.maxProfit(prices);
+		System.out.println("Result: [5] " + result);
 //		
 //		prices = new int[]{6,5,4,3,2,1};
 //		result = leetCode.maxProfit(prices);
@@ -65,46 +65,29 @@ public class LeetCode_121 {
 //		result = leetCode.maxProfit(prices);
 //		System.out.println("Result: [5] " + result);
 		
-		prices = new int[]{1,2,3,4,5,6,5,4,3,2,1,2,3,4,5,6};
-		result = leetCode.maxProfit(prices);
-		System.out.println("Result: [10] " + result);
+//		prices = new int[]{1,2,3,4,5,6,5,4,3,2,1,2,3,4,5,6};
+//		result = leetCode.maxProfit(prices);
+//		System.out.println("Result: [10] " + result);
 		
-		prices = new int[]{1,2,3,4,5,6,5,4,3,2,1,2,3,4,5,6};
-		result = leetCode.maxProfit(prices);
-		System.out.println("Result: [10] " + result);
 	}
 	
+	/**
+	 * 暴力法：
+	 * 
+	 * @param prices
+	 * @return
+	 */
 	private int maxProfit(int[] prices) {
-		int maxSaly = 0; // 定义最大利润为0
+		int max = 0;
 		
-		int len = prices.length;
-		for(int n = 0; n < len; n ++) {
-			int maxValue = 0;
-			// 表示第 n 天 买入，即成本价 prices[n]
-			int base = prices[n];
-			boolean flag = true; // true：可以卖，false，可以买
-			for(int m = n+1; m < len; m ++) {
-				if(flag) {
-					maxValue = Math.max(maxValue, prices[m] - base);
-				} else {
-					maxValue -= prices[m];
-				}
+		for(int n = 0; n < prices.length-1; n ++) {
+			for(int m = n+1; m < prices.length; m ++) {
+				int v = prices[m] - prices[n];
+				max = Math.max(max, v);
 			}
-			maxSaly = Math.max(maxSaly, maxValue);
 		}
 		
-		return maxSaly;
+		return max;
     }
-	
-	private int maxProfit(int[] prices, int index, int flag) {
-		for(int n = index; n >= 0; n --) {
-			if(flag == 1) {
-				return n + maxProfit(prices, n - 1, 1);
-			} else {
-				return maxProfit(prices, n - 1, 1);
-			}
-		}
-		return 0;
-	}
 
 }
