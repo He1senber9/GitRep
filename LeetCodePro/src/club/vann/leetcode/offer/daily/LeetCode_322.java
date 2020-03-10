@@ -1,9 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -40,20 +39,20 @@ public class LeetCode_322 {
 		int amount = 0;
 		int result = 0;
 
-		coins = new int[] { 1, 2, 5 };
-		amount = 11;
-		result = leetCode.coinChange(coins, amount);
-		System.out.println("Resutl [3] : " + result);
-
-		coins = new int[] { 2 };
-		amount = 3;
-		result = leetCode.coinChange(coins, amount);
-		System.out.println("Resutl [-1] : " + result);
-
-		coins = new int[] { 2, 5, 10, 1 };
-		amount = 27;
-		result = leetCode.coinChange(coins, amount);
-		System.out.println("Resutl [4] : " + result);
+//		coins = new int[] { 1, 2, 5 };
+//		amount = 11;
+//		result = leetCode.coinChange(coins, amount);
+//		System.out.println("Resutl [3] : " + result);
+//
+//		coins = new int[] { 2 };
+//		amount = 3;
+//		result = leetCode.coinChange(coins, amount);
+//		System.out.println("Resutl [-1] : " + result);
+//
+//		coins = new int[] { 2, 5, 10, 1 };
+//		amount = 27;
+//		result = leetCode.coinChange(coins, amount);
+//		System.out.println("Resutl [4] : " + result);
 
 		coins = new int[] { 186, 419, 83, 408 };
 		amount = 6249;
@@ -72,7 +71,8 @@ public class LeetCode_322 {
 	private int coinChange(int[] coins, int amount) {
 //		return coinChange1(coins, amount, 0);
 //		return coinChange2(coins, amount);
-		return coinChange3(coins, amount, new int[amount]);
+//		return coinChange3(coins, amount, new int[amount]);
+		return coinChange4(coins, amount);
 	}
 
 	/**
@@ -163,4 +163,37 @@ public class LeetCode_322 {
 
 	}
 
+	// 额外定义一个缓存表
+	Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	private int coinChange4(int[] coins, int amount) {
+		if(amount == 0) {
+			return 0;
+		}
+		
+		if(amount < 0) {
+			return -1;
+		}
+		
+		if(map.containsKey(amount)) {
+			return map.get(amount);
+		}
+		
+		int min = Integer.MAX_VALUE;
+		for(int n = 0; n < coins.length; n ++) {
+			int num = coinChange4(coins, amount-coins[n]);
+			if(num == -1) {
+				continue;
+			}
+			min = Math.min(min, 1+num);
+		}
+		
+		if(min == Integer.MAX_VALUE) {
+			min = -1;
+		}
+		
+		if(min != -1) {
+			map.put(amount, min);
+		}
+		return min;
+	}
 }
