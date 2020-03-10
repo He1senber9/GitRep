@@ -1,7 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import club.vann.leetcode.common.TreeNode;
 
@@ -45,18 +45,21 @@ public class LeetCode_543 {
 		node1.right = node3;
 		node2.left = node4;
 		node2.right = node5;
-		result = leetCode.diameterOfBinaryTree(node1);
+		result = leetCode.diameterOfBinaryTree3(node1);
 		System.out.println("Result[3] :" + result);
+		System.out.println(leetCode.deep2(node1));
 		
 		TreeNode node = new TreeNode(0);
-		result = leetCode.diameterOfBinaryTree(node);
+		result = leetCode.diameterOfBinaryTree3(node);
 		System.out.println("Result[0] :" + result);
+		System.out.println(leetCode.deep2(node));
 		
 		TreeNode node7 = new TreeNode(7);
 		TreeNode node8 = new TreeNode(8);
 		node7.left = node8;
-		result = leetCode.diameterOfBinaryTree(node7);
+		result = leetCode.diameterOfBinaryTree3(node7);
 		System.out.println("Result[1] :" + result);
+		System.out.println(leetCode.deep2(node7));
 		
 		TreeNode node9 = new TreeNode(9);
 		TreeNode node10 = new TreeNode(10);
@@ -77,7 +80,7 @@ public class LeetCode_543 {
 		node14.left = node16;
 		node14.right = node17;
 		node17.right = node18;
-		result = leetCode.diameterOfBinaryTree(node9);
+		result = leetCode.diameterOfBinaryTree2(node9);
 		System.out.println("Result[6] :" + result);
 		
 		TreeNode node19 = new TreeNode(4);
@@ -116,15 +119,13 @@ public class LeetCode_543 {
 		node30.right = node34;
 		node31.left = node35;
 		node33.left = node36;
-		result = leetCode.diameterOfBinaryTree(node19);
+		result = leetCode.diameterOfBinaryTree2(node19);
 		System.out.println("Result[8] :" + result);
 	}
 	
 	/**
 	 * 思路：
-	 *       定义dp(node)表示为当前节点左右子树深度和。
-	 *      那么原问题就是求最终 dp(node)的最大值问题。
-	 * 
+	 * 第一代版本：分别计算每个节点的最大直径，最后得出最大值。
 	 * 
 	 * @param root
 	 * @return
@@ -141,7 +142,6 @@ public class LeetCode_543 {
     }
 	
 	private int diameter(TreeNode root) {
-		//
 		if(root == null) {
 			return 0;
 		}
@@ -185,5 +185,65 @@ public class LeetCode_543 {
 		}
 		return Math.max(deepL, deepR);
 	}
+	
+	/**
+	 * 思路：
+	 * 第二代版本：分别计算每个节点的最大直径，最后得出最大值。
+	 * 优化：计算深度时可以使用缓存表。
+	 * 
+	 * @param root
+	 * @return
+	 */
+	private Map<TreeNode, Integer> map = new HashMap<TreeNode, Integer>(); // 缓存对应节点的深度
+	private int diameterOfBinaryTree2(TreeNode root) {
+		if(root == null) {
+			return 0;
+		}
+		
+		int max = 0;
+		max = diameter(root);
+		
+		return max;
+    }
+	
+	/**
+	 * 计算当前节点的深度。
+	 * @param node
+	 * @return
+	 */
+	private int deep2(TreeNode node) {
+		if(node == null) {
+			return 0;
+		}
+		
+		int L = deep2(node.left);
+		int R = deep2(node.right);
+		
+		int max = Math.max(L, R) + 1;
+		map.put(node, max);
+		return max;
+	}
+	
 
+	/**
+	 * 优化算法：
+	 * 
+	 * @param root
+	 * @return
+	 */
+	private int maxCount = 0;
+	private int diameterOfBinaryTree3(TreeNode root) {
+		depth(root);
+		return maxCount;
+	}
+	
+	public int depth(TreeNode node){
+        if(node==null){
+            return 0;
+        }
+        int Left = depth(node.left);
+        int Right = depth(node.right);
+        maxCount=Math.max(Left+Right,maxCount);//将每个节点最大直径(左子树深度+右子树深度)当前最大值比较并取大者
+        return Math.max(Left,Right)+1;//返回节点深度
+    }
 }
