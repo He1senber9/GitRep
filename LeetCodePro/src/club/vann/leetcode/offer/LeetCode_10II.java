@@ -23,12 +23,42 @@ package club.vann.leetcode.offer;
 public class LeetCode_10II {
 
 	public static void main(String[] args) {
-//		int n = 2;
-		int n = 7;
-		LeetCode_10II leetCode = new LeetCode_10II();
-		int result = leetCode.numWays(n);
 		
-		System.out.println(result);
+		int n = 0;
+		int result = 0;
+		LeetCode_10II leetCode = new LeetCode_10II();
+		
+		n = 0;
+		result = leetCode.numWays(n);
+		System.out.println("Result[10]" + result);
+		
+		n = 1;
+		result = leetCode.numWays(n);
+		System.out.println("Result[1]" + result);
+		
+		n = 2;
+		result = leetCode.numWays(n);
+		System.out.println("Result[2]" + result);
+		
+		n = 3;
+		result = leetCode.numWays(n);
+		System.out.println("Result[3]" + result);
+		
+		n = 4;
+		result = leetCode.numWays(n);
+		System.out.println("Result[5]" + result);
+		
+		n = 5;
+		result = leetCode.numWays(n);
+		System.out.println("Result[8]" + result);
+		
+		n = 6;
+		result = leetCode.numWays(n);
+		System.out.println("Result[13]" + result);
+		
+		n = 7;
+		result = leetCode.numWays(n);
+		System.out.println("Result[21]" + result);
 		
 	}
 	
@@ -42,9 +72,18 @@ public class LeetCode_10II {
 	 * @return
 	 */
 	private int numWays(int n) {
+		int prev = 0, cur = 1;
+		int sum = 0;
 		
+		int i = 0;
+		while(i < n) {
+			sum = cur + prev;
+			prev = cur;
+			cur = sum;
+			i ++;
+		}
 		
-		return 0;
+		return cur;
     }
 
 }
