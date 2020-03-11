@@ -32,11 +32,19 @@ public class LeetCode_10II {
 		
 	}
 	
+	/**
+	 * F(0) = 0;
+	 * F(1) = 1;
+	 * F(2) = 2;
+	 * F(n) = F(n-1) + 1;
+	 * F(n) = F(n-2) + 2;
+	 * @param n
+	 * @return
+	 */
 	private int numWays(int n) {
-		if(n == 0) {
-			return 0;
-		}
-		return (n-1) + n/2;
+		
+		
+		return 0;
     }
 
 }
