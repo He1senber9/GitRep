@@ -1,6 +1,7 @@
 package club.vann.leetcode.offer;
 
-import java.util.LinkedList;
+import java.util.Stack;
+
 import club.vann.leetcode.common.TreeNode;
 
 
@@ -75,31 +76,46 @@ public class LeetCode_28 {
 		
 		LeetCode_28 leetCode = new LeetCode_28();
 		boolean result = leetCode.isSymmetric(node);
-		System.out.println(result);
+		System.out.println("Result[false]" + result);
 	}
 
+	/**
+	 * 思路：同一层节点，他们左右子树对称。
+	 * 1.如何找到同一层。
+	 * 2.怎么找到对称的节点。
+	 * 
+	 * 借助2个栈实现。
+	 * 
+	 * @param root
+	 * @return
+	 */
 	private boolean isSymmetric(TreeNode root) {
+		if(root == null) {
+			return true;
+		}
 		
-		// 中序遍历
-		LinkedList<TreeNode> list = new LinkedList<TreeNode>();
-		printInOrder(list, root);
-		int size = list.size();
-		int n = size / 2;
-		while(n > 0) {
-			if(list.pollFirst().val != list.pollLast().val) {
+		Stack<TreeNode> stackLeft = new Stack<TreeNode>();
+		Stack<TreeNode> stackRight = new Stack<TreeNode>();
+		
+		stackLeft.push(root.left);
+		stackRight.push(root.right);
+		
+		while(!stackLeft.isEmpty() && !stackRight.isEmpty()) {
+			TreeNode nodeLeft = stackLeft.pop();
+			TreeNode nodeRight = stackLeft.pop();
+			if(nodeLeft.val != nodeRight.val) {
 				return false;
 			}
-			n --;
+			
+			stackLeft.push(nodeLeft.left);
+			stackLeft.push(nodeLeft.right);
+			stackRight.push(nodeRight.right);
+			stackRight.push(nodeRight.left);
 		}
 		
-		return true;
-	}
-	
-	private void printInOrder(LinkedList<TreeNode> list, TreeNode root) {
-		if(root != null) {
-			printInOrder(list, root.left);
-			list.add(root);
-			printInOrder(list, root.right);
+		if(!stackLeft.isEmpty() || !stackRight.isEmpty()) {
+			
 		}
+		return true;
 	}
 }
