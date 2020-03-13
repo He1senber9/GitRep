@@ -30,15 +30,33 @@ package club.vann.leetcode.offer;
 public class LeetCode_10I {
 
 	public static void main(String[] args) {
-//		int n = 2;
-//		int n = 5;
-		int n = 41;
-		
 		LeetCode_10I leetCode = new LeetCode_10I();
-		int result = leetCode.fib(n);
-		System.out.println(result);
+		int n = 0;
+		int result = 0;
+		
+//		n = 2;
+//		result = leetCode.fib(n);
+//		System.out.println("Result[1] : " + result);
+		
+//		n = 5;
+//		result = leetCode.fib(n);
+//		System.out.println("Result[5] : " + result);
+		
+//		n = 8;
+//		result = leetCode.fib(n);
+//		System.out.println("Result[21] : " + result);
+		
+//		n = 45;
+//		result = leetCode.fib(n);
+//		System.out.println("Result[134903163] : " + result);
+		
+		n = 48;
+		result = leetCode.fib(n);
+		System.out.println("Result[807526948] : " + result);
+		
 	}
 	
+	private int prev = 0, cur = 1;
 	private int fib(int n) {
 		if(n == 0) {
 			return 0;
@@ -48,10 +66,16 @@ public class LeetCode_10I {
 			return 1;
 		}
 		
-		int result = 0;
+		int i = 1;
+		while (i < n) {
+			int code = (prev + cur)%1000000007;
+			
+			prev = cur;
+			cur = code;
+			i ++;
+		}
 		
-		result = (n-1) * 1 + 0;
-		return result;
+		return cur;
     }
 
 }
