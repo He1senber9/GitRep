@@ -79,34 +79,13 @@ public class LeetCode_169 {
     }
 
     /**
-     * 思路二：借助集合完成匹配，找出目标元素。
+     * 思路二：。
      * <p>时间复杂度：O(n)</p>
      * <p>空间复杂度：O(n)</p>
      * @param nums
      * @return
      */
     private int majorityElement1(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        int len = nums.length;
-
-        if(len == 1) {
-            return nums[0];
-        }
-
-        int result = 0;
-        for(int n = 0; n < len; n++) {
-            if(map.containsKey(nums[n])) {
-                int count = map.get(nums[n]);
-                if(count >= len/2) {
-                    result = nums[n];
-                    return nums[n];
-                } else {
-                    map.put(nums[n], count+1);
-                }
-            } else {
-                map.put(nums[n], 1);
-            }
-        }
-        return result;
+        return 0;
     }
 }
