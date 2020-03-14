@@ -4,7 +4,102 @@
     <option name="GROUP_BY_SEVERITY" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60f88082-6586-4a96-b1f0-304ac21c7c79" name="Default Changelist" comment="" />
+    <list default="true" id="60f88082-6586-4a96-b1f0-304ac21c7c79" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode1051.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_1002.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_1021.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_104.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_118.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_1207.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_151.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_171.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_206.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_258.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_349.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_476.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_500.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_557.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_561.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_617.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_647.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_682.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_762.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_811.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_821.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_832.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_908.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_922.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_929.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_933.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_944.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_961.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_994.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/LeetCode_999.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/RecentCounter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/alg/EightQueen.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/common/ListNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/common/TreeNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/CQueue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_03.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_10I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_10II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_11.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_135.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_14I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_15.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_17.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_18.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_21.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_22.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_24.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_25.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_26.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_27.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_28.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_29.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_30.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_32I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_32II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_32III.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_4.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_5.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_54.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_55I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_55II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_57II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_58I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_58II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_59I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_6.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_64.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_65.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_66.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_67.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_68I.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_7.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/LeetCode_9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/ListNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/MinStack.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_1013.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_1071.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_10_01.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_1103.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_121.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_169.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_300.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_322.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_543.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_57II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_59II$MaxQueue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_59II.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GitRep/club/vann/leetcode/offer/daily/LeetCode_994.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeetCodePro/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/LeetCodePro/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +136,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.LeetCode_169">
+  <component name="RunManager" selected="Application.LeetCode_300">
     <configuration name="LeetCode_1071" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="club.vann.leetcode.offer.daily.LeetCode_1071" />
       <module name="GitRep" />
@@ -81,8 +176,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LeetCode_300" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="club.vann.leetcode.offer.daily.LeetCode_300" />
+      <module name="GitRep" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="club.vann.leetcode.offer.daily.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LeetCode_300" />
         <item itemvalue="Application.LeetCode_169" />
         <item itemvalue="Application.LeetCode_1071" />
         <item itemvalue="Application.LeetCode_2" />
@@ -119,22 +228,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="611" y="116" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584027773017" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1584060502396">
+    <state width="1877" height="240" key="GridCell.Tab.0.bottom" timestamp="1584200203837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584060502396" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1584060502396">
+    <state width="1877" height="240" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584200203837" />
+    <state width="1877" height="240" key="GridCell.Tab.0.center" timestamp="1584200203837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584060502396" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1584060502396">
+    <state width="1877" height="240" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584200203837" />
+    <state width="1877" height="240" key="GridCell.Tab.0.left" timestamp="1584200203837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584060502396" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1584060502396">
+    <state width="1877" height="240" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584200203837" />
+    <state width="1877" height="240" key="GridCell.Tab.0.right" timestamp="1584200203837">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584060502396" />
+    <state width="1877" height="240" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584200203837" />
     <state x="771" y="188" key="SettingsEditor" timestamp="1584058949307">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
