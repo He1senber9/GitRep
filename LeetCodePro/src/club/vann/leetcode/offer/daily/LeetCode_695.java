@@ -50,22 +50,23 @@ public class LeetCode_695 {
         result = leetCode.maxAreaOfIsland(grid);
         System.out.println("Result[6] : " + result);
 
-        grid = new int[][] {{0,0,0,0,0,0,0,0}};
+        grid = new int[][]{{0, 0, 0, 0, 0, 0, 0, 0}};
         result = leetCode.maxAreaOfIsland(grid);
         System.out.println("Result[0] : " + result);
 
-        grid = new int[][] {{1,1,0,0,0}, {1,1,0,0,0}, {0,0,0,1,1}, {0,0,0,1,1}};
+        grid = new int[][]{{1, 1, 0, 0, 0}, {1, 1, 0, 0, 0}, {0, 0, 0, 1, 1}, {0, 0, 0, 1, 1}};
         result = leetCode.maxAreaOfIsland(grid);
         System.out.println("Result[4] : " + result);
     }
 
     /**
      * 解法一：暴力破解，按顺序遍历，找到所有的岛屿。
+     *
      * @param grid
      * @return
      */
     private int maxAreaOfIsland(int[][] grid) {
-        if(grid == null || grid.length == 0) {
+        if (grid == null || grid.length == 0) {
             return 0;
         }
 
@@ -73,39 +74,43 @@ public class LeetCode_695 {
         int lenX = grid[0].length;
         int max = 0;
 
-        for(int y = 0; y < lenY; y ++) {
-            for(int x = 0; x < lenX; x ++) {
-                int count = findAll(grid, y, x, lenY, lenX);
-                max = Math.max(max, count);
+        for (int y = 0; y < lenY; y++) {
+            for (int x = 0; x < lenX; x++) {
+                if (grid[y][x] == 1) {
+                    int count = findMax(grid, y, x, lenY, lenX);
+                    max = Math.max(max, count);
+                }
             }
         }
         return max;
     }
 
+    int[] dr = {-1, 1, 0, 0};
+    int[] dc = {0, 0, -1, 1}; // 用于寻找周边陆地
+
     /**
      * 根据指定岛屿找到所有岛屿
+     *
      * @param grid
      * @param y
      * @param x
      * @return
      */
-    private int findAll(int[][] grid, int y, int x, int lenY, int lenX) {
-        if(grid[y][x] == 0) {
+    private int findMax(int[][] grid, int y, int x, int lenY, int lenX) {
+        if (grid[y][x] == 0) {
             return 0;
         }
 
-        int count = 1; // 当前节点为陆地，数量为1
-        grid[y][x] = 0; // 当前节点标记过
+        int count = 0;
+        count++; // 当前节点为陆地，记为 1
+        grid[y][x] = 0;
 
-        int[] dr = {-1, 1, 0, 0};
-        int[] dc = {0, 0, -1, 1}; // 用于寻找周边陆地
+        for (int k = 0; k < 4; k++) {
+            int pointY = y + dr[k];
+            int pointX = x + dc[k];
 
-        for(int k = 0; k < 4; k ++) {
-            int pointY = y+dr[k];
-            int pointX = x+dc[k];
-
-            if(pointY >= 0 && pointY < lenY && pointX >= 0 && pointX < lenX) {
-                count = count + findAll(grid, pointY, pointX, lenY, lenX);
+            if (pointY >= 0 && pointY < lenY && pointX >= 0 && pointX < lenX) {
+                count = count + findMax(grid, pointY, pointX, lenY, lenX);
             }
         }
 
