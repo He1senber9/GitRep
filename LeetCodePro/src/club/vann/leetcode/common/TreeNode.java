@@ -13,23 +13,31 @@ public class TreeNode {
 	public TreeNode(int val) {
 		this.val = val;
 	}
-	
-	
+
+
 	/**
-	 * 二叉树自上而下逐层遍历。
-	 * 
-	 * @param node
+	 * 重写二叉树 toString 方法，逐层输出
+	 * @return
 	 */
-	public static void printFromTopToBottom(TreeNode node) {
-		List<Integer> list = new ArrayList<Integer>();
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		
-		if(node != null) {
-			queue.offer(node);
+	@Override
+	public String toString() {
+		LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+		list.add(this);
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		int i = 0;
+		while(!list.isEmpty()) {
+			TreeNode node = list.pollFirst();
+			builder.append(node.val + ", ");
+			if(node.left != null) {
+				list.add(node.left);
+			}
+			if(node.right != null) {
+				list.add(node.right);
+			}
 		}
-		
-		while(queue.peek() != null) {
-			
-		}
+		builder.append("]");
+		return builder.toString();
 	}
 }
