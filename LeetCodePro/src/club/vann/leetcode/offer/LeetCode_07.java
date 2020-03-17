@@ -60,7 +60,8 @@ public class LeetCode_07 {
             return null;
         }
 
+        TreeNode root = new TreeNode(preorder[0]);
         
-        return null;
+        return root;
     }
 }
