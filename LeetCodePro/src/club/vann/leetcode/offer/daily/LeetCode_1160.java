@@ -4,6 +4,7 @@ import club.vann.leetcode.offer.LeetCode_6;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>难度：Easy</p>
@@ -59,12 +60,12 @@ public class LeetCode_1160 {
 
         words = new String[]{"cat","bt","hat","tree"};
         chars = "atach";
-        result = leetCode.countCharacters(words, chars);
+        result = leetCode.countCharacters1(words, chars);
         System.out.println("Result[6] :" + result);
 
         words = new String[]{"hello","world","leetcode"};
         chars = "welldonehoneyr";
-        result = leetCode.countCharacters(words, chars);
+        result = leetCode.countCharacters1(words, chars);
         System.out.println("Result[10] :" + result);
 
     }
@@ -132,5 +133,65 @@ public class LeetCode_1160 {
         }
 
         return flag;
+    }
+
+    /**
+     * 解法二：
+     * 思路：使用一个Map1记录chars中字符与其个数。使用另一个集合Map2记录word中字符与个数。
+     * 注意对比集合，Map2中的字符个数需小于等于Map1中的字符个数。
+     *
+     * @param words
+     * @param chars
+     * @return
+     */
+    private int countCharacters1(String[] words, String chars) {
+        Map<Character, Integer> map1 = null;
+        Map<Character, Integer> map2 = new HashMap<Character, Integer>();
+
+        int count = 0;
+        int lenWords = words.length;
+        int lenChars = chars.length();
+
+        // 记录chars中字符与个数
+        for(int n = 0; n < lenChars; n ++) {
+            char c = chars.charAt(n);
+            if(map2.containsKey(c)) {
+                map2.put(c, map2.get(c) + 1);
+            } else {
+                map2.put(c, 1);
+            }
+        }
+
+        // 记录word中字符与个数
+        outer:for(int n = 0; n < lenWords; n ++) {
+            String word = words[n];
+            map1 = new HashMap<Character, Integer>();
+            for(int m = 0; m < word.length(); m ++) {
+                char c = word.charAt(m);
+                if(map1.containsKey(c)) {
+                    map1.put(c, map1.get(c) + 1);
+                } else {
+                    map1.put(c, 1);
+                }
+            }
+
+            // 对比结果
+            Set<Character> keySet = map1.keySet();
+            for(char c : keySet) {
+                int count1 = map1.get(c);
+
+                if(!map2.containsKey(c)) {
+                    continue outer;
+                }
+
+                int count2 = map2.get(c);
+                if(count1 > count2) {
+                    continue outer;
+                }
+            }
+            count += word.length();
+        }
+
+        return count;
     }
 }
