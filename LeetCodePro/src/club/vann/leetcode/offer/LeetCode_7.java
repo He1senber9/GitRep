@@ -34,12 +34,23 @@ import club.vann.leetcode.common.TreeNode;
 public class LeetCode_7 {
 
 	public static void main(String[] args) {
-		int[] preorder = {3,9,20,15,7};
-		int[] inorder = {9,3,15,20,7};
-		
+		int[] preorder = null;
+		int[] inorder = null;
+		TreeNode result = null;
 		LeetCode_7 leetCode = new LeetCode_7();
-		TreeNode result = leetCode.buildTree(preorder, inorder);
+
+//		preorder = new int[]{3,9,20,15,7};
+//		inorder = new int[]{9,3,15,20,7};
+//		result = leetCode.buildTree(preorder, inorder);
+//		System.out.println(result);
+
+		preorder = new int[]{1,2,4,8,9,5,10,11,3,6,7};
+		inorder = new int[]{8,4,9,2,10,5,11,1,6,3,7};
+		result = leetCode.buildTree(preorder, inorder);
+		System.out.println(result);
 	}
+
+	Map<Integer, Integer> map = null;
 
 	/**
 	 * 思想：
@@ -54,48 +65,39 @@ public class LeetCode_7 {
 		if(preorder == null || preorder.length == 0) {
 			return null;
 		}
-		
-		int size = preorder.length;
-		
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		for(int n = 0; n < size; n ++) {
+
+		int len = preorder.length;
+		// 使用Map存储中序遍历元素及其对应的索引
+		map = new HashMap<Integer, Integer>();
+		for(int n = 0; n < len; n ++) {
 			map.put(inorder[n], n);
 		}
-			
-		TreeNode root = null;
-		TreeNode curNode = null;
-		for(int n = 0; n < size; n ++) {
-			int val = preorder[n];
-			
-			if(!map.containsKey(val)) { // 证明该节点已经加载过了
-				continue;
-			}
-			
-			curNode = new TreeNode(val);
-			
-			if(n == 0) {
-				root = curNode;
-			}
-			
-			int left = map.get(val) - 1;
-			int right = map.get(val) + 1;
-			if(left >= 0) {
-				curNode.left = new TreeNode(inorder[left]);
-				map.remove(inorder[left]);
-			}
-			if(right < size) {
-				curNode.right = new TreeNode(inorder[right]);
-				map.remove(inorder[right]);
-			}
-			
-			map.remove(val);
-		}
+
+		TreeNode root = buildTree(preorder, inorder, 0);
 		
 		return root;
 	}
-	
-	private TreeNode rebuilderTreeNode(Map<Integer, Integer> map) {
-		return null;
+
+	private TreeNode buildTree(int[] preorder, int[] inorder, int index) {
+		if(index >= preorder.length) {
+			return null;
+		}
+
+		int curVal = preorder[index];
+		TreeNode node = new TreeNode(curVal);
+
+		if(index+1 >= preorder.length) {
+			return node;
+		}
+
+		int indexNext = map.get(preorder[index+1]);
+		if(indexNext < index) { // 左子树
+			node.left = buildTree(preorder, inorder, index+1);
+		} else {
+			node.right = buildTree(preorder, inorder, index+1);
+		}
+
+		return node;
 	}
 
 }
