@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.*;
+
 /**
  * <p>难度：Midum</p>
  * <p>题目：使数组唯一的最小增量</p>
@@ -43,14 +45,39 @@ public class LeetCode_945 {
         A = new int[]{3,2,1,2,1,7};
         result = leetCode.minIncrementForUnique(A);
         System.out.println("Result[6] : " + result);
+
+        A = new int[]{};
+        result = leetCode.minIncrementForUnique(A);
+        System.out.println("Result[] : " + result);
+
+        A = new int[]{1,2,3};
+        result = leetCode.minIncrementForUnique(A);
+        System.out.println("Result[0] : " + result);
     }
 
     /**
-     * 解法一：
+     * 解法一：暴力遍历（经测试会时间超时)
      * @param A
      * @return
      */
     private int minIncrementForUnique(int[] A) {
-        return 0;
+        if(A == null || A.length == 0) {
+            return 0;
+        }
+
+        Set<Integer> set = new HashSet<Integer>();
+        int result = 0;
+        int len = A.length;
+        for(int n = 0; n < len; n ++) {
+            int v = A[n];
+            while(set.contains(v)) {
+                result +=1;
+                v = v+1;
+            }
+            set.add(v);
+        }
+
+
+        return result;
     }
 }
