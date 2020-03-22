@@ -1,5 +1,9 @@
 package club.vann.leetcode;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * <p>难度：Midum</p>
  * <p>题目：最长回文子串</p>
@@ -34,30 +38,82 @@ public class LeetCode_5 {
         s = "cbbd";
         result = leetCode.longestPalindrome(s);
         System.out.println("Result[bb] : " + result);
+
+        s = "a";
+        result = leetCode.longestPalindrome(s);
+        System.out.println("Result[a] : " + result);
+
+        s = "aa";
+        result = leetCode.longestPalindrome(s);
+        System.out.println("Result[aa] : " + result);
+
+        s = "aaa";
+        result = leetCode.longestPalindrome(s);
+        System.out.println("Result[aaa] : " + result);
+
+        s = "abcda";
+        result = leetCode.longestPalindrome(s);
+        System.out.println("Result[a] : " + result);
     }
 
     /**
      * 解法一：
-     * 挑出字符是偶数的字符。
+     * 找出最长的那个回文子串
      * @param s
      * @return
      */
     private String longestPalindrome(String s) {
+        String result = "";
         if(s == null || s.length() == 0) {
-            return "";
+            return result;
         }
 
         int len = s.length();
+        char[] ch = s.toCharArray();
 
-        int[] ch = new int[58];
+        LinkedList<Character> pre = null;
+        LinkedList<Character> sub = null;
         for(int n = 0; n < len; n ++) {
-            int v = s.charAt(n);
-            ch[v-'a'] = ch[v-'a'] + 1;
+            int left = n, right = len-1;
+
+            pre = new LinkedList<Character>();
+            sub = new LinkedList<Character>();
+
+            while(left <= right) {
+                while(left < right && ch[left] != ch[right]) {
+                    right --;
+                }
+
+                if(left == right) {
+                    pre.addLast(ch[left]);
+                } else {
+                    pre.addLast(ch[left]);
+                    sub.addFirst(ch[right]);
+                    right --;
+                }
+
+                left ++;
+            }
+
+            pre.addAll(sub);
+
+            if(pre.size() > result.length()) {
+                result = combineString(pre);
+            }
+        }
+        return result;
+    }
+
+    private String combineString(LinkedList<Character> list) {
+        int size = list.size();
+
+        char[] ch = new char[size];
+
+        for(int n = 0; n < size; n ++) {
+            ch[n] = list.get(n);
         }
 
-        for(int n = 0; n < 58; n ++) {
+        return new String(ch);
 
-        }
-        return null;
     }
 }
