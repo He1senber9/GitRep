@@ -32,33 +32,34 @@ public class LeetCode_5 {
         LeetCode_5 leetCode = new LeetCode_5();
 
         s = "babad";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[bab] : " + result);
 
         s = "cbbd";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[bb] : " + result);
 
         s = "a";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[a] : " + result);
 
         s = "aa";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[aa] : " + result);
 
         s = "aaa";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[aaa] : " + result);
 
         s = "abcda";
-        result = leetCode.longestPalindrome(s);
+        result = leetCode.longestPalindrome2(s);
         System.out.println("Result[a] : " + result);
     }
 
     /**
      * 解法一：
-     * 找出最长的那个回文子串
+     * 找出最长的那个回文子串。该解题思路是只要能组成回文的子串即满足条件。经验证与本地测试案例不符。
+     *
      * @param s
      * @return
      */
@@ -115,5 +116,42 @@ public class LeetCode_5 {
 
         return new String(ch);
 
+    }
+
+    /**
+     * 解法二：
+     * 明确概念：子串/子序列
+     * @param s
+     * @return
+     */
+    private String longestPalindrome2(String s) {
+        String result = "";
+        if(s == null || s.length() == 0) {
+            return result;
+        }
+
+        // 子串
+        int len = s.length();
+
+        for(int n = 0; n < len; n ++) {
+            int left = n, right = len-1;
+            while(left < right && s.charAt(left) != s.charAt(right)) {
+                right --;
+            }
+
+            String tmp = palidStr(s, left, right);
+            result = tmp.length() > result.length() ? tmp : result;
+        }
+
+        return result;
+    }
+
+    private String palidStr(String str, int left, int right) {
+        while(left <= right) {
+            if(str.charAt(left) == str.charAt(right)) {
+
+            }
+        }
+        return null;
     }
 }
