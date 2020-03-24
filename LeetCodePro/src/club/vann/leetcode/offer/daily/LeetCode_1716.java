@@ -57,13 +57,17 @@ public class LeetCode_1716 {
         System.out.println("Result[1] : " +result);
 
         nums = new int[]{1, 2};
-        result = leetCode.massage(nums);
+        result = leetCode.massage2(nums);
         System.out.println("Result[2] : " +result);
+
+        nums = new int[]{1, 1};
+        result = leetCode.massage2(nums);
+        System.out.println("Result[1] : " +result);
     }
 
     /**
      * 解法一：
-     * 思路：暴力法：当前位置位 index时，下一个选取的位置只有两种情况：index+2, index+3。
+     * 思路：暴力法（递归解法）：当前位置位 index时，下一个选取的位置只有两种情况：index+2, index+3。
      * 经过验证，该方法超时。
      * @param nums
      * @return
@@ -97,5 +101,40 @@ public class LeetCode_1716 {
         int sum2 = nums[curIndex] + massage(nums, curIndex + 3);
 
         return Math.max(sum1, sum2);
+    }
+
+    /**
+     * 解法二：
+     * 采用迭代法
+     * 动态规划：dp[i][0]:标志第i个预约不接受时最大时间。dp[i][1]表示第i个预约接受时最大时间。
+     * 状态转移方程：
+     *    dp[i][0] = max(dp[i-1][1], dp[i-1][0])
+     *    dp[i][1] = dp[i-1][0] + nums[i]
+     *
+     *  即 最大时间 t = max(dp[i][0], dp[i][1])
+     *
+     *
+     * @param nums
+     * @return
+     */
+    private int massage2(int[] nums) {
+        int result = 0;
+        if(nums == null || nums.length == 0) {
+            return result;
+        }
+
+        int dp0 = 0, dp1 = nums[0];
+        int len = nums.length;
+
+        for(int n = 1; n < len; n ++) {
+            int ndp0 = Math.max(dp0, dp1);
+            int ndp1 = dp0 + nums[n];
+
+            dp0 = ndp0;
+            dp1 = ndp1;
+        }
+
+
+        return Math.max(dp0, dp1);
     }
 }
