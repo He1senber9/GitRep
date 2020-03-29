@@ -31,29 +31,37 @@ public class LeetCode_5 {
         String result = "";
         LeetCode_5 leetCode = new LeetCode_5();
 
-        s = "babad";
-        result = leetCode.longestPalindrome2(s);
-        System.out.println("Result[bab] : " + result);
+//        s = "babad";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[bab] : " + result);
+//
+//        s = "cbbd";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[bb] : " + result);
+//
+//        s = "a";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[a] : " + result);
+//
+//        s = "aa";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[aa] : " + result);
+//
+//        s = "aaa";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[aaa] : " + result);
+//
+//        s = "abcda";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[a] : " + result);
+//
+//        s = "ac";
+//        result = leetCode.longestPalindrome2(s);
+//        System.out.println("Result[a] : " + result);
 
-        s = "cbbd";
+        s = "abb";
         result = leetCode.longestPalindrome2(s);
         System.out.println("Result[bb] : " + result);
-
-        s = "a";
-        result = leetCode.longestPalindrome2(s);
-        System.out.println("Result[a] : " + result);
-
-        s = "aa";
-        result = leetCode.longestPalindrome2(s);
-        System.out.println("Result[aa] : " + result);
-
-        s = "aaa";
-        result = leetCode.longestPalindrome2(s);
-        System.out.println("Result[aaa] : " + result);
-
-        s = "abcda";
-        result = leetCode.longestPalindrome2(s);
-        System.out.println("Result[a] : " + result);
     }
 
     /**
@@ -121,6 +129,7 @@ public class LeetCode_5 {
     /**
      * 解法二：
      * 明确概念：子串/子序列
+     * 构造一个当前字符串的逆序字符串，与当前字符串异或。
      * @param s
      * @return
      */
@@ -130,28 +139,58 @@ public class LeetCode_5 {
             return result;
         }
 
-        // 子串
         int len = s.length();
-
+        char[] c = new char[len];
         for(int n = 0; n < len; n ++) {
-            int left = n, right = len-1;
-            while(left < right && s.charAt(left) != s.charAt(right)) {
-                right --;
-            }
+            c[n] = (char) (s.charAt(n) ^ s.charAt(len-1-n));
+        }
 
-            String tmp = palidStr(s, left, right);
-            result = tmp.length() > result.length() ? tmp : result;
+        int begin = 0, end = 0;
+        for(int n = 0; n < len; n ++) {
+            char ch = c[n];
+            if(ch == 0) {
+                begin = n;
+                end = n;
+                while(end < len && c[end] == 0) {
+                    end ++;
+                }
+
+                result = (result.length() < (end-begin) ? s.substring(begin, end) : result);
+            }
+        }
+
+        if(result.length() == 0) {
+            result = s.substring(0, 1);
         }
 
         return result;
     }
 
-    private String palidStr(String str, int left, int right) {
-        while(left <= right) {
-            if(str.charAt(left) == str.charAt(right)) {
+    /**
+     * 如果索引 left 至 right 之间是回文串，则返回他们的长度，否则返回 0；
+     * @param str
+     * @param left
+     * @param right
+     * @return
+     */
+    private int palidStr(String str, int left, int right) {
 
+        int l = left;
+        int r = right;
+
+        while(left <= right) {
+            if(str.charAt(left) != str.charAt(right)) {
+                right --;
             }
+
+            if(str.charAt(left) == str.charAt(right)) {
+                r = right;
+
+                right --;
+                left ++;
+            }
+
         }
-        return null;
+        return r-l+1;
     }
 }
