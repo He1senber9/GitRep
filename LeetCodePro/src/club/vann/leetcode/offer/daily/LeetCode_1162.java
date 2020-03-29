@@ -2,6 +2,9 @@ package club.vann.leetcode.offer.daily;
 
 import org.omg.PortableInterceptor.INACTIVE;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * <p>难度：Midum</p>
  * <p>题目：地图分析</p>
@@ -44,25 +47,25 @@ public class LeetCode_1162 {
         LeetCode_1162 leetCode = new LeetCode_1162();
         TestCase testCase = leetCode.new TestCase();
 
-        result = leetCode.maxDistance(testCase.grid);
-        System.out.println("Result[2] : " + result);
+//        result = leetCode.maxDistance2(testCase.grid);
+//        System.out.println("Result[2] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid1);
+        result = leetCode.maxDistance2(testCase.grid1);
         System.out.println("Result[4] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid2);
+        result = leetCode.maxDistance2(testCase.grid2);
         System.out.println("Result[2] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid3);
+        result = leetCode.maxDistance2(testCase.grid3);
         System.out.println("Result[-1] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid4);
+        result = leetCode.maxDistance2(testCase.grid4);
         System.out.println("Result[-1] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid5);
+        result = leetCode.maxDistance2(testCase.grid5);
         System.out.println("Result[2] : " + result);
 
-        result = leetCode.maxDistance(testCase.grid6);
+        result = leetCode.maxDistance2(testCase.grid6);
         System.out.println("Result[2] : " + result);
 
     }
@@ -111,6 +114,60 @@ public class LeetCode_1162 {
         return max;
     }
 
+    /**
+     * 解法一：
+     *
+     * @param grid
+     * @return
+     */
+    private int maxDistance2(int[][] grid) {
+        int len = grid.length;
+
+        Queue<Integer> queue = new LinkedList<Integer>();
+        // 标记出所有的陆地
+        for(int y = 0; y < len; y ++) {
+            for(int x = 0; x < len; x ++) {
+                if(grid[y][x] == 1) {
+                    queue.add(x*len+y);
+                }
+            }
+        }
+
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
+
+        int size = queue.size();
+        if((size == 0) || (size == len*len)) {
+            return -1;
+        }
+
+        int indexX = 0, indexY = 0;
+        while(!queue.isEmpty()) {
+            int val = queue.poll();
+            int y = val % len;
+            int x = val / len;
+
+            indexY = y;
+            indexX = x;
+
+            for(int k = 0; k < 4; k ++) {
+                int newY = y + dr[k];
+                int newX = x + dc[k];
+                if(newY>=0 && newY<len && newX>=0 && newX<len) {
+                    if(grid[newY][newX] == 0) {
+                        grid[newY][newX] = grid[y][x] + 1;
+                        queue.offer(newX*len+newY);
+                    }
+                }
+            }
+        }
+
+        return grid[indexY][indexX] - 1;
+    }
+
+    /**
+     * 测试用例
+     */
     class TestCase {
         public final int[][] grid = {{1,0,1}, {0,0,0}, {1,0,1}};
 
