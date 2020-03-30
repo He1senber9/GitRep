@@ -1,6 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>难度：Easy</p>
@@ -40,19 +42,19 @@ public class LeetCode_62 {
         LeetCode_62 leetCode = new LeetCode_62();
         TestCase testCase = leetCode.new TestCase();
 
-        result = leetCode.lastRemaining(testCase.case1[0], testCase.case1[1]);
+        result = leetCode.lastRemaining2(testCase.case1[0], testCase.case1[1]);
         System.out.println("Result[3] : " + result);
 
-        result = leetCode.lastRemaining(testCase.case2[0], testCase.case2[1]);
+        result = leetCode.lastRemaining2(testCase.case2[0], testCase.case2[1]);
         System.out.println("Result[2] : " + result);
 
-        result = leetCode.lastRemaining(testCase.case3[0], testCase.case3[1]);
+        result = leetCode.lastRemaining2(testCase.case3[0], testCase.case3[1]);
         System.out.println("Result[] : " + result);
 
-        result = leetCode.lastRemaining(testCase.case4[0], testCase.case4[1]);
+        result = leetCode.lastRemaining2(testCase.case4[0], testCase.case4[1]);
         System.out.println("Result[] : " + result);
 
-        result = leetCode.lastRemaining(testCase.case5[0], testCase.case5[1]);
+        result = leetCode.lastRemaining2(testCase.case5[0], testCase.case5[1]);
         System.out.println("Result[] : " + result);
     }
 
@@ -83,6 +85,20 @@ public class LeetCode_62 {
 
 
         return list.pop();
+    }
+
+    /**
+     * 解法二：
+     * 鉴于解法一超时。
+     * @param n
+     * @param m
+     * @return
+     */
+    private int lastRemaining2(int n, int m) {
+        if(n == 1) {
+            return 0;
+        }
+        return (m + lastRemaining2(n-1, m)) % n;
     }
 
     class TestCase {
