@@ -123,16 +123,26 @@ public class LeetCode_289 {
                 }
             }
         }
+    }
 
+    /**
+     * 解法二：
+     * 采用原地解法，减少空间消耗
+     * @param board
+     */
+    private void gameOfLife2(int[][] board) {
 
-        System.out.println(Arrays.toString(minor));
     }
 
     static class TestCase {
         public static int[][] ans_board = {{0,0,0}, {1,0,1}, {0,1,1}, {0,1,0}};
         public static int[][] board = {{0,1,0}, {0,0,1}, {1,1,1}, {0,0,0}};
-        public static int[][] board1 = {};
-        public static int[][] board2 = {};
+
+        public static int[][] ans_board1 = {{0,0,0}, {1,0,1}, {0,1,1}, {0,1,0}};
+        public static int[][] board1 = {{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}};
+
+        public static int[][] ans_board2 = {{0,0,0}, {1,0,1}, {0,1,1}, {0,1,0}};
+        public static int[][] board2 = {{1,1,1}, {1,1,1}, {1,1,1}, {1,1,1}};
         public static int[][] board3 = {};
         public static int[][] board4 = {};
         public static int[][] board5 = {};
