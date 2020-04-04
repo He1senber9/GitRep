@@ -38,8 +38,8 @@ public class LeetCode_42 {
         System.out.println("Result["+TestCase.ANS9+"] " + leetCode.trap(TestCase.HEIGHT9));
         System.out.println("Result["+TestCase.ANS10+"] " + leetCode.trap(TestCase.HEIGHT10));
         System.out.println("Result["+TestCase.ANS11+"] " + leetCode.trap(TestCase.HEIGHT11));
-        System.out.println("Result["+TestCase.ANS12+"] " + leetCode.trap(TestCase.HEIGHT12
-        ));
+        System.out.println("Result["+TestCase.ANS12+"] " + leetCode.trap(TestCase.HEIGHT12));
+        System.out.println("Result["+TestCase.ANS13+"] " + leetCode.trap(TestCase.HEIGHT13));
     }
 
     /**
@@ -55,27 +55,26 @@ public class LeetCode_42 {
 
         int result = 0;
         int len = height.length;
+        int tag = 1;
 
-        for(int n = 1; n < len; n ++) {
-            int cur = height[n];
+        // 因为数组长度大于2才有意义
+        outer:for(int n = 1; n < len-1; n ++) {
+            int left = n-1;
+            int cur = n;
+            int right = n+1;
 
-            // 如果能聚集水，那么在当前节点的两端一定存在比他高的两个节点
-            int l = n, r = n;
-            for(int left = n-1; left >= 0; left --) {
-                if(height[left] > height[l]) {
-                    l = left;
+            if(height[cur] < height[right]) {
+                for(int m = n; m >= 0; m --) {
+                    if(height[m] > height[cur]) {
+                        int width = (cur-m);
+                        int k = Math.min(height[m], height[right]);
+                        result += (k-height[cur]) * width;
+                        height[cur] = k;
+//                        continue outer;
+                    }
                 }
             }
 
-            for(int right = n+1; right < len; right ++) {
-                if(height[right] > height[r]) {
-                    r = right;
-                }
-            }
-
-            if(l == n && r == n) {
-                continue;
-            }
         }
 
         return result;
@@ -131,5 +130,8 @@ public class LeetCode_42 {
 
         public static final int ANS12 = 96;
         public static final int[] HEIGHT12 = {8,7,6,5,4,3,4,5,4,3,2,1,0,1,2,3,4,5,4,3,4,5,6,7,8};
+
+        public static final int ANS13 = 3;
+        public static final int[] HEIGHT13 = {2,1,0,2};
     }
 }
