@@ -127,6 +127,21 @@ public class LeetCode_912 {
         }
     }
 
+    /**
+     * 希尔排序
+     * 时间复杂度：
+     * 空间复杂度：
+     * 稳定性：
+     * @param nums
+     */
+    public void sortShell(int[] nums) {
+        int len = nums.length;
+        int gap = len/2;
+
+        for(int n = 0; n < len; n ++) {
+        }
+    }
+
     class TestCase {
         public final int[] nums = {5,2,3,1};
         public final int[] nums1 = {5,1,1,2,0,0};
