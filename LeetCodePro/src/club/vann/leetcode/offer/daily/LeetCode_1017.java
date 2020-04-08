@@ -93,6 +93,15 @@ public class LeetCode_1017 {
         System.out.println("Success");
     }
 
+    /**
+     * 解法二：
+     * 采用原地解法
+     * @param matrix
+     */
+    public void rotate2(int[][] matrix) {
+        
+    }
+
     static class TestCase {
         public static int[][] ans = {{7,4,1},{8,5,2},{9,6,3}};
         public static int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
