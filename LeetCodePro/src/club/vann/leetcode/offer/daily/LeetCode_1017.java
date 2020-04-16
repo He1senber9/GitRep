@@ -99,7 +99,7 @@ public class LeetCode_1017 {
      * @param matrix
      */
     public void rotate2(int[][] matrix) {
-        
+
     }
 
     static class TestCase {
