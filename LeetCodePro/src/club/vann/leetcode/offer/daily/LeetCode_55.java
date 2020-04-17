@@ -35,10 +35,41 @@ public class LeetCode_55 {
 
         System.out.println("Result["+TestCase.ans+"] : " + leetCode.canJump(TestCase.nums));
         System.out.println("Result["+TestCase.ans1+"] : " + leetCode.canJump(TestCase.nums1));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.canJump(TestCase.nums2));
+        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.canJump(TestCase.nums3));
+        System.out.println("Result["+TestCase.ans4+"] : " + leetCode.canJump(TestCase.nums4));
+        System.out.println("Result["+TestCase.ans5+"] : " + leetCode.canJump(TestCase.nums5));
     }
 
     public boolean canJump(int[] nums) {
-        return false;
+        if(nums == null || nums.length == 0) {
+            return false;
+        }
+
+        int len = nums.length;
+        if(len == 1) {
+            return true;
+        }
+
+        // 如果当前位置为0且不是最后一个位置，则返回失败
+        // 假设能跳到最后一个位置，最后一个位置上的元素是多少不关注，只跟前一个位置上的元素有关系。
+        boolean result = false;
+        int curVal = nums[len-1];
+        int curIndex = len-1;
+        for(int n = len-1-1; n >= 0; n --) {
+            int preVal = nums[n];
+            if(preVal != 0 && (curIndex-n) <= preVal) {
+                result = true;
+                curVal = preVal;
+                curIndex = n;
+                continue;
+            }
+
+            if(n == 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     static class TestCase {
@@ -47,5 +78,17 @@ public class LeetCode_55 {
 
         public static final boolean ans1 = false;
         public static final int[] nums1 = {3,2,1,0,4};
+
+        public static final boolean ans2 = false;
+        public static final int[] nums2 = {};
+
+        public static final boolean ans3 = true;
+        public static final int[] nums3 = {1};
+
+        public static final boolean ans4 = true;
+        public static final int[] nums4 = {1, 0};
+
+        public static final boolean ans5 = false;
+        public static final int[] nums5 = {1, 0, 2};
     }
 }
