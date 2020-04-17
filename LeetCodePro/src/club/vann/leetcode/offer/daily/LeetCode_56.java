@@ -1,5 +1,11 @@
 package club.vann.leetcode.offer.daily;
 
+import javax.lang.model.type.IntersectionType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：合并区间</p>
@@ -28,10 +34,75 @@ package club.vann.leetcode.offer.daily;
 public class LeetCode_56 {
     public static void main(String[] args) {
         LeetCode_56 leetCode = new LeetCode_56();
+
+        int[][] result = null;
+//        TestCase.printArrays(leetCode.merge(TestCase.intervals));
+//        TestCase.printArrays(leetCode.merge(TestCase.intervals1));
+//        TestCase.printArrays(leetCode.merge(TestCase.intervals2));
+//        TestCase.printArrays(leetCode.merge(TestCase.intervals3));
+        TestCase.printArrays(leetCode.merge(TestCase.intervals4));
+
+        System.out.println("Succ");
     }
 
+    /**
+     * 解法一：
+     * 采用栈辅助判断
+     * @param intervals
+     * @return
+     */
     public int[][] merge(int[][] intervals) {
-        return null;
+        if(intervals == null || intervals.length == 0) {
+            return intervals;
+        }
+
+        int len = intervals.length;
+        List<int[]> list = new ArrayList<int[]>();
+        list.add(intervals[0]);
+
+        A: for(int i = 1; i < len; i ++) {
+            int[] tag = intervals[i];
+            boolean flag = false;
+            B: for(int n = list.size()-1; n >= 0; n --) {
+                int[] arr = list.get(n);
+
+                if(!isContains(arr, tag)) {
+                    arr[0] = Math.min(arr[0], tag[0]);
+                    arr[1] = Math.max(arr[1], tag[1]);
+                    tag[0] = arr[0];
+                    tag[1] = arr[1];
+                    flag = true;
+                }
+            }
+
+            if(!flag) {
+                list.add(tag);
+            }
+
+        }
+
+        int[][] result = new int[list.size()][2];
+        for(int i = 0; i < list.size(); i ++) {
+
+            result[i][0] = list.get(i)[0];
+            result[i][1] = list.get(i)[1];
+        }
+        return result;
+    }
+
+    /**
+     * 判断是否完全隔离
+     * @param a
+     * @param b
+     * @return
+     */
+    private boolean isContains(int[] a, int[] b) {
+        int[] arr = new int[2];
+        if((a[0] < b[0] && a[1] < b[0]) || (b[0] < a[0] && b[1] < a[0])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     static class TestCase {
@@ -40,5 +111,23 @@ public class LeetCode_56 {
 
         public static int[][] ans1 = {{1,5}};
         public static int[][] intervals1 = {{1,4},{4,5}};
+
+        public static int[][] ans2 = {{1,10}};
+        public static int[][] intervals2 = {{2,3},{4,5},{6,7},{8,9},{1,10}};
+
+        public static int[][] ans3 = {{1,3}, {4,7}};
+        public static int[][] intervals3 = {{2,3},{2,2},{3,3},{1,3},{5,7},{2,2},{4,6}};
+
+        public static int[][] ans4 = {{0,0},{1,5}};
+        public static int[][] intervals4 = {{1,1},{2,2},{0,0},{2,3},{1,3},{3,5},{2,3},{3,5}};
+
+        public static void printArrays(int[][] arrays) {
+            System.out.print("[");
+            for(int[] arr : arrays) {
+                System.out.print(Arrays.toString(arr));
+                System.out.print(", ");
+            }
+            System.out.println("]");
+        }
     }
 }
