@@ -26,20 +26,20 @@ public class LeetCode_42 {
     public static void main(String[] args) {
         LeetCode_42 leetCode = new LeetCode_42();
 
-        System.out.println("Result["+TestCase.ANS+"] " + leetCode.trap(TestCase.HEIGHT));
-        System.out.println("Result["+TestCase.ANS1+"] " + leetCode.trap(TestCase.HEIGHT1));
-        System.out.println("Result["+TestCase.ANS2+"] " + leetCode.trap(TestCase.HEIGHT2));
-        System.out.println("Result["+TestCase.ANS3+"] " + leetCode.trap(TestCase.HEIGHT3));
-        System.out.println("Result["+TestCase.ANS4+"] " + leetCode.trap(TestCase.HEIGHT4));
-        System.out.println("Result["+TestCase.ANS5+"] " + leetCode.trap(TestCase.HEIGHT5));
-        System.out.println("Result["+TestCase.ANS6+"] " + leetCode.trap(TestCase.HEIGHT6));
-        System.out.println("Result["+TestCase.ANS7+"] " + leetCode.trap(TestCase.HEIGHT7));
-        System.out.println("Result["+TestCase.ANS8+"] " + leetCode.trap(TestCase.HEIGHT8));
-        System.out.println("Result["+TestCase.ANS9+"] " + leetCode.trap(TestCase.HEIGHT9));
-        System.out.println("Result["+TestCase.ANS10+"] " + leetCode.trap(TestCase.HEIGHT10));
-        System.out.println("Result["+TestCase.ANS11+"] " + leetCode.trap(TestCase.HEIGHT11));
-        System.out.println("Result["+TestCase.ANS12+"] " + leetCode.trap(TestCase.HEIGHT12));
-        System.out.println("Result["+TestCase.ANS13+"] " + leetCode.trap(TestCase.HEIGHT13));
+        System.out.println("Result["+TestCase.ANS+"] " + leetCode.trap2(TestCase.HEIGHT));
+        System.out.println("Result["+TestCase.ANS1+"] " + leetCode.trap2(TestCase.HEIGHT1));
+        System.out.println("Result["+TestCase.ANS2+"] " + leetCode.trap2(TestCase.HEIGHT2));
+        System.out.println("Result["+TestCase.ANS3+"] " + leetCode.trap2(TestCase.HEIGHT3));
+        System.out.println("Result["+TestCase.ANS4+"] " + leetCode.trap2(TestCase.HEIGHT4));
+        System.out.println("Result["+TestCase.ANS5+"] " + leetCode.trap2(TestCase.HEIGHT5));
+        System.out.println("Result["+TestCase.ANS6+"] " + leetCode.trap2(TestCase.HEIGHT6));
+        System.out.println("Result["+TestCase.ANS7+"] " + leetCode.trap2(TestCase.HEIGHT7));
+        System.out.println("Result["+TestCase.ANS8+"] " + leetCode.trap2(TestCase.HEIGHT8));
+        System.out.println("Result["+TestCase.ANS9+"] " + leetCode.trap2(TestCase.HEIGHT9));
+        System.out.println("Result["+TestCase.ANS10+"] " + leetCode.trap2(TestCase.HEIGHT10));
+        System.out.println("Result["+TestCase.ANS11+"] " + leetCode.trap2(TestCase.HEIGHT11));
+        System.out.println("Result["+TestCase.ANS12+"] " + leetCode.trap2(TestCase.HEIGHT12));
+        System.out.println("Result["+TestCase.ANS13+"] " + leetCode.trap2(TestCase.HEIGHT13));
     }
 
     /**
@@ -78,6 +78,32 @@ public class LeetCode_42 {
         }
 
         return result;
+    }
+
+    /**
+     * 解法二：采用暴力解法
+     * 时间复杂度：O(n²)
+     * 空间复杂度：O(1)
+     * @param height
+     * @return
+     */
+    private int trap2(int[] height) {
+        int len = height.length;
+
+        int res = 0;
+
+        for(int n = 0; n < len; n ++) {
+            int maxLeft = 0, maxRight = 0;
+            for(int l = n; l >= 0; l --) { // 找到左边最大值
+                maxLeft = Math.max(maxLeft, height[l]);
+            }
+
+            for(int r = n; r < len; r ++) { // 找到右边最大值
+                maxRight = Math.max(maxRight, height[r]);
+            }
+            res += Math.min(maxLeft, maxRight) - height[n];
+        }
+        return res;
     }
 
     /**
