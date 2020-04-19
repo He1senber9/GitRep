@@ -1,5 +1,9 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * <p>难度：Hard</p>
  * <p>题目：统计重复个数</p>
@@ -36,13 +40,66 @@ package club.vann.leetcode.offer.daily;
 public class LeetCode_466 {
     public static void main(String[] args) {
         LeetCode_466 leetCode = new LeetCode_466();
-        System.out.println("Result["+TestCase.ans+"]" + leetCode.getMaxRepetitions(TestCase.strParams[0], TestCase.intParams[0], TestCase.strParams[1],TestCase.intParams[1]));
-        System.out.println("Result["+TestCase.ans1+"]" + leetCode.getMaxRepetitions(TestCase.strParams1[0], TestCase.intParams1[0], TestCase.strParams1[1],TestCase.intParams1[1]));
+//        System.out.println("Result["+TestCase.ans+"]" + leetCode.getMaxRepetitions(TestCase.strParams[0], TestCase.intParams[0], TestCase.strParams[1],TestCase.intParams[1]));
+//        System.out.println("Result["+TestCase.ans1+"]" + leetCode.getMaxRepetitions(TestCase.strParams1[0], TestCase.intParams1[0], TestCase.strParams1[1],TestCase.intParams1[1]));
         System.out.println("Result["+TestCase.ans2+"]" + leetCode.getMaxRepetitions(TestCase.strParams2[0], TestCase.intParams2[0], TestCase.strParams2[1],TestCase.intParams2[1]));
     }
 
+    /**
+     * 解法一：
+     * 1.确保 s2中的字符都能在s1中找到，否则直接返回0；
+     * @param s1
+     * @param n1
+     * @param s2
+     * @param n2
+     * @return
+     */
     public int getMaxRepetitions(String s1, int n1, String s2, int n2) {
-        return -1;
+        int len1 = s1.length();
+        int len2 = s2.length();
+
+        /*
+        解题思路：
+        1.先要确定s2中的字符在s1中是否都存在.
+        2.如果1成立，那么所需要的比例是多少（这里以[s2,1]为基准），这里假如是 t。
+        3.如果n1>=n2*t，那么M = n1/n2/t。
+         */
+        List<Character> list1 = new ArrayList<Character>();
+        List<Character> list2 = new ArrayList<Character>();
+
+        for(int n = 0; n < n1*len1; n ++) {
+            list1.add(s1.charAt(n%len1));
+        }
+
+        for(int n = 0; n < n2*len2; n ++) {
+            list2.add(s2.charAt(n%len2));
+        }
+
+        int result = 0;
+        int index = 0;
+        while(index < list1.size()) {
+
+            A: for(int n = 0; n < list2.size(); n ++) {
+                char c2 = list2.get(n);
+
+                B: for(int m = index; m < list1.size(); m ++) {
+                    char c1 = list1.get(m);
+                    if(c1 == c2) {
+                        result ++;
+                        index = m;
+                        index ++;
+                        continue A;
+                    } else {
+                        continue B;
+                    }
+                }
+
+                index ++;
+            }
+
+        }
+
+        return result/(len2*n2);
     }
 
     static class TestCase {
