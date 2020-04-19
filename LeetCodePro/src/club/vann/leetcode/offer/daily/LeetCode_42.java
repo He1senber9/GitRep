@@ -139,6 +139,16 @@ public class LeetCode_42 {
     }
 
     /**
+     * 解法四：
+     * 采用栈辅助
+     * @param height
+     * @return
+     */
+    private int trap4(int[] height) {
+        return -1;
+    }
+
+    /**
      * 计算容积
      * @param min
      * @param max
