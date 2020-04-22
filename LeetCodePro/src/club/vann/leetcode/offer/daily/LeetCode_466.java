@@ -40,9 +40,10 @@ import java.util.Stack;
 public class LeetCode_466 {
     public static void main(String[] args) {
         LeetCode_466 leetCode = new LeetCode_466();
-//        System.out.println("Result["+TestCase.ans+"]" + leetCode.getMaxRepetitions(TestCase.strParams[0], TestCase.intParams[0], TestCase.strParams[1],TestCase.intParams[1]));
-//        System.out.println("Result["+TestCase.ans1+"]" + leetCode.getMaxRepetitions(TestCase.strParams1[0], TestCase.intParams1[0], TestCase.strParams1[1],TestCase.intParams1[1]));
-        System.out.println("Result["+TestCase.ans2+"]" + leetCode.getMaxRepetitions(TestCase.strParams2[0], TestCase.intParams2[0], TestCase.strParams2[1],TestCase.intParams2[1]));
+        System.out.println("Result["+TestCase.ans+"]" + leetCode.getMaxRepetitions2(TestCase.strParams[0], TestCase.intParams[0], TestCase.strParams[1],TestCase.intParams[1]));
+        System.out.println("Result["+TestCase.ans1+"]" + leetCode.getMaxRepetitions2(TestCase.strParams1[0], TestCase.intParams1[0], TestCase.strParams1[1],TestCase.intParams1[1]));
+        System.out.println("Result["+TestCase.ans2+"]" + leetCode.getMaxRepetitions2(TestCase.strParams2[0], TestCase.intParams2[0], TestCase.strParams2[1],TestCase.intParams2[1]));
+        System.out.println("Result["+TestCase.ans3+"]" + leetCode.getMaxRepetitions2(TestCase.strParams3[0], TestCase.intParams3[0], TestCase.strParams3[1],TestCase.intParams3[1]));
     }
 
     /**
@@ -102,6 +103,46 @@ public class LeetCode_466 {
         return result/(len2*n2);
     }
 
+    /**
+     * 解法二：
+     * 1.实际上只需要求出 一个 s2需要几个s1构成。
+     * s1中有几个与s2序列逆序，就需要几个s1。
+     *
+     * @param s1
+     * @param n1
+     * @param s2
+     * @param n2
+     * @return
+     */
+    public int getMaxRepetitions2(String s1, int n1, String s2, int n2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+
+        int t = 0;
+        int index = 0;
+        //还是以s2为基准
+        A:for(int n = 0; n < len2; n ++) {
+            char c2 = s2.charAt(n);
+
+            B:for(int m = index; m < n1*len1; m ++) {
+
+                char c1 = s1.charAt(m%len1);
+                if(c1 == c2) {
+                    index ++;
+                    continue A;
+                } else {
+                    index ++;
+                    continue B;
+                }
+            }
+
+        }
+
+        int x = (index+1)/len1;
+        t = x + 1;
+        return n1/(n2*t);
+    }
+
     static class TestCase {
 
         public static final int ans = 2;
@@ -115,5 +156,9 @@ public class LeetCode_466 {
         public static final int ans2 = 1;
         public static final String[] strParams2 = {"acbbe", "abc"};
         public static final int[] intParams2 = {4, 2};
+
+        public static final int ans3 = 10000;
+        public static final String[] strParams3 = {"phqghumeaylnlfdxfircvscxggbwkfnqduxwfnfozvsrtkjpre", "pggxr"};
+        public static final int[] intParams3 = {1000000, 100};
     }
 }
