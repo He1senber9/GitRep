@@ -101,6 +101,19 @@ public class LeetCode_116 {
         return root;
     }
 
+    /**
+     * 解法二：
+     *  采用递归解法
+     * @param node
+     * @return
+     */
+    public Node connect1(Node node) {
+        if(node == null) {
+            return null;
+        }
+        return null;
+    }
+
     static class TestCase {
         public static Node root() {
             Node node1 = new Node(1);
