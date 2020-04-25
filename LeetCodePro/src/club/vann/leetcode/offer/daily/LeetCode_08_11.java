@@ -48,6 +48,7 @@ public class LeetCode_08_11 {
         System.out.println("Result["+TestCase.ans1+"] " + leetCode.waysToChange(TestCase.param1));
     }
 
+    private int[] nums = {1, 5, 10, 25}; // 硬币面额
     /**
      *  解法一：
      *  注意：硬币数量不限
@@ -55,6 +56,7 @@ public class LeetCode_08_11 {
      * @return
      */
     public int waysToChange(int n) {
+        // 总有面值为 1 的可以满足
         return 0;
     }
 
