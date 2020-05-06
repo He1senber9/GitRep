@@ -1,10 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * <p>难度：Hard</p>
@@ -46,111 +43,50 @@ public class LeetCode_460 {
     public static void main(String[] args) {
         LeetCode_460 leetCode = new LeetCode_460();
 
-        LFUCache lfuCache = new LFUCache(2);
-        lfuCache.put(1, 1);
-        lfuCache.put(2, 2);
-        System.out.println("Result[1] : " + lfuCache.get(1));
-        lfuCache.put(3, 3); // 覆盖掉 2
-        System.out.println("Result[-1] : " + lfuCache.get(2));
-        System.out.println("Result[3] : " + lfuCache.get(3));
-        lfuCache.put(4, 4); // 覆盖 1
-        System.out.println("Result[-1] : " + lfuCache.get(1));
-        System.out.println("Result[3] : " + lfuCache.get(3));
-        System.out.println("Result[4] : " + lfuCache.get(4));
+//        LFUCache lfuCache = new LFUCache(2);
+//        lfuCache.put(1, 1);
+//        lfuCache.put(2, 2);
+//        System.out.println("Result[1] : " + lfuCache.get(1));
+//        lfuCache.put(3, 3); // 覆盖掉 2
+//        System.out.println("Result[-1] : " + lfuCache.get(2));
+//        System.out.println("Result[3] : " + lfuCache.get(3));
+//        lfuCache.put(4, 4); // 覆盖 1
+//        System.out.println("Result[-1] : " + lfuCache.get(1));
+//        System.out.println("Result[3] : " + lfuCache.get(3));
+//        System.out.println("Result[4] : " + lfuCache.get(4));
+//
+//        LFUCache lfuCache1 = new LFUCache(3);
+//        lfuCache1.put(2, 2);
+//        lfuCache1.put(1, 1);
+//        System.out.println("Result[2] : " + lfuCache1.get(2));
+//        System.out.println("Result[1] : " + lfuCache1.get(1));
+//        System.out.println("Result[2] : " + lfuCache1.get(2));
+//        lfuCache1.put(3, 3);
+//        lfuCache1.put(4, 4);
+//        System.out.println("Result[-1] : " + lfuCache1.get(3));
+//        System.out.println("Result[2] : " + lfuCache1.get(2));
+//        System.out.println("Result[1] : " + lfuCache1.get(1));
+//        System.out.println("Result[4] : " + lfuCache1.get(4));
+//
+//        LFUCache lfuCache2 = new LFUCache(0);
+//        lfuCache2.put(0, 0);
+//        System.out.println("Result[-1] : " + lfuCache2.get(0));
+//
+//        LFUCache lfuCache3 = new LFUCache(3);
+//        lfuCache3.put(1,1);
+//        lfuCache3.put(2,2);
+//        lfuCache3.put(3,3);
+//        lfuCache3.put(4,4);
+//        System.out.println("Result[4] : " + lfuCache3.get(4));
+//        System.out.println("Result[3] : " + lfuCache3.get(3));
+//        System.out.println("Result[2] : " + lfuCache3.get(2));
+//        System.out.println("Result[-1] : " + lfuCache3.get(1));
+//        lfuCache3.put(5,5);
+//        System.out.println("Result[-1] : " + lfuCache3.get(1));
+//        System.out.println("Result[2] : " + lfuCache3.get(2));
+//        System.out.println("Result[3] : " + lfuCache3.get(3));
+//        System.out.println("Result[-1] : " + lfuCache3.get(4));
+//        System.out.println("Result[5] : " + lfuCache3.get(5));
 
-        LFUCache lfuCache1 = new LFUCache(3);
-        lfuCache1.put(2, 2);
-        lfuCache1.put(1, 1);
-        System.out.println("Result[2] : " + lfuCache1.get(2));
-        System.out.println("Result[1] : " + lfuCache1.get(1));
-        System.out.println("Result[2] : " + lfuCache1.get(2));
-        lfuCache1.put(3, 3);
-        lfuCache1.put(4, 4);
-        System.out.println("Result[-1] : " + lfuCache1.get(3));
-        System.out.println("Result[2] : " + lfuCache1.get(2));
-        System.out.println("Result[1] : " + lfuCache1.get(1));
-        System.out.println("Result[4] : " + lfuCache1.get(4));
-
-        LFUCache lfuCache2 = new LFUCache(0);
-        lfuCache2.put(0, 0);
-        System.out.println("Result[-1] : " + lfuCache2.get(0));
-
-        LFUCache lfuCache3 = new LFUCache(3);
-        lfuCache3.put(1,1);
-        lfuCache3.put(2,2);
-        lfuCache3.put(3,3);
-        lfuCache3.put(4,4);
-        System.out.println("Result[4] : " + lfuCache3.get(4));
-        System.out.println("Result[3] : " + lfuCache3.get(3));
-        System.out.println("Result[2] : " + lfuCache3.get(2));
-        System.out.println("Result[-1] : " + lfuCache3.get(1));
-        lfuCache3.put(5,5);
-        System.out.println("Result[-1] : " + lfuCache3.get(1));
-        System.out.println("Result[2] : " + lfuCache3.get(2));
-        System.out.println("Result[3] : " + lfuCache3.get(3));
-        System.out.println("Result[-1] : " + lfuCache3.get(4));
-        System.out.println("Result[5] : " + lfuCache3.get(5));
-
-    }
-}
-
-class LFUCache {
-
-    private final int count;
-    private Map<Integer, Integer> dataMap = null; // 数据集合
-    private Map<Integer, Integer> ageMap = null; // 数据年龄集合
-    private LinkedList<Integer> list = null;
-
-    public LFUCache(int capacity) {
-        count = capacity;
-        dataMap = new HashMap<Integer, Integer>();
-        ageMap = new HashMap<Integer, Integer>();
-        list = new LinkedList<Integer>();
-    }
-
-    public int get(int key) {
-        if(dataMap.containsKey(key)) {
-            // 年龄加一
-            ageMap.put(key, ageMap.get(key) + 1);
-            insert(key, ageMap.get(key)+1);
-            return dataMap.get(key);
-        } else {
-            return -1;
-        }
-    }
-
-    public void put(int key, int value) {
-        if(dataMap.size() < count) {
-            dataMap.put(key, value);
-            ageMap.put(key, 0); // 针对新加入的元素，年龄都统一为0
-            insert(key, 0);
-        } else {
-            // 去除年龄最小的元素，或者是相同年龄但是最近没有使用的元素
-            int k =list.pollFirst();
-            dataMap.remove(k);
-            ageMap.remove(k);
-
-            dataMap.put(key, value);
-            ageMap.put(key, 0);
-            insert(key, 0);
-            list.offerLast(key);
-        }
-    }
-
-    private void insert(int key, int age) {
-        if(list.size() == 0) {
-            list.add(age);
-        }
-
-        for(int n = 0; n < list.size(); n ++) {
-            if(list.get(n) > age) {
-                list.add(age, n-1);
-                break;
-            }
-        }
-
-        if(!list.contains(key)) {
-            list.add(age);
-        }
     }
 }
