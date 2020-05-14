@@ -34,8 +34,8 @@ public class LeetCode_136 {
     public static void main(String[] args) {
         LeetCode_136 leetCode = new LeetCode_136();
 
-        System.out.println("Result["+TestCase.ans+"] " + leetCode.singleNumber(TestCase.nums));
-        System.out.println("Result["+TestCase.ans1+"] " + leetCode.singleNumber(TestCase.nums1));
+        System.out.println("Result["+TestCase.ans+"] " + leetCode.singleNumber2(TestCase.nums));
+        System.out.println("Result["+TestCase.ans1+"] " + leetCode.singleNumber2(TestCase.nums1));
     }
 
     /**
@@ -61,6 +61,24 @@ public class LeetCode_136 {
             }
         }
         return set.iterator().next();
+    }
+
+    /**
+     * 解法二：
+     * @param nums
+     * @return
+     */
+    private int singleNumber2(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return -1;
+        }
+
+        int len = nums.length;
+        int result = 0;
+        for(int i = 0; i < len; i ++) {
+            result = result ^ nums[i];
+        }
+        return result;
     }
 
     static class TestCase {
