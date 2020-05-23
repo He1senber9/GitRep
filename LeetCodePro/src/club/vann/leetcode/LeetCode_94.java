@@ -4,6 +4,7 @@ import club.vann.leetcode.common.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * <p>难度：Medium</p>
@@ -58,6 +59,29 @@ public class LeetCode_94 {
         inorderTraversal(list, node.left);
         list.add(node.val);
         inorderTraversal(list, node.right);
+    }
+
+    /**
+     * 迭代法：
+     * @param root
+     */
+    private List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+
+        TreeNode node = root;
+
+        while(node != null || !stack.isEmpty()) {
+            while(node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+
+            node = stack.pop();
+            list.add(node.val);
+            node = node.right;
+        }
+        return list;
     }
 
     static class TestCase {
