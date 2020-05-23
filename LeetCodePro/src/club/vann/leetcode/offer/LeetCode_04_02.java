@@ -55,36 +55,38 @@ public class LeetCode_04_02 {
 
         int len = nums.length;
         // direct 用于判断方向
-        TreeNode root = sortedArrayToBST(nums, 0, len);
+        TreeNode root = sortedArrayToBST(nums, 0, len-1);
         return root;
     }
 
     /**
-     *
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
      * @param nums
      * @param left
      * @param right
      * @return
      */
     private TreeNode sortedArrayToBST(int[] nums, int left, int right) {
-        int index = (left + right) / 2;
-        TreeNode node = new TreeNode(nums[index]);
-        if(index - 1 >= left) {
-            node.left = sortedArrayToBST(nums, left, index);
+        // 用于计算中间节点
+        int middle = (left + right + 1) / 2;
+
+        if(left <= middle && middle <= right) {
+            TreeNode node = new TreeNode(nums[middle]);
+            node.left = sortedArrayToBST(nums, left, middle-1);
+            node.right = sortedArrayToBST(nums, middle+1, right);
+            return node;
         }
 
-        if(index + 1 <= right) {
-            node.right = sortedArrayToBST(nums, index, right);
-        }
-        return node;
+        return null;
     }
 
     static class TestCase {
-        public static final int[] nums = {-10,-3,0,5,9};
-        public static final int[] nums1 = {-10,-3, 0};
+        public static final int[] nums = {-1,0,1};
+        public static final int[] nums1 = {-10,-3,0,5,9};
         public static final int[] nums2 = {-11,-10,-3,0,5,9,10};
         public static final int[] nums3 = {-12,-11,-10,-3,0,5,9,10,11};
-        public static final int[] nums4 = {-13,12,-11,-10,-3,0,5,9,10,11,12};
+        public static final int[] nums4 = {-13,-12,-11,-10,-3,0,5,9,10,11,12};
     }
 
 }
