@@ -1,6 +1,10 @@
 package club.vann.leetcode;
 
 import club.vann.leetcode.common.TreeNode;
+import sun.reflect.generics.tree.Tree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>难度：Easy</p>
@@ -59,18 +63,71 @@ import club.vann.leetcode.common.TreeNode;
 public class LeetCode_897 {
     public static void main(String[] args) {
         LeetCode_897 leetCode = new LeetCode_897();
+        TreeNode result = null;
+
+        result = leetCode.increasingBST(TestCase.func1());
+        System.out.println(result);
     }
 
+    List<TreeNode> list = new ArrayList<TreeNode>();
     /**
      * 解法一：
+     * 借助List保存顺序
      * @param root
      * @return
      */
     public TreeNode increasingBST(TreeNode root) {
-        return null;
+
+        increasingBST1(root);
+        if(list.size() == 0) {
+            return null;
+        }
+
+        int len = list.size();
+        for(int i = 1; i < len; i ++) {
+            TreeNode pNode = list.get(i-1);
+            TreeNode cNode = list.get(i);
+            pNode.left = null;
+            pNode.right = cNode;
+        }
+
+        return list.get(0);
+    }
+
+    public void increasingBST1(TreeNode root) {
+        if(root == null) {
+            return;
+        }
+
+        increasingBST1(root.left);
+        list.add(root);
+        increasingBST1(root.right);
     }
 
     static class TestCase {
+        public static TreeNode func1() {
+            TreeNode node5 = new TreeNode(5);
+            TreeNode node3 = new TreeNode(3);
+            TreeNode node6 = new TreeNode(6);
+            node5.left = node3;
+            node5.right = node6;
 
+            TreeNode node2 = new TreeNode(2);
+            TreeNode node4 = new TreeNode(4);
+            node3.left = node2;
+            node3.right = node4;
+
+            TreeNode node8 = new TreeNode(8);
+            node6.right = node8;
+
+            TreeNode node1 = new TreeNode(1);
+            node2.left = node1;
+
+            TreeNode node7 = new TreeNode(7);
+            TreeNode node9 = new TreeNode(9);
+            node8.left = node7;
+            node8.right = node9;
+            return node5;
+        }
     }
 }
