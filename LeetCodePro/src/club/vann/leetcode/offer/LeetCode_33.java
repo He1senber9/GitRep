@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer;
 
+import club.vann.leetcode.common.TreeNode;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：二叉搜索树的后序遍历序列</p>
@@ -42,6 +44,13 @@ package club.vann.leetcode.offer;
 public class LeetCode_33 {
     public static void main(String[] args) {
         LeetCode_33 leetCode = new LeetCode_33();
+        boolean result = false;
+
+        System.out.println("Result[" +TestCase.ans+ "]: " + leetCode.verifyPostorder(TestCase.postorder));
+        System.out.println("Result[" +TestCase.ans1+ "]: " + leetCode.verifyPostorder(TestCase.postorder1));
+        System.out.println("Result[" +TestCase.ans2+ "]: " + leetCode.verifyPostorder(TestCase.postorder2));
+        System.out.println("Result[" +TestCase.ans3+ "]: " + leetCode.verifyPostorder(TestCase.postorder3));
+        System.out.println("Result[" +TestCase.ans4+ "]: " + leetCode.verifyPostorder(TestCase.postorder4));
     }
 
     /**
@@ -51,10 +60,24 @@ public class LeetCode_33 {
      * @return
      */
     public boolean verifyPostorder(int[] postorder) {
+
         return false;
     }
 
     static class TestCase {
+        public static boolean ans = false;
+        public static int[] postorder = {1,6,3,2,5};
 
+        public static boolean ans1 = true;
+        public static int[] postorder1 = {1,3,2,6,5};
+
+        public static boolean ans2 = true;
+        public static int[] postorder2 = {1,3,2};
+
+        public static boolean ans3 = true;
+        public static int[] postorder3 = {1,3,2,7,4};
+
+        public static boolean ans4 = true;
+        public static int[] postorder4 = {4, 8, 6, 12, 16, 14, 10};
     }
 }

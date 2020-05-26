@@ -4,6 +4,7 @@ import club.vann.leetcode.common.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * <p>难度：Medium</p>
@@ -38,10 +39,10 @@ public class LeetCode_94 {
     public static void main(String[] args) {
         LeetCode_94 leetCode = new LeetCode_94();
 
-        List<Integer> result = leetCode.inorderTraversal(TestCase.case1());
+        List<Integer> result = leetCode.inorderTraversal2(TestCase.case1());
         System.out.println("Case1：" + result);
 
-        result = leetCode.inorderTraversal(TestCase.case2());
+        result = leetCode.inorderTraversal2(TestCase.case2());
         System.out.println("Case2：" + result);
     }
 
@@ -58,6 +59,33 @@ public class LeetCode_94 {
         inorderTraversal(list, node.left);
         list.add(node.val);
         inorderTraversal(list, node.right);
+    }
+
+    /**
+     * 采用迭代法
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> list = new ArrayList<Integer>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+
+        TreeNode node = root;
+        stack.push(node);
+
+        while(!stack.isEmpty()) {
+            node = stack.peek();
+            if(node.left != null) {
+
+            } else if(node.right != null) {
+
+            } else {
+                stack.pop();
+                list.add(node.val);
+            }
+        }
+
+        return list;
     }
 
     static class TestCase {
