@@ -62,15 +62,23 @@ public class LeetCode_94 {
     }
 
     /**
+<<<<<<< HEAD
      * 采用迭代法
      * @param root
      * @return
      */
     public List<Integer> inorderTraversal2(TreeNode root) {
+=======
+     * 迭代法：
+     * @param root
+     */
+    private List<Integer> inorderTraversal2(TreeNode root) {
+>>>>>>> 4c3719f1555a99e3d3655baacd7e5717beb38dc6
         List<Integer> list = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
 
         TreeNode node = root;
+<<<<<<< HEAD
         stack.push(node);
 
         while(!stack.isEmpty()) {
@@ -85,6 +93,19 @@ public class LeetCode_94 {
             }
         }
 
+=======
+
+        while(node != null || !stack.isEmpty()) {
+            while(node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+
+            node = stack.pop();
+            list.add(node.val);
+            node = node.right;
+        }
+>>>>>>> 4c3719f1555a99e3d3655baacd7e5717beb38dc6
         return list;
     }
 
