@@ -46,7 +46,8 @@ public class LeetCode_101 {
     public static void main(String[] args) {
         LeetCode_101 leetCode = new LeetCode_101();
         System.out.println("Result[true] : " + leetCode.isSymmetric(TestCase.func1()));
-        System.out.println("Result[true] : " + leetCode.isSymmetric(TestCase.func1()));
+        System.out.println("Result[true] : " + leetCode.isSymmetric(TestCase.func2()));
+        System.out.println("Result[false] : " + leetCode.isSymmetric(TestCase.func3()));
     }
 
     /**
@@ -57,7 +58,23 @@ public class LeetCode_101 {
      */
     public boolean isSymmetric(TreeNode root) {
 
-        return isSymmetric(root.left) && isSymmetric(root.right);
+        return isSymmetric(root.left, root.right);
+    }
+
+    public boolean isSymmetric(TreeNode node1, TreeNode node2) {
+        if(node1 == null && node2 == null) {
+            return true;
+        }
+
+        if(node1 == null || node2 == null) {
+            return false;
+        }
+
+        if(node1.val != node2.val) {
+            return false;
+        }
+
+        return isSymmetric(node1.left, node2.right) && isSymmetric(node1.right, node2.left);
     }
 
     /**
@@ -88,6 +105,58 @@ public class LeetCode_101 {
             TreeNode noder3 = new TreeNode(3);
             noder2.left = nodel4;
             noder2.right = noder3;
+
+            return node1;
+        }
+
+        public static TreeNode func2() {
+            TreeNode node1 = new TreeNode(1);
+            TreeNode nodel2 = new TreeNode(2);
+            TreeNode noder2 = new TreeNode(2);
+            node1.left = nodel2;
+            node1.right = noder2;
+
+            TreeNode nodel3 = new TreeNode(3);
+            TreeNode noder4 = new TreeNode(4);
+            nodel2.left = nodel3;
+            nodel2.right = noder4;
+
+            TreeNode nodel4 = new TreeNode(4);
+            TreeNode noder3 = new TreeNode(3);
+            noder2.left = nodel4;
+            noder2.right = noder3;
+
+            TreeNode nodel5 = new TreeNode(5);
+            nodel3.right = nodel5;
+
+            TreeNode noder5 = new TreeNode(5);
+            noder3.left = noder5;
+
+            return node1;
+        }
+
+        public static TreeNode func3() {
+            TreeNode node1 = new TreeNode(1);
+            TreeNode nodel2 = new TreeNode(2);
+            TreeNode noder2 = new TreeNode(2);
+            node1.left = nodel2;
+            node1.right = noder2;
+
+            TreeNode nodel3 = new TreeNode(3);
+            TreeNode noder4 = new TreeNode(4);
+            nodel2.left = nodel3;
+            nodel2.right = noder4;
+
+            TreeNode nodel4 = new TreeNode(4);
+            TreeNode noder3 = new TreeNode(3);
+            noder2.left = nodel4;
+            noder2.right = noder3;
+
+            TreeNode nodel5 = new TreeNode(5);
+            nodel3.right = nodel5;
+
+            TreeNode noder5 = new TreeNode(5);
+            noder3.right = noder5;
 
             return node1;
         }
