@@ -34,6 +34,10 @@ package club.vann.leetcode.offer.daily;
 public class LeetCode_198 {
     public static void main(String[] args) {
         LeetCode_198 leetCode = new LeetCode_198();
+        System.out.println("Result["+TestCase.res+"] : " + leetCode.rob(TestCase.nums));
+        System.out.println("Result["+TestCase.res1+"] : " + leetCode.rob(TestCase.nums1));
+        System.out.println("Result["+TestCase.res2+"] : " + leetCode.rob(TestCase.nums2));
+        System.out.println("Result["+TestCase.res3+"] : " + leetCode.rob(TestCase.nums3));
     }
 
     /**
@@ -48,23 +52,37 @@ public class LeetCode_198 {
      * @return
      */
     private int rob(int[] nums) {
-        int len = nums.length;
-        int max = 0;
-
-        int [][] dp = new int[len][2];
-        for(int i = 0; i < len; i ++) {
-            for(int n = 0; n < 2; n ++) {
-            }
+        if(nums == null || nums.length == 0) {
+            return 0;
         }
-        return 0;
+
+        int len = nums.length;
+        if(len == 1) {
+            return nums[0];
+        }
+
+//        int[] dp = new int[len];
+//        dp[0] = nums[0];
+//        dp[1] = Math.max(nums[0], nums[1]);
+        int pre1 = nums[0];
+        int pre2 = Math.max(nums[0], nums[1]);
+        int max = pre2;
+        // dp[i][0] = dp[i-1]
+        // dp[i][1] = max(dp[i-2]+nums[i])
+        for(int i = 2; i < len; i ++) {
+            max = Math.max(pre1 + nums[i], pre2);
+            pre1 = pre2;
+            pre2 = max;
+        }
+        return max;
     }
 
     static class TestCase {
         public static final int res = 4;
         public static final int[] nums = {1,2,3,1};
 
-        public static final int res1 = 12;
-        public static final int[] nums1 = {1,2,3,1};
+        public static final int res1 = 8;
+        public static final int[] nums1 = {1,4,1,2,4};
 
         public static final int res2 = 2;
         public static final int[] nums2 = {1,2};
