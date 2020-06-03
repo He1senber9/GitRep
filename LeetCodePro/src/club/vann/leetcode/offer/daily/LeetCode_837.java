@@ -47,11 +47,37 @@ public class LeetCode_837 {
         System.out.println("Result["+TestCase.ans+"] : " + leetCode.new21Game(TestCase.nums[0], TestCase.nums[1], TestCase.nums[2]));
         System.out.println("Result["+TestCase.ans1+"] : " + leetCode.new21Game(TestCase.nums1[0], TestCase.nums1[1], TestCase.nums1[2]));
         System.out.println("Result["+TestCase.ans2+"] : " + leetCode.new21Game(TestCase.nums2[0], TestCase.nums2[1], TestCase.nums2[2]));
+        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.new21Game(TestCase.nums3[0], TestCase.nums3[1], TestCase.nums3[2]));
+        System.out.println("Result["+TestCase.ans4+"] : " + leetCode.new21Game(TestCase.nums4[0], TestCase.nums4[1], TestCase.nums4[2]));
+        System.out.println("Result["+TestCase.ans5+"] : " + leetCode.new21Game(TestCase.nums5[0], TestCase.nums5[1], TestCase.nums5[2]));
+        System.out.println("Result["+TestCase.ans6+"] : " + leetCode.new21Game(TestCase.nums6[0], TestCase.nums6[1], TestCase.nums6[2]));
+        System.out.println("Result["+TestCase.ans7+"] : " + leetCode.new21Game(TestCase.nums7[0], TestCase.nums7[1], TestCase.nums7[2]));
+        System.out.println("Result["+TestCase.ans8+"] : " + leetCode.new21Game(TestCase.nums8[0], TestCase.nums8[1], TestCase.nums8[2]));
+        System.out.println("Result["+TestCase.ans9+"] : " + leetCode.new21Game(TestCase.nums9[0], TestCase.nums9[1], TestCase.nums9[2]));
+        System.out.println("Result["+TestCase.ans10+"] : " + leetCode.new21Game(TestCase.nums10[0], TestCase.nums10[1], TestCase.nums10[2]));
+        System.out.println("Result["+TestCase.ans8+"] : " + leetCode.new21Game(TestCase.nums2[0], TestCase.nums2[1], TestCase.nums2[2]));
     }
 
     private double new21Game(int N, int K, int W) {
-        
-        return 0.0;
+        // 先判断 K - 1 + W 是否在 N 的里面，如果在的话，说明肯定能赢得游戏，返回 1.0，也就是 100%
+        if (N - K + 1 >= W) {
+            return 1.0;
+        }
+        double[] dp = new double[K + W];
+        // 将能赢得游戏的点数的概率设置为 1
+        for (int i = K; i <= N; i++) {
+            dp[i] = 1.0;
+        }
+        // 计算K + W 这几个点数的概率和
+        double sumProb = N - K + 1;
+        // 从 K - 1 开始计算，
+        for (int i = K - 1; i >= 0; i--) {
+            // 点数为 i 的赢得游戏的概率为 i + 1 ~ i + W 的概率和除以 W
+            dp[i] = sumProb / W;
+            sumProb = sumProb - dp[i + W] + dp[i];
+        }
+
+        return dp[0];
     }
 
     static class TestCase {
