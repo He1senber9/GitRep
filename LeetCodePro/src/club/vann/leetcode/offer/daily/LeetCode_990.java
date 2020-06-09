@@ -78,7 +78,7 @@ public class LeetCode_990 {
         int[] base = new int[26];
 
         for(String str : equations) {
-            
+
         }
         return true;
     }
