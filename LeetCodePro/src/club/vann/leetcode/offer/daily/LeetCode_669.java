@@ -55,14 +55,18 @@ public class LeetCode_669 {
     public static void main(String[] args) {
         LeetCode_669 leetCode = new LeetCode_669();
 
-//        System.out.println(leetCode.trimBST(TestCase.fun(), 1, 2));
-//        System.out.println(leetCode.trimBST(TestCase.fun1(), 1, 3));
-//        System.out.println(leetCode.trimBST(TestCase.fun2(), 1, 13));
-//        System.out.println(leetCode.trimBST(TestCase.fun2(), 1, 6));
+        System.out.println(leetCode.trimBST(TestCase.fun(), 1, 2));
+        System.out.println(leetCode.trimBST(TestCase.fun1(), 1, 3));
+        System.out.println(leetCode.trimBST(TestCase.fun2(), 1, 13));
+        System.out.println(leetCode.trimBST(TestCase.fun2(), 1, 6));
         System.out.println(leetCode.trimBST(TestCase.fun3(), 2, 4));
     }
 
     public TreeNode trimBST(TreeNode root, int L, int R) {
+        if(root == null) {
+            return null;
+        }
+
         if(root.val < L) {
             return trimBST(root.right, L, R);
         }
@@ -79,37 +83,8 @@ public class LeetCode_669 {
             root.right = null;
         }
 
-        TreeNode node = root;
-
-        // 修剪左子树
-        TreeNode left = root.left;
-        while(left != null) {
-            if(left.val > L) {
-                node = left;
-                left = left.left;
-            } else if(left.val == L) {
-                left.left = null;
-                break;
-            } else {
-                left = left.right;
-                node.left = left;
-            }
-        }
-
-        // 修剪右子树
-        TreeNode right = root.right;
-        while(right != null) {
-            if(right.val < R) {
-                node = right;
-                right = right.right;
-            } else if(right.val == R) {
-                right.right = null;
-                break;
-            } else {
-                right = right.left;
-                node.right = right;
-            }
-        }
+        root.left = trimBST(root.left, L, R);
+        root.right = trimBST(root.right, L, R);
 
         return root;
     }
