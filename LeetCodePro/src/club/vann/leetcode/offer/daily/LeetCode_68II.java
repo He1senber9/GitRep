@@ -60,10 +60,25 @@ public class LeetCode_68II {
      * @return
      */
     private TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        LinkedList<TreeNode> linkedList = new LinkedList<TreeNode>();
-        linkedList.add(root);
+        TreeNode result = root;
 
-        return null;
+        TreeNode lNode = lowestCommonAncestor(root.left, p, q);
+        TreeNode rNode = lowestCommonAncestor(root.left, p, q);
+        
+        return result;
+    }
+
+    /**
+     * 判断指定的节点是否是p,q的祖先节点
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    private boolean isAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        return false;
     }
 
     static class TestCase {
