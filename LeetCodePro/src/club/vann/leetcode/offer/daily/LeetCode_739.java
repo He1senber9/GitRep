@@ -1,6 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * <p>难度：Medium</p>
@@ -25,7 +26,8 @@ public class LeetCode_739 {
     public static void main(String[] args) {
         LeetCode_739 leetCode = new LeetCode_739();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ans)+"]: " + Arrays.toString(leetCode.dailyTemperatures(TestCase.arrays)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ans)+"]: " + Arrays.toString(leetCode.dailyTemperatures2(TestCase.arrays)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ans1)+"]: " + Arrays.toString(leetCode.dailyTemperatures2(TestCase.arrays1)));
     }
 
     /**
@@ -62,8 +64,40 @@ public class LeetCode_739 {
         return T;
     }
 
+    /**
+     * 解法二：
+     * 逆序遍历
+     * @param T
+     * @return
+     */
+    private int[] dailyTemperatures2(int[] T) {
+        if(T == null || T.length == 0) {
+            return new int[0];
+        }
+
+        int len = T.length;
+        int[] result = new int[len];
+
+        Stack<Integer> stack = new Stack<Integer>();
+
+        for(int n = 0; n < len; n ++) {
+
+            while(!stack.isEmpty() && T[n] > T[stack.peek()]) {
+                result[stack.peek()] = n-stack.peek();
+                stack.pop();
+            }
+
+            stack.push(n);
+        }
+
+        return result;
+    }
+
     static class TestCase {
         public static final int[] ans = {1, 1, 4, 2, 1, 1, 0, 0};
         public static final int[] arrays = {73, 74, 75, 71, 69, 72, 76, 73};
+
+        public static final int[] ans1 = {1, 1, 1, 1, 1, 1, 1, 0};
+        public static final int[] arrays1 = {1, 2, 3, 4, 5, 6, 7, 8};
     }
 }
