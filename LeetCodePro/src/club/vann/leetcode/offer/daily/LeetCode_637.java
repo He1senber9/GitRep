@@ -46,13 +46,40 @@ public class LeetCode_637 {
     /**
      * 解法一：
      *  需要考虑每层数据和溢出的问题。
+     *  List<Double> sum：记录每一层节点值之和
+     *  List<Integer> count：记录每一层节点数之和
+     *  h：记录当前层数
      * @param root
      * @return
      */
     private List<Double> averageOfLevels(TreeNode root) {
-        List<Double> result = new ArrayList<Double>();
+        List<Double> sum = new ArrayList<Double>();
+        List<Integer> count = new ArrayList<Integer>();
 
-        return result;
+        averageOfLevels(root, 0, sum, count);
+
+        for(int n = 0; n < sum.size(); n ++) {
+            sum.set(n, sum.get(n)/count.get(n));
+        }
+
+        return sum;
+    }
+
+    private void averageOfLevels(TreeNode node, int h, List<Double> sum, List<Integer> count) {
+        if(node == null) {
+            return;
+        }
+
+        if(h < sum.size()) {
+            sum.set(h, sum.get(h) + node.val);
+            count.set(h, count.get(h)+1);
+        } else {
+            sum.add(1.0 * node.val);
+            count.add(1);
+        }
+
+        averageOfLevels(node.left, h+1, sum, count);
+        averageOfLevels(node.right, h+1, sum, count);
     }
 
     static class TestCase {
