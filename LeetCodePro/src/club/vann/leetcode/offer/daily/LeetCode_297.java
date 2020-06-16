@@ -2,6 +2,8 @@ package club.vann.leetcode.offer.daily;
 
 import club.vann.leetcode.common.TreeNode;
 
+import java.util.*;
+
 /**
  * <p>难度：Hard</p>
  * <p>题目：二叉树的序列化与反序列化</p>
@@ -44,23 +46,103 @@ public class LeetCode_297 {
         TreeNode deserializeTreeNode = null;
         Codec codec = leetCode.new Codec();
 
-        serializeString = codec.serialize(TestCase.fun());
-        System.out.println("序列化：" + serializeString);
-        deserializeTreeNode = codec.deserialize(serializeString);
-        System.out.println("反序列化：" + deserializeTreeNode);
+        codec.deserialize("[]");
 
+//        serializeString = codec.serialize(TestCase.fun());
+//        System.out.println("序列化：" + serializeString);
+//        deserializeTreeNode = codec.deserialize(serializeString);
+//        System.out.println("反序列化：" + deserializeTreeNode);
+        System.out.println("Suc");
     }
 
+    /**
+     * 二叉树序列化：按层级输出。
+     */
     class Codec {
 
+        /**
+         * 构造满二叉树，然后逐层遍历
+         * @param root
+         * @return
+         */
         // Encodes a tree to a single string.
         public String serialize(TreeNode root) {
-            return null;
+            if(root == null) {
+                return "[]";
+            }
+            LinkedList<TreeNode> linkedList = new LinkedList<>();
+            linkedList.addLast(root);
+
+            int max = 0;
+            Map<TreeNode, Integer> map = new HashMap<TreeNode, Integer>();
+            map.put(root, 0);
+            while(!linkedList.isEmpty()) {
+                TreeNode node = linkedList.pollFirst();
+
+                int indexP = map.get(node);
+                if(node.left != null) {
+                    max = Math.max(max, indexP*2+1);
+                    map.put(node.left, indexP*2+1);
+                    linkedList.addLast(node.left);
+                }
+
+                if(node.right != null) {
+                    max = Math.max(max, indexP*2+2);
+                    map.put(node.right, indexP*2+2);
+                    linkedList.addLast(node.right);
+                }
+            }
+
+            linkedList.addLast(root);
+            String[] result = new String[max+1];
+            while(!linkedList.isEmpty()) {
+                TreeNode node = linkedList.pollFirst();
+                int indexP = map.get(node);
+                result[map.get(node)] = String.valueOf(node.val);
+
+                if(node.left != null) {
+                    linkedList.addLast(node.left);
+                }
+
+                if(node.right != null) {
+                    linkedList.addLast(node.right);
+                }
+            }
+            return Arrays.toString(result);
         }
 
+        private void serialize(List<TreeNode> list, List<String> result, int index) {
+
+        }
+
+        /**
+         * "[1,2,3,null,null,4,5]"
+         * @param data
+         * @return
+         */
         // Decodes your encoded data to tree.
         public TreeNode deserialize(String data) {
-            return null;
+            String dataStr = data;
+            dataStr = dataStr.substring(1);
+            dataStr = dataStr.substring(0, dataStr.lastIndexOf("]"));
+
+            String[] datas = dataStr.split(",");
+
+            TreeNode root = deserialize(datas, 0);
+
+            return root;
+        }
+
+        private TreeNode deserialize(String[] datas, int index) {
+            if(index >= datas.length || datas[index] == null || "".equals(datas[index]) || "null".equals(datas[index].trim())) {
+                return null;
+            }
+
+            String val = datas[index].trim();
+            TreeNode node = new TreeNode(Integer.parseInt(val));
+            node.left = deserialize(datas, index*2+1);
+            node.right = deserialize(datas, index*2+2);
+            return node;
         }
     }
 
