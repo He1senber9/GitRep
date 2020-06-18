@@ -49,8 +49,15 @@ public class LeetCode_1014 {
      * @return
      */
     private int maxScoreSightseeingPair(int[] A) {
+        int ans = 0;
+        int max = A[0] + 0;
 
-        return 0;
+        int len = A.length;
+        for(int n = 1; n < len; n ++) {
+            ans = Math.max(ans, max+A[n]-n);
+            max = Math.max(max, A[n]+n);
+        }
+        return ans;
     }
 
     /**
