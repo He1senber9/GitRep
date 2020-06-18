@@ -2,7 +2,9 @@ package club.vann.leetcode.offer.daily;
 
 import club.vann.leetcode.common.TreeNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,41 +73,45 @@ public class LeetCode_1028 {
         if(S == null || "".equals(S)) {
             return null;
         }
-        // 用于标记 节点深度和节点之间的映射
-        Map<Integer, TreeNode> map = new HashMap<Integer, TreeNode>();
 
-        int len = S.length();
-        int index = 0;
+        Map<Integer, TreeNode> map = new HashMap<>();
 
         int depth = 0;
-        while(index < len) {
+        int index = 0;
+        int len = S.length();
 
+        while(index < len) {
+            // 统计深度
             int i = index;
-            while('0'<=S.charAt(index) && S.charAt(index)<='9') {
+            while(index < len && S.charAt(index) == '-') {
                 index ++;
             }
-
             if(i < index) {
-                int val = Integer.parseInt(S.substring(i, index));
-                TreeNode node = new TreeNode(val);
-                TreeNode parent = map.get(depth-1);
-                if(parent != null) {
-                    if(parent.left == null) {
-                        parent.left = node;
-                    } else {
-                        parent.right = node;
-                    }
-                }
-                map.put(depth, node);
+                depth = index-i;
             }
 
+            // 统计数值
             int t = index;
-            while(S.charAt(index) == '-') {
+            while(index < len && '0' <= S.charAt(index) && S.charAt(index) <= '9') {
                 index ++;
             }
             if(t < index) {
-                depth = index - t;
+                int val = Integer.parseInt(S.substring(t, index));
+                TreeNode curNode = new TreeNode(val);
+                TreeNode p = map.get(depth-1);
+                if(p == null) {
+
+                } else {
+                    if(p.left != null) {
+                        p.right = curNode;
+                    } else {
+                        p.left = curNode;
+                    }
+                }
+
+                map.put(depth, curNode);
             }
+
         }
 
         return map.get(0);
