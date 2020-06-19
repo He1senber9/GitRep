@@ -39,10 +39,38 @@ import club.vann.leetcode.common.TreeNode;
 public class LeetCode_1022 {
     public static void main(String[] args) {
         LeetCode_1022 leetCode = new LeetCode_1022();
+
+        System.out.println("Result["+TestCase.ans+"] : " + leetCode.sumRootToLeaf(TestCase.fun()));
+        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.sumRootToLeaf(TestCase.fun1()));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.sumRootToLeaf(TestCase.fun2()));
     }
 
+    /**
+     * 解法一：
+     *
+     * @param root
+     * @return
+     */
     private int sumRootToLeaf(TreeNode root) {
-        return 0;
+        if(root == null) {
+            return 0;
+        }
+
+        return sumRootToLeaf(0, root);
+    }
+
+    private int sumRootToLeaf(int base, TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+
+        base = base * 2 + root.val;
+
+        if(root.left == null && root.right == null) {
+            return base;
+        } else {
+            return (int) ((sumRootToLeaf(base, root.left) + sumRootToLeaf(base, root.right)) % (Math.pow(10,9) - 7));
+        }
     }
 
     static class TestCase {
@@ -64,6 +92,25 @@ public class LeetCode_1022 {
             TreeNode noder11 = new TreeNode(1);
             node1.left = nodel10;
             node1.right = noder11;
+
+            return root;
+        }
+
+        public static final int ans1 = 4;
+        public static TreeNode fun1() {
+            TreeNode root = new TreeNode(1);
+
+            TreeNode node0 = new TreeNode(0);
+            TreeNode node1 = new TreeNode(0);
+            root.left = node0;
+            root.right = node1;
+
+            return root;
+        }
+
+        public static final int ans2 = 1;
+        public static TreeNode fun2() {
+            TreeNode root = new TreeNode(1);
 
             return root;
         }
