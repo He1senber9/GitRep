@@ -41,37 +41,59 @@ public class TreeNode {
 		return builder.toString();
 	}
 
-	public static String serialize(TreeNode node) {
-		return null;
-	}
-
 	/**
-	 * "[1,2,3,null,null,4,5]"
-	 * @param data
+	 * 二叉树的序列化
+	 * @param root
 	 * @return
 	 */
-	// Decodes your encoded data to tree.
+	public String serialize(TreeNode root) {
+		//tree: [v1,v2,null,...]
+		StringBuilder res = new StringBuilder("[");
+		Queue<TreeNode> queue = new LinkedList();
+		queue.add(root);
+		while(!queue.isEmpty()){
+			TreeNode cur = queue.remove();
+			if(cur == null){
+				res.append("null,");
+			}else{
+				res.append(cur.val + ",");
+				queue.add(cur.left);
+				queue.add(cur.right);
+			}
+		}
+		res.setLength(res.length() - 1);
+		res.append("]");
+		return res.toString();
+	}
+
 	public static TreeNode deserialize(String data) {
-		String dataStr = data;
-		dataStr = dataStr.substring(1);
-		dataStr = dataStr.substring(0, dataStr.lastIndexOf("]"));
-
-		String[] datas = dataStr.split(",");
-
-		TreeNode root = deserialize(datas, 0);
-
+		String[] nodes = data.substring(1, data.length()-1).split(",");
+		TreeNode root = getNode(nodes[0]);
+		Queue<TreeNode> parents = new LinkedList();
+		TreeNode parent = root;
+		boolean isLeft = true;
+		for(int i = 1; i < nodes.length; i++){
+			TreeNode cur = getNode(nodes[i]);
+			if(isLeft){
+				parent.left = cur;
+			}else{
+				parent.right = cur;
+			}
+			if(cur != null){
+				parents.add(cur);
+			}
+			isLeft = !isLeft;
+			if(isLeft){
+				parent = parents.poll();
+			}
+		}
 		return root;
 	}
 
-	private static TreeNode deserialize(String[] datas, int index) {
-		if(index >= datas.length || datas[index] == null || "".equals(datas[index]) || "null".equals(datas[index].trim())) {
+	private static TreeNode getNode(String val) {
+		if(val.equals("null")){
 			return null;
 		}
-
-		String val = datas[index].trim();
-		TreeNode node = new TreeNode(Integer.parseInt(val));
-		node.left = deserialize(datas, index*2+1);
-		node.right = deserialize(datas, index*2+2);
-		return node;
+		return new TreeNode(Integer.valueOf(val));
 	}
 }
