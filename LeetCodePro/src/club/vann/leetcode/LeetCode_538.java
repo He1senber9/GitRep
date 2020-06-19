@@ -44,13 +44,30 @@ public class LeetCode_538 {
         System.out.println(leetCode.convertBST(TestCase.node2));
     }
 
+    private int sum = 0;
+
+    /**
+     * 由于是二叉搜索树，故逆序遍历。反中序遍历
+     * @param root
+     * @return
+     */
+    private TreeNode convertBST(TreeNode root) {
+        if (root != null) {
+            convertBST(root.right);
+            sum += root.val;
+            root.val = sum;
+            convertBST(root.left);
+        }
+        return root;
+    }
+
     /**
      * 解法一：
      * 暴力解法，先统计所有节点的值，然后累加
      * @param root
      * @return
      */
-    private TreeNode convertBST(TreeNode root) {
+    private TreeNode convertBST2(TreeNode root) {
         if(root == null) {
             return null;
         }
