@@ -2,6 +2,9 @@ package club.vann.leetcode;
 
 import club.vann.leetcode.common.TreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>难度：Easy</p>
  * <p>题目：叶子相似的树</p>
@@ -36,11 +39,62 @@ public class LeetCode_872 {
         LeetCode_872 leetCode = new LeetCode_872();
 
         System.out.println("Result["+TestCase.ans+"]: " + leetCode.leafSimilar(TestCase.func()[0],TestCase.func()[1]));
+        System.out.println("Result["+TestCase.ans1+"]: " + leetCode.leafSimilar(TestCase.func1()[0],TestCase.func1()[1]));
     }
 
-    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
-        System.out.println("T");
-        return false;
+    /**
+     * 解法一：
+     * 暴力统计，分别统计出每个数的叶子节点，让后比较
+     * @param root1
+     * @param root2
+     * @return
+     */
+    private boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        if(root1 == null && root2 == null) {
+            return true;
+        }
+
+        if(root1 == null || root2 == null) {
+            return false;
+        }
+        
+        List<TreeNode> left = new ArrayList<TreeNode>();
+        List<TreeNode> right = new ArrayList<>();
+
+        leafSimilar(left, root1);
+        leafSimilar(right, root2);
+
+        if(left.size() != right.size()) {
+            return false;
+        }
+
+        int len = left.size();
+        for(int n = 0; n < len; n ++) {
+            if(left.get(n).val != right.get(n).val) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void leafSimilar(List<TreeNode> list, TreeNode node) {
+        if(node == null) {
+            return;
+        }
+
+        if(node.left == null && node.right == null) {
+            list.add(node);
+            return;
+        }
+
+        if(node.left != null) {
+            leafSimilar(list, node.left);
+        }
+
+        if(node.right != null) {
+            leafSimilar(list, node.right);
+        }
     }
 
     static class TestCase {
@@ -50,6 +104,16 @@ public class LeetCode_872 {
 
             nodes[0] = TreeNode.deserialize("[3,5,1,6,2,9,8,null,null,7,4,null,null,null,null]");
             nodes[1] = TreeNode.deserialize("[3,5,1,6,2,9,8,null,null,7,4,null,null,null,null]");
+
+            return nodes;
+        }
+
+        public static boolean ans1 = true;
+        public static TreeNode[] func1() {
+            TreeNode[] nodes = new TreeNode[2];
+
+            nodes[0] = TreeNode.deserialize("[1,2]");
+            nodes[1] = TreeNode.deserialize("[2,2]");
 
             return nodes;
         }
