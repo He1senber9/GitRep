@@ -57,7 +57,7 @@ public class LeetCode_872 {
         if(root1 == null || root2 == null) {
             return false;
         }
-        
+
         List<TreeNode> left = new ArrayList<TreeNode>();
         List<TreeNode> right = new ArrayList<>();
 
