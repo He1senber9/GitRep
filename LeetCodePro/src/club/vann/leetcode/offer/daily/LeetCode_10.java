@@ -63,8 +63,19 @@ public class LeetCode_10 {
     public static void main(String[] args) {
         LeetCode_10 leetCode = new LeetCode_10();
 
+        System.out.println("Result["+TestCase.ans+"]: " + leetCode.isMatch(TestCase.strs[0], TestCase.strs[1]));
+        System.out.println("Result["+TestCase.ans1+"]: " + leetCode.isMatch(TestCase.strs1[0], TestCase.strs1[1]));
+        System.out.println("Result["+TestCase.ans2+"]: " + leetCode.isMatch(TestCase.strs2[0], TestCase.strs2[1]));
+        System.out.println("Result["+TestCase.ans3+"]: " + leetCode.isMatch(TestCase.strs3[0], TestCase.strs3[1]));
+        System.out.println("Result["+TestCase.ans4+"]: " + leetCode.isMatch(TestCase.strs4[0], TestCase.strs4[1]));
     }
 
+    /**
+     * 解法一：
+     * @param s
+     * @param p
+     * @return
+     */
     private boolean isMatch(String s, String p) {
         return false;
     }
