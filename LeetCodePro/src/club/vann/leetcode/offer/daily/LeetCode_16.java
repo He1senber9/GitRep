@@ -67,6 +67,17 @@ public class LeetCode_16 {
         return ans;
     }
 
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    private int threeSumClosest1(int[] nums, int target) {
+        return 0;
+    }
+
     static class TestCase {
         public static final int ans = 2;
         public static final int[] nums = {-1,2,1,-4};

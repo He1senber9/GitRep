@@ -1,5 +1,6 @@
 package club.vann.leetcode.offer;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,10 +45,11 @@ public class LeetCode_39 {
     public static void main(String[] args) {
         LeetCode_39 leetCode = new LeetCode_39();
 
-        System.out.println("Result["+TestCase.ans+"] : " + leetCode.majorityElement(TestCase.nums));
-        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.majorityElement(TestCase.nums1));
-        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.majorityElement(TestCase.nums2));
-        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.majorityElement(TestCase.nums3));
+        System.out.println("Result["+TestCase.ans+"] : " + leetCode.majorityElement2(TestCase.nums));
+        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.majorityElement2(TestCase.nums1));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.majorityElement2(TestCase.nums2));
+        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.majorityElement2(TestCase.nums3));
+        System.out.println("Result["+TestCase.ans4+"] : " + leetCode.majorityElement2(TestCase.nums4));
     }
 
     /**
@@ -79,6 +81,42 @@ public class LeetCode_39 {
         return 0;
     }
 
+    /**
+     * 解法二：
+     * 先排序，然后取中间的元素
+     * @param nums
+     * @return
+     */
+    private int majorityElement1(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length/2];
+    }
+
+    /**
+     * 解法三：
+     * 摩尔投票法
+     * @param nums
+     * @return
+     */
+    private int majorityElement2(int[] nums) {
+        int votes = 0;
+        int tag = 0;
+
+        int len = nums.length;
+        for(int n = 0; n < len; n ++) {
+            if(votes == 0) {
+                tag = nums[n];
+            }
+
+            if(nums[n] == tag) {
+                votes += 1;
+            } else {
+                votes -= 1;
+            }
+        }
+        return tag;
+    }
+
     static class TestCase {
         public static final int ans = 2;
         public static final int[] nums = {1, 2, 3, 2, 2, 2, 5, 4, 2};
@@ -91,5 +129,8 @@ public class LeetCode_39 {
 
         public static final int ans3 = 1;
         public static final int[] nums3 = {1,1,2};
+
+        public static final int ans4 = 1;
+        public static final int[] nums4 = {1,1,1,1,1,1,3,3};
     }
 }
