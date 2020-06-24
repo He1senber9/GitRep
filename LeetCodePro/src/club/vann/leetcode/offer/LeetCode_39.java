@@ -45,6 +45,9 @@ public class LeetCode_39 {
         LeetCode_39 leetCode = new LeetCode_39();
 
         System.out.println("Result["+TestCase.ans+"] : " + leetCode.majorityElement(TestCase.nums));
+        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.majorityElement(TestCase.nums1));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.majorityElement(TestCase.nums2));
+        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.majorityElement(TestCase.nums3));
     }
 
     /**
@@ -55,6 +58,10 @@ public class LeetCode_39 {
     private int majorityElement(int[] nums) {
         if(nums == null || nums.length == 0) {
             return 0;
+        }
+
+        if(nums.length <= 2) {
+            return nums[0];
         }
 
         int len = nums.length;
@@ -75,5 +82,14 @@ public class LeetCode_39 {
     static class TestCase {
         public static final int ans = 2;
         public static final int[] nums = {1, 2, 3, 2, 2, 2, 5, 4, 2};
+
+        public static final int ans1 = 1;
+        public static final int[] nums1 = {1};
+
+        public static final int ans2 = 1;
+        public static final int[] nums2 = {1,1};
+
+        public static final int ans3 = 1;
+        public static final int[] nums3 = {1,1,2};
     }
 }
