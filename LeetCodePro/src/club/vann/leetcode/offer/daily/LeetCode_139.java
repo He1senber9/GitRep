@@ -1,7 +1,9 @@
 package club.vann.leetcode.offer.daily;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>难度：Medium</p>
@@ -50,13 +52,26 @@ public class LeetCode_139 {
 
     /**
      * 解法一：
-     * 
+     * dp[i] = dp[j] && check(S[j,i-1])
+     * dp[0] = true; // 空字符串表示合法
      * @param s
      * @param wordDict
      * @return
      */
     private boolean wordBreak(String s, List<String> wordDict) {
-        return false;
+        Set<String> set = new HashSet<String>(wordDict);
+        boolean[] dp = new boolean[s.length()+1];
+        dp[0] = true;
+
+        for(int i = 1; i <= s.length(); i ++) {
+            for(int j = 0; j < i; j ++) {
+                if (dp[j] && set.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
     }
 
     static class TestCase {
@@ -80,7 +95,7 @@ public class LeetCode_139 {
         }
         public static final String STR1 = "applepenapple";
 
-        public static final boolean ans2 = true;
+        public static final boolean ans2 = false;
         public static List<String> fun2() {
             List<String> list = new ArrayList<>();
 
