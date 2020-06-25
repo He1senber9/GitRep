@@ -1,8 +1,6 @@
 package club.vann.leetcode.race;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>难度：Medium</p>
@@ -66,9 +64,9 @@ public class LeetCode_1487 {
     public static void main(String[] args) {
         LeetCode_1487 leetCode = new LeetCode_1487();
 
-//        System.out.println("Result["+ Arrays.toString(TestCase.ans) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names)));
-//        System.out.println("Result["+ Arrays.toString(TestCase.ans1) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names1)));
-//        System.out.println("Result["+ Arrays.toString(TestCase.ans2) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names2)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ans) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ans1) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names1)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ans2) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names2)));
         System.out.println("Result["+ Arrays.toString(TestCase.ans3) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names3)));
         System.out.println("Result["+ Arrays.toString(TestCase.ans4) +"] : " + Arrays.toString(leetCode.getFolderNames(TestCase.names4)));
     }
@@ -79,21 +77,25 @@ public class LeetCode_1487 {
      * @return
      */
     private String[] getFolderNames(String[] names) {
+        Map<String, Integer> map = new HashMap<>();
         Set<String> set = new HashSet<String>();
 
         int len = names.length;
         for(int n = 0; n < len; n ++) {
             String name_tmp = names[n];
 
-            if(set.contains(name_tmp)) {
-                int k = 1;
-                while(set.contains(name_tmp + "("+k+")")) {
+            if(map.containsKey(name_tmp)) {
+                int k = map.get(name_tmp)+1;
+                while(map.containsKey(name_tmp + "("+k+")")) {
                     k ++;
                 }
-                name_tmp = name_tmp + "("+k+")";
+                map.put(name_tmp, map.get(name_tmp) + 1);
+                map.put(name_tmp + "("+k+")", 0);
+                names[n] = name_tmp + "("+k+")";
+            } else {
+                map.put(name_tmp, 0);
             }
-            names[n] = name_tmp;
-            set.add(name_tmp);
+
         }
         return names;
     }

@@ -1,6 +1,8 @@
 package club.vann.leetcode.race;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>难度：Medium</p>
@@ -84,12 +86,20 @@ public class LeetCode_1488 {
 
     /**
      * 解法一：
-     * 
+     *
      * @param rains
      * @return
      */
     private int[] avoidFlood(int[] rains) {
-        return null;
+        if(rains == null || rains.length == 0) {
+            return rains;
+        }
+
+        int len = rains.length;
+        int[] res = new int[len];
+
+        
+        return res;
     }
 
     static class TestCase {
