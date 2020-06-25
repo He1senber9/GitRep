@@ -45,9 +45,9 @@ public class LeetCode_139 {
     public static void main(String[] args) {
         LeetCode_139 leetCode = new LeetCode_139();
 
-        System.out.println("Result["+TestCase.ans+"] : " + leetCode.wordBreak(TestCase.STR, TestCase.fun()));
-        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.wordBreak(TestCase.STR1, TestCase.fun1()));
-        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.wordBreak(TestCase.STR2, TestCase.fun2()));
+        System.out.println("Result["+TestCase.ans+"] : " + leetCode.wordBreak1(TestCase.STR, TestCase.fun()));
+        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.wordBreak1(TestCase.STR1, TestCase.fun1()));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.wordBreak1(TestCase.STR2, TestCase.fun2()));
     }
 
     /**
@@ -72,6 +72,26 @@ public class LeetCode_139 {
             }
         }
         return dp[s.length()];
+    }
+
+    private boolean wordBreak1(String s, List<String> wordDict) {
+        if(s.length() == 0) {
+            return true;
+        }
+
+        if(s.length() >= 151) {
+            return false;
+        }
+
+        for(int i = 0; i < wordDict.size(); i ++) {
+            String word = wordDict.get(i);
+            if (s.startsWith(word)) {
+                if (wordBreak1(s.substring(word.length()), wordDict)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     static class TestCase {
