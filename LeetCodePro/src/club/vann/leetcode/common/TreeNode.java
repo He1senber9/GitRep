@@ -46,7 +46,7 @@ public class TreeNode {
 	 * @param root
 	 * @return
 	 */
-	public String serialize(TreeNode root) {
+	public static String serialize(TreeNode root) {
 		//tree: [v1,v2,null,...]
 		StringBuilder res = new StringBuilder("[");
 		Queue<TreeNode> queue = new LinkedList();
