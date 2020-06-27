@@ -45,12 +45,12 @@ public class LeetCode_41 {
     public static void main(String[] args) {
         LeetCode_41 leetCode = new LeetCode_41();
 
-        System.out.println("Result["+TestCase.ans+"] : " + leetCode.firstMissingPositive(TestCase.nums));
-        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.firstMissingPositive(TestCase.nums1));
-        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.firstMissingPositive(TestCase.nums2));
-        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.firstMissingPositive(TestCase.nums3));
-        System.out.println("Result["+TestCase.ans4+"] : " + leetCode.firstMissingPositive(TestCase.nums4));
-        System.out.println("Result["+TestCase.ans5+"] : " + leetCode.firstMissingPositive(TestCase.nums5));
+        System.out.println("Result["+TestCase.ans+"] : " + leetCode.firstMissingPositive1(TestCase.nums));
+        System.out.println("Result["+TestCase.ans1+"] : " + leetCode.firstMissingPositive1(TestCase.nums1));
+        System.out.println("Result["+TestCase.ans2+"] : " + leetCode.firstMissingPositive1(TestCase.nums2));
+        System.out.println("Result["+TestCase.ans3+"] : " + leetCode.firstMissingPositive1(TestCase.nums3));
+        System.out.println("Result["+TestCase.ans4+"] : " + leetCode.firstMissingPositive1(TestCase.nums4));
+        System.out.println("Result["+TestCase.ans5+"] : " + leetCode.firstMissingPositive1(TestCase.nums5));
     }
 
     /**
@@ -90,8 +90,32 @@ public class LeetCode_41 {
      * @return
      */
     private int firstMissingPositive1(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return 1;
+        }
 
-        return 0;
+        int len = nums.length;
+        // 把所有<=0的数标记成 len+1（转换为正数）
+        for(int n = 0; n < len; n ++) {
+            if(nums[n] < 1) {
+                nums[n] = len+1;
+            }
+        }
+
+        //
+        for(int n = 0; n < len; n ++) {
+            int num = Math.abs(nums[n]);
+            if (num <= len) {
+                nums[num - 1] = - Math.abs(nums[num - 1]);
+            }
+        }
+
+        for (int i = 0; i < len; ++i) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+        return len + 1;
     }
 
     static class TestCase {
