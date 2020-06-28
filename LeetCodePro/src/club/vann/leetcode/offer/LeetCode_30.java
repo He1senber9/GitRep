@@ -13,7 +13,7 @@ import java.util.Stack;
  * 
  * 示例:
  * 
- * MinStack minStack = new MinStack(); 
+ *  minStack = new MinStack();
  * minStack.push(-2); 
  * minStack.push(0);
  * minStack.push(-3); 
