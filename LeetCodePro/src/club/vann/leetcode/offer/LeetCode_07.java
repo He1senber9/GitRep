@@ -2,6 +2,9 @@ package club.vann.leetcode.offer;
 
 import club.vann.leetcode.common.TreeNode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Midum</p>
  * <p>题目：重建二叉树</p>
@@ -37,15 +40,11 @@ import club.vann.leetcode.common.TreeNode;
  */
 public class LeetCode_07 {
     public static void main(String[] args) {
-        int[] preorder = null;
-        int[] inorder = null;
-        TreeNode result = null;
         LeetCode_07 leetCode = new LeetCode_07();
 
-        preorder = new int[]{3,9,20,15,7};
-        inorder = new int[]{9,3,15,20,7};
-        result = leetCode.buildTree(preorder, inorder);
-        System.out.println("Result[3,9,20,15,7] : " + result.toString());
+        System.out.println(TreeNode.serialize(leetCode.buildTree1(TestCase.preorder, TestCase.inorder)));
+        System.out.println(TreeNode.serialize(leetCode.buildTree1(TestCase.preorder1, TestCase.inorder1)));
+        System.out.println(TreeNode.serialize(leetCode.buildTree1(TestCase.preorder2, TestCase.inorder2)));
     }
 
     /**
@@ -56,12 +55,82 @@ public class LeetCode_07 {
      * @return
      */
     private TreeNode buildTree(int[] preorder, int[] inorder) {
-        if(preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
+        if (preorder == null || preorder.length == 0) {
             return null;
         }
 
-        TreeNode root = new TreeNode(preorder[0]);
-        
+        Map<Integer, Integer> indexMap = new HashMap<Integer, Integer>();
+        int length = preorder.length;
+        for (int i = 0; i < length; i++) {
+            indexMap.put(inorder[i], i);
+        }
+        TreeNode root = buildTree(preorder, 0, length - 1, inorder, 0, length - 1, indexMap);
         return root;
+    }
+
+    public TreeNode buildTree(int[] preorder, int preorderStart, int preorderEnd, int[] inorder, int inorderStart, int inorderEnd, Map<Integer, Integer> indexMap) {
+        if (preorderStart > preorderEnd) {
+            return null;
+        }
+        int rootVal = preorder[preorderStart];
+        TreeNode root = new TreeNode(rootVal);
+        if (preorderStart == preorderEnd) {
+            return root;
+        } else {
+            int rootIndex = indexMap.get(rootVal);
+            int leftNodes = rootIndex - inorderStart, rightNodes = inorderEnd - rootIndex;
+            TreeNode leftSubtree = buildTree(preorder, preorderStart + 1, preorderStart + leftNodes, inorder, inorderStart, rootIndex - 1, indexMap);
+            TreeNode rightSubtree = buildTree(preorder, preorderEnd - rightNodes + 1, preorderEnd, inorder, rootIndex + 1, inorderEnd, indexMap);
+            root.left = leftSubtree;
+            root.right = rightSubtree;
+            return root;
+        }
+    }
+
+    private TreeNode buildTree1(int[] preorder, int[] inorder) {
+        if(preorder == null || preorder.length == 0) {
+            return null;
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int n = 0; n < preorder.length; n ++) {
+            map.put(inorder[n], n);
+        }
+        TreeNode root = buildTree1(preorder, inorder, map, 0, preorder.length-1);
+        return root;
+    }
+
+    /**
+     *
+     * @param preorder
+     * @param inorder
+     * @param map
+     * @param begin
+     * @param end
+     * @return
+     */
+    private TreeNode buildTree1(int[] preorder, int[] inorder, Map<Integer, Integer> map, int begin, int end) {
+        if(begin > end) {
+            return null;
+        }
+
+        // 根节点坐标是中序遍历中 （begin+end)/2
+        int mid = (begin+end) / 2;
+        TreeNode root = new TreeNode(inorder[mid]);
+        root.left = buildTree1(preorder, inorder, map, begin, mid-1);
+        root.right = buildTree1(preorder, inorder, map, mid+1, end);
+
+        return root;
+    }
+
+    static class TestCase {
+        public static final int[] preorder = {3,9,20,15,7};
+        public static final int[] inorder = {9,3,15,20,7};
+
+        public static final int[] preorder1 = {0,1,3,7,4,2,5,6};
+        public static final int[] inorder1 = {7,3,1,4,0,5,2,6};
+
+        public static final int[] preorder2 = {1,2,3};
+        public static final int[] inorder2 = {3,2,1};
     }
 }
