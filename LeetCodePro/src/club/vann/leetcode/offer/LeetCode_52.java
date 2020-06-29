@@ -96,13 +96,12 @@ public class LeetCode_52 {
     }
 
     static class TestCase {
-//        public static final ListNode[] params = {ListNode.deserialize("[4,1,8,4,5]"), ListNode.deserialize("[5,0,1,8,4,5]")};
-//
-//        public static final ListNode[] params1 = {ListNode.deserialize("[0,9,1,2,4]"), ListNode.deserialize("[3,2,4]")};
-//
-//        public static final ListNode[] params2 = {ListNode.deserialize("[2,6,4]"), ListNode.deserialize("[1,5]")};
-//
-//        public static final ListNode[] params3 = {ListNode.deserialize("[1,2,3,4,5,6]"), ListNode.deserialize("[3,4,5,6]")};
-        public static 
+        public static final ListNode[] params = {ListNode.deserialize("[4,1,8,4,5]"), ListNode.deserialize("[5,0,1,8,4,5]")};
+
+        public static final ListNode[] params1 = {ListNode.deserialize("[0,9,1,2,4]"), ListNode.deserialize("[3,2,4]")};
+
+        public static final ListNode[] params2 = {ListNode.deserialize("[2,6,4]"), ListNode.deserialize("[1,5]")};
+
+        public static final ListNode[] params3 = {ListNode.deserialize("[1,2,3,4,5,6]"), ListNode.deserialize("[3,4,5,6]")};
     }
 }
