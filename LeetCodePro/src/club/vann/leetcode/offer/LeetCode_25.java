@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer;
 
+import club.vann.leetcode.common.ListNode;
+
 /**
  * Easy 合并两个排序的链表
  * 

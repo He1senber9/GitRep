@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer;
 
+import club.vann.leetcode.common.ListNode;
+
 import java.util.Arrays;
 import java.util.Stack;
 

@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer;
 
+import club.vann.leetcode.common.ListNode;
+
 /**
  * 给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。
  * 
@@ -66,12 +68,4 @@ public class LeetCode_18 {
         return head;
     }
 
-}
-
-class ListNode {
-	int val;
-	ListNode next;
-	ListNode(int val) {
-		this.val = val;
-	}
 }
