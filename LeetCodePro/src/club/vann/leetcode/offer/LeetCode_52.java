@@ -64,44 +64,132 @@ public class LeetCode_52 {
     public static void main(String[] args) {
         LeetCode_52 leetCode = new LeetCode_52();
 
-        System.out.println("Result[8]" + leetCode.getIntersectionNode(TestCase.params[0], TestCase.params[1]).val);
-        System.out.println("Result[2]" + leetCode.getIntersectionNode(TestCase.params1[0], TestCase.params1[1]).val);
-        System.out.println("Result[0]" + leetCode.getIntersectionNode(TestCase.params2[0], TestCase.params2[1]).val);
-        System.out.println("Result[3]" + leetCode.getIntersectionNode(TestCase.params3[0], TestCase.params3[1]).val);
+        System.out.println("Result[8]" + leetCode.getIntersectionNode(TestCase.fun()[0], TestCase.fun()[1]).val);
+        System.out.println("Result[2]" + leetCode.getIntersectionNode(TestCase.fun1()[0], TestCase.fun1()[1]).val);
+        System.out.println("Result[0]" + leetCode.getIntersectionNode(TestCase.fun2()[0], TestCase.fun2()[1]).val);
+        System.out.println("Result[3]" + leetCode.getIntersectionNode(TestCase.fun3()[0], TestCase.fun3()[1]).val);
     }
 
+    /**
+     * 解法一：
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
     private ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == headB) {
+            return headA;
+        }
+
         if(headA == null || headB == null) {
             return null;
         }
 
-        ListNode nodeA = headA;
-
-        while(nodeA != null) {
-
-            ListNode nodeB = headB;
-
-            while(nodeB != null) {
-                if(nodeA.val == nodeB.val) {
-                    return nodeA;
-                }
-
-                nodeB = nodeB.next;
+        ListNode baseNode = headA;
+        while(baseNode != null) {
+            ListNode tagNode = headB;
+            while(tagNode != null && baseNode != tagNode) {
+                tagNode = tagNode.next;
             }
-
-            nodeA = nodeA.next;
+            if(baseNode == tagNode) {
+                return baseNode;
+            }
+            baseNode = baseNode.next;
         }
 
         return null;
     }
 
     static class TestCase {
-        public static final ListNode[] params = {ListNode.deserialize("[4,1,8,4,5]"), ListNode.deserialize("[5,0,1,8,4,5]")};
+        public static final ListNode[] fun() {
+            ListNode[] nodes = new ListNode[2];
 
-        public static final ListNode[] params1 = {ListNode.deserialize("[0,9,1,2,4]"), ListNode.deserialize("[3,2,4]")};
+            ListNode rootA = new ListNode(4);
+            ListNode rootA1 = new ListNode(1);
+            rootA.next = rootA1;
 
-        public static final ListNode[] params2 = {ListNode.deserialize("[2,6,4]"), ListNode.deserialize("[1,5]")};
+            ListNode rootB = new ListNode(5);
+            ListNode rootB1 = new ListNode(0);
+            rootB.next = rootB1;
+            ListNode rootB2 = new ListNode(1);
+            rootB1.next = rootB2;
 
-        public static final ListNode[] params3 = {ListNode.deserialize("[1,2,3,4,5,6]"), ListNode.deserialize("[3,4,5,6]")};
+            ListNode node0 = new ListNode(8);
+            ListNode node1 = new ListNode(4);
+            ListNode node2 = new ListNode(5);
+            node0.next = node1;
+            node1.next = node2;
+
+            rootA1.next = node0;
+            rootB2.next = node0;
+
+            nodes[0] = rootA;
+            nodes[1] = rootB;
+            return nodes;
+        }
+
+        public static final ListNode[] fun1() {
+            ListNode[] nodes = new ListNode[2];
+
+            ListNode rootA = new ListNode(0);
+            ListNode rootA1 = new ListNode(9);
+            ListNode rootA2 = new ListNode(1);
+            rootA.next = rootA1;
+            rootA1.next = rootA2;
+
+            ListNode rootB = new ListNode(2);
+
+            ListNode node0 = new ListNode(2);
+            ListNode node1 = new ListNode(4);
+            node0.next = node1;
+
+            rootA2.next = node0;
+            rootB.next = node0;
+
+            nodes[0] = rootA;
+            nodes[1] = rootB;
+            return nodes;
+        }
+
+        public static final ListNode[] fun2() {
+            ListNode[] nodes = new ListNode[2];
+
+            ListNode rootA = new ListNode(2);
+            ListNode rootA1 = new ListNode(6);
+            ListNode rootA2 = new ListNode(4);
+            rootA.next = rootA1;
+            rootA1.next = rootA2;
+
+            ListNode rootB = new ListNode(1);
+            ListNode rootB1 = new ListNode(5);
+            rootB.next = rootB1;
+
+            nodes[0] = rootA;
+            nodes[1] = rootB;
+            return nodes;
+        }
+
+        public static final ListNode[] fun3() {
+            ListNode[] nodes = new ListNode[2];
+
+            ListNode rootA = new ListNode(1);
+            ListNode rootA1 = new ListNode(2);
+            rootA.next = rootA1;
+
+            ListNode rootB = new ListNode(3);
+            ListNode rootB1 = new ListNode(4);
+            ListNode rootB2 = new ListNode(5);
+            ListNode rootB3 = new ListNode(6);
+            rootB.next = rootB1;
+            rootB1.next = rootB2;
+            rootB2.next = rootB3;
+
+
+            nodes[0] = rootA;
+            nodes[1] = rootB;
+            return nodes;
+        }
+
     }
 }
