@@ -64,10 +64,10 @@ public class LeetCode_52 {
     public static void main(String[] args) {
         LeetCode_52 leetCode = new LeetCode_52();
 
-        System.out.println("Result[8]" + leetCode.getIntersectionNode(TestCase.fun()[0], TestCase.fun()[1]).val);
-        System.out.println("Result[2]" + leetCode.getIntersectionNode(TestCase.fun1()[0], TestCase.fun1()[1]).val);
-        System.out.println("Result[0]" + leetCode.getIntersectionNode(TestCase.fun2()[0], TestCase.fun2()[1]).val);
-        System.out.println("Result[3]" + leetCode.getIntersectionNode(TestCase.fun3()[0], TestCase.fun3()[1]).val);
+        System.out.println("Result[8]" + leetCode.getIntersectionNode1(TestCase.fun()[0], TestCase.fun()[1]).val);
+        System.out.println("Result[2]" + leetCode.getIntersectionNode1(TestCase.fun1()[0], TestCase.fun1()[1]).val);
+        System.out.println("Result[0]" + leetCode.getIntersectionNode1(TestCase.fun2()[0], TestCase.fun2()[1]).val);
+        System.out.println("Result[3]" + leetCode.getIntersectionNode1(TestCase.fun3()[0], TestCase.fun3()[1]).val);
     }
 
     /**
@@ -99,6 +99,24 @@ public class LeetCode_52 {
         }
 
         return null;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param headA
+     * @param headB
+     * @return
+     */
+    private ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        ListNode node1 = headA;
+        ListNode node2 = headB;
+
+        while(node1 != node2) {
+            node1 = (node1 == null) ? headB : node1.next;
+            node2 = (node2 == null) ? headA : node2.next;
+        }
+        return node1;
     }
 
     static class TestCase {
