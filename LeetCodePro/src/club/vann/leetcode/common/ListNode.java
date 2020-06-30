@@ -22,21 +22,25 @@ public class ListNode {
 		return builder.toString();
 	}
 
+	/**
+	 * 根据字符串反序列化链表
+	 *
+	 * @param data
+	 * @return
+	 */
 	public static ListNode deserialize(String data) {
-		ListNode head = new ListNode(0);
-		ListNode cur = head;
-
-		data = data.substring(1, data.length()-1);
-		data = data.replaceAll(" ", "");
-		String[] datas = data.split(",");
-
-		for(String val : datas) {
-			ListNode node = new ListNode(Integer.parseInt(val));
-			cur.next = node;
-			cur = cur.next;
+		String datas = data.substring(1, data.length() - 1);
+		datas = datas.replaceAll(" ", "");
+		String[] nodes = datas.split(",");
+		ListNode preHead = new ListNode(0);
+		ListNode curNode = preHead;
+		for (String str : nodes) {
+			ListNode node = new ListNode(Integer.parseInt(str));
+			curNode.next = node;
+			curNode = node;
 		}
 
-		return head.next;
+		return preHead.next;
 	}
 
 	public static void main(String[] args) {
