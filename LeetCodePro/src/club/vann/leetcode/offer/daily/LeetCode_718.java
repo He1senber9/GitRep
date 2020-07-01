@@ -37,9 +37,16 @@ public class LeetCode_718 {
     public static void main(String[] args) {
         LeetCode_718 leetCode = new LeetCode_718();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.findLength(TestCase.ARRAYS[0], TestCase.ARRAYS[1]));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.findLength1(TestCase.ARRAYS[0], TestCase.ARRAYS[1]));
     }
 
+    /**
+     * 解法一：
+     *
+     * @param A
+     * @param B
+     * @return
+     */
     private int findLength(int[] A, int[] B) {
         int lenA = A.length;
         int lenB = B.length;
@@ -55,6 +62,28 @@ public class LeetCode_718 {
             }
         }
 
+        return ans;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param A
+     * @param B
+     * @return
+     */
+    private int findLength1(int[] A, int[] B) {
+        int lenA = A.length;
+        int lenB = B.length;
+        int[][] dp = new int[lenA + 1][lenB + 1];
+
+        int ans = 0;
+        for (int i = lenA - 1; i >= 0; i--) {
+            for (int j = lenB - 1; j >= 0; j--) {
+                dp[i][j] = A[i] == B[j] ? dp[i + 1][j + 1] + 1 : 0;
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
         return ans;
     }
 
