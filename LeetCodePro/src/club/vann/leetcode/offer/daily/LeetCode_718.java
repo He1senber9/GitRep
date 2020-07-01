@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：最长重复子数组</p>
@@ -41,20 +44,37 @@ public class LeetCode_718 {
         int lenA = A.length;
         int lenB = B.length;
 
-        int index = 0;
+        int ans = 0;
         for(int n = 0; n < lenA; n ++) {
-            index = n;
             for(int m = 0; m < lenB; m ++) {
-                if(A[n] == B[m]) {
-                    index ++;
+                int k = 0;
+                while ((n+k) < lenA && (m+k) < lenB && A[n+k] == B[m+k]){
+                    k += 1;
                 }
+                ans = Math.max(ans, k);
             }
         }
-        return 0;
+
+        return ans;
+    }
+
+    /**
+     * 判断数组B中索引[begin,end]能否组成A的子数组
+     * @param A
+     * @param B
+     * @param begin
+     * @param end
+     * @return
+     */
+    private boolean isSubArray(int[] A, int[] B, int begin, int end) {
+        return false;
     }
 
     static class TestCase {
         public static final int ANS = 3;
         public static final int[][] ARRAYS = {{1,2,3,2,1}, {3,2,1,4,7}};
+
+        public static final int ANS1 = 6;
+        public static final int[][] ARRAYS1 = {{1,2,3,4,5,6,1,2,3}, {1,2,3,5,6,1,2,3,4,5,6}};
     }
 }
