@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：有序矩阵中第K小的元素</p>
@@ -37,38 +40,73 @@ public class LeetCode_378 {
     public static void main(String[] args) {
         LeetCode_378 leetCode = new LeetCode_378();
 
-//        System.out.println("Result["+TestCase.ans+"] : " + leetCode.kthSmallest(TestCase.matrix, 8));
+        System.out.println("Result["+TestCase.ans+"] : " + leetCode.kthSmallest(TestCase.matrix, 8));
         System.out.println("Result["+TestCase.ans1+"] : " + leetCode.kthSmallest(TestCase.matrix1, 3));
     }
 
     /**
      * 解法一：
-     * 对于元素 matrix[x][y] 其最小 min = (x-0)+(y-0)+1， 最大 max = (x+1)*(y+1)。
+     * 归并排序，使用小根堆实现
      * 求第K个元素，
      * @param matrix
      * @param k
      * @return
      */
     private int kthSmallest(int[][] matrix, int k) {
-        int min = Integer.MAX_VALUE;
-
-        int[] array = new int[k];
-
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] a, int[] b) {
+                return a[0] - b[0];
+            }
+        });
         int n = matrix.length;
-        for(int y = 0; y < n; y ++) {
-            for(int x = 0; x < n; x ++) {
-                if(x < y && (y*n+x+1) < k) {
-                    continue;
-                } else if(y < x && (x*n+y+1) < k) {
-                    continue;
-                } else if(x == y && (y*n+x+1) < k) {
-                    continue;
-                }
-
-                min = Math.min(min, matrix[y][x]);
+        for (int i = 0; i < n; i++) {
+            pq.offer(new int[]{matrix[i][0], i, 0});
+        }
+        for (int i = 0; i < k - 1; i++) {
+            int[] now = pq.poll();
+            if (now[2] != n - 1) {
+                pq.offer(new int[]{matrix[now[1]][now[2] + 1], now[1], now[2] + 1});
             }
         }
-        return min;
+        return pq.poll()[0];
+    }
+
+    /**
+     * 解法二：
+     * 二分查找
+     * @param matrix
+     * @param k
+     * @return
+     */
+    private int kthSmallest1(int[][] matrix, int k) {
+        int n = matrix.length;
+        int left = matrix[0][0];
+        int right = matrix[n - 1][n - 1];
+        while (left < right) {
+            int mid = left + ((right - left) >> 1);
+            if (check(matrix, mid, k, n)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    public boolean check(int[][] matrix, int mid, int k, int n) {
+        int i = n - 1;
+        int j = 0;
+        int num = 0;
+        while (i >= 0 && j < n) {
+            if (matrix[i][j] <= mid) {
+                num += i + 1;
+                j++;
+            } else {
+                i--;
+            }
+        }
+        return num >= k;
     }
 
     static class TestCase {
