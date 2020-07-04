@@ -33,20 +33,20 @@ public class LeetCode_32 {
     public static void main(String[] args) {
         LeetCode_32 leetCode = new LeetCode_32();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.longestValidParentheses(TestCase.STR));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.longestValidParentheses(TestCase.STR1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.longestValidParentheses(TestCase.STR2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.longestValidParentheses(TestCase.STR3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.longestValidParentheses(TestCase.STR4));
-        System.out.println("Result["+TestCase.ANS5+"] : " + leetCode.longestValidParentheses(TestCase.STR5));
-        System.out.println("Result["+TestCase.ANS6+"] : " + leetCode.longestValidParentheses(TestCase.STR6));
-        System.out.println("Result["+TestCase.ANS7+"] : " + leetCode.longestValidParentheses(TestCase.STR7));
-        System.out.println("Result["+TestCase.ANS8+"] : " + leetCode.longestValidParentheses(TestCase.STR8));
-        System.out.println("Result["+TestCase.ANS9+"] : " + leetCode.longestValidParentheses(TestCase.STR9));
-        System.out.println("Result["+TestCase.ANS10+"] : " + leetCode.longestValidParentheses(TestCase.STR10));
-        System.out.println("Result["+TestCase.ANS11+"] : " + leetCode.longestValidParentheses(TestCase.STR11));
-        System.out.println("Result["+TestCase.ANS12+"] : " + leetCode.longestValidParentheses(TestCase.STR12));
-        System.out.println("Result["+TestCase.ANS13+"] : " + leetCode.longestValidParentheses(TestCase.STR13));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.longestValidParentheses1(TestCase.STR));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.longestValidParentheses1(TestCase.STR1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.longestValidParentheses1(TestCase.STR2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.longestValidParentheses1(TestCase.STR3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.longestValidParentheses1(TestCase.STR4));
+        System.out.println("Result["+TestCase.ANS5+"] : " + leetCode.longestValidParentheses1(TestCase.STR5));
+        System.out.println("Result["+TestCase.ANS6+"] : " + leetCode.longestValidParentheses1(TestCase.STR6));
+        System.out.println("Result["+TestCase.ANS7+"] : " + leetCode.longestValidParentheses1(TestCase.STR7));
+        System.out.println("Result["+TestCase.ANS8+"] : " + leetCode.longestValidParentheses1(TestCase.STR8));
+        System.out.println("Result["+TestCase.ANS9+"] : " + leetCode.longestValidParentheses1(TestCase.STR9));
+        System.out.println("Result["+TestCase.ANS10+"] : " + leetCode.longestValidParentheses1(TestCase.STR10));
+        System.out.println("Result["+TestCase.ANS11+"] : " + leetCode.longestValidParentheses1(TestCase.STR11));
+        System.out.println("Result["+TestCase.ANS12+"] : " + leetCode.longestValidParentheses1(TestCase.STR12));
+        System.out.println("Result["+TestCase.ANS13+"] : " + leetCode.longestValidParentheses1(TestCase.STR13));
     }
 
     /**
@@ -96,6 +96,49 @@ public class LeetCode_32 {
         }
 
         return stack.isEmpty() ? true : false;
+    }
+
+    /**
+     * 解法二：
+     * 动态规划
+     * dp[i] = dp[i-1]+2 + dp[i-dp[i-1]-2]
+     * @param s
+     * @return
+     */
+    private int longestValidParentheses1(String s) {
+        if(s == null || s.length() < 2) {
+            return 0;
+        }
+
+        int len = s.length();
+        int[] dp = new int[len];
+
+//        for (int i = 1; i < s.length(); i++) {
+//            if (s.charAt(i) == ')') {
+//                if (s.charAt(i - 1) == '(') {
+//                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+//                } else if (i - dp[i - 1] > 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+//                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
+//                }
+//                maxans = Math.max(maxans, dp[i]);
+//            }
+//        }
+
+        int max = 0;
+        // dp[i] = 2 + dp[i-1] + dp[i-dp[i-1] -2]
+        // i-1 >= 0; i-dp[i-1]-2 >= 0
+        for(int i = 1; i < len; i ++) {
+            if(s.charAt(i) == ')') { // 有效字符一定是以 ） 结尾
+                if(s.charAt(i-1) == '(') {
+                    dp[i] = 2 + (i>=2 ? dp[i-2] : 0);
+                } else if(i-dp[i-1] > 0 && s.charAt(i-dp[i-1]-1) == '(') {
+//                    dp[i] = dp[i-1] + dp[i-dp[i-1]-2] + 2;
+                    dp[i] = dp[i-1] + ((i-dp[i-1]) >= 2 ? dp[i-dp[i-1]-2] : 0) + 2;
+                }
+                max = Math.max(max, dp[i]);
+            }
+        }
+        return max;
     }
 
     static class TestCase{
