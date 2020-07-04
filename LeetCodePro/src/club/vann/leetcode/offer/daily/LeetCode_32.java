@@ -33,6 +33,10 @@ public class LeetCode_32 {
     public static void main(String[] args) {
         LeetCode_32 leetCode = new LeetCode_32();
 
+        int num = Integer.MAX_VALUE;
+        long t = num + 2L;
+        System.out.println(num);
+
         System.out.println("Result["+TestCase.ANS+"] : " + leetCode.longestValidParentheses1(TestCase.STR));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.longestValidParentheses1(TestCase.STR1));
         System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.longestValidParentheses1(TestCase.STR2));
