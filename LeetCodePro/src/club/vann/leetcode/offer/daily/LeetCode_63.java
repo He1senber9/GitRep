@@ -47,6 +47,8 @@ public class LeetCode_63 {
 
         System.out.println("Result["+TestCase.ANS+"] : " + leetCode.uniquePathsWithObstacles(TestCase.matrix));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.uniquePathsWithObstacles(TestCase.matrix1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.uniquePathsWithObstacles(TestCase.matrix2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.uniquePathsWithObstacles(TestCase.matrix3));
     }
 
     /**
@@ -62,31 +64,31 @@ public class LeetCode_63 {
         int lenY = obstacleGrid.length;
         int lenX = obstacleGrid[0].length;
         int[][] dp = new int[lenY][lenX];
-        dp[0][0] = 1;
+        dp[0][0] = (obstacleGrid[0][0] == 1) ? 0 : 1;
 
         for(int y = 1; y < lenY; y ++) {
-            if(dp[y][0] == 1) {
+            if(obstacleGrid[y][0] == 1) {
                 dp[y][0] = 0;
             } else {
-                dp[y][0] = (dp[y-1][0])==0 ? 0 : dp[y-1][0] + 1;
+                dp[y][0] = (dp[y-1][0])==0 ? 0 : 1;
             }
         }
 
         for(int x = 1; x < lenX; x ++) {
-            if(dp[0][x] == 1) {
+            if(obstacleGrid[0][x] == 1) {
                 dp[0][x] = 0;
             } else {
-                dp[0][x] = (dp[0][x-1])==0 ? 0 : dp[0][x-1] + 1;
+                dp[0][x] = (dp[0][x-1])==0 ? 0 : 1;
             }
         }
 
         for(int y = 1; y < lenY; y ++) {
             for(int x = 1; x < lenX; x ++) {
-                if(dp[y][x] == 1) {
+                if(obstacleGrid[y][x] == 1) {
                     dp[y][x] = 0;
                 } else {
-                    int count1 = (dp[y-1][x] == 0) ? 0 : dp[y-1][x] + 1;
-                    int count2 = (dp[y][x-1] == 0) ? 0 : dp[y][x-1] + 1;
+                    int count1 = (dp[y-1][x] == 0) ? 0 : dp[y-1][x];
+                    int count2 = (dp[y][x-1] == 0) ? 0 : dp[y][x-1];
                     dp[y][x] = count1 + count2;
                 }
             }
@@ -103,5 +105,8 @@ public class LeetCode_63 {
 
         public static final int ANS2 = 1;
         public static int[][] matrix2 = {{0}};
+
+        public static final int ANS3 = 0;
+        public static int[][] matrix3 = {{1}};
     }
 }
