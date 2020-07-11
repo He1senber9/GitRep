@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Arrays;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：恢复空格</p>
@@ -42,46 +44,75 @@ public class LeetCode_17_13 {
     }
 
     /**
-     * 解法一：
+     * 解法一：字典树
+     * 定义 dp[i] 表示考虑前 i 个字符最少的未识别的字符数量，从前往后计算 dp 值。
+     * 考虑转移方程，每次转移的时候我们考虑第 j(j <= i)j(j≤i) 个到第 i 个字符组成的子串 sentence[j−1⋯i−1] （注意字符串下标从 0 开始）是否能在词典中找到，
+     * 如果能找到的话按照定义转移方程即为:
+     *      dp[i]=min(dp[i],dp[j−1])
      *
+     * 否则没有找到的话我们可以复用 dp[i−1] 的状态再加上当前未被识别的第 i 个字符，因此此时 dp 值为:
+     *      dp[i]=dp[i−1]+1
+     *
+     * 作者：LeetCode-Solution
+     * 链接：https://leetcode-cn.com/problems/re-space-lcci/solution/hui-fu-kong-ge-by-leetcode-solution/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
      * @param dictionary
      * @param sentence
      * @return
      */
-    private int respace(String[] dictionary, String sentence) {
-        if(sentence == null || sentence.length() == 0) {
-            return 0;
+    public int respace(String[] dictionary, String sentence) {
+        int n = sentence.length();
+
+        Trie root = new Trie();
+        for (String word: dictionary) {
+            root.insert(word);
         }
 
-        return respaceStrs(dictionary, sentence, 0);
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        for (int i = 1; i <= n; ++i) {
+            dp[i] = dp[i - 1] + 1;
+
+            Trie curPos = root;
+            for (int j = i; j >= 1; --j) {
+                int t = sentence.charAt(j - 1) - 'a';
+                if (curPos.next[t] == null) {
+                    break;
+                } else if (curPos.next[t].isEnd) {
+                    dp[i] = Math.min(dp[i], dp[j - 1]);
+                }
+                if (dp[i] == 0) {
+                    break;
+                }
+                curPos = curPos.next[t];
+            }
+        }
+        return dp[n];
     }
 
-    /**
-     * 从字符串 sentence 的索引 begin 开始，找到第一个符合字典 dictionary 里单词时已经查找过的字符数量。
-     * @param dictionary
-     * @param sentence
-     * @param begin
-     * @return
-     */
-    private int respaceStrs(String[] dictionary, String sentence, int begin) {
-        int len = sentence.length();
-        if(begin > len-1) {
-            return 0;
+    class Trie {
+        public Trie[] next;
+        public boolean isEnd;
+
+        public Trie() {
+            next = new Trie[26];
+            isEnd = false;
         }
 
-        int newBegin = begin;
-        for(int n = 0; n < dictionary.length; n ++) {
-            String tmp = dictionary[n];
-            if(begin+tmp.length() > len) {
-                continue;
-            }
+        public void insert(String s) {
+            Trie curPos = this;
 
-            if(tmp.equals(sentence.substring(begin, begin+tmp.length()))) {
-                return respaceStrs(dictionary, sentence, begin+tmp.length());
+            for (int i = s.length() - 1; i >= 0; --i) {
+                int t = s.charAt(i) - 'a';
+                if (curPos.next[t] == null) {
+                    curPos.next[t] = new Trie();
+                }
+                curPos = curPos.next[t];
             }
+            curPos.isEnd = true;
         }
-
-        return  1 + respaceStrs(dictionary, sentence, begin+1);
     }
 
     static class TestCase {
