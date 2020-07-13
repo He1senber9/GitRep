@@ -80,7 +80,7 @@ public class LeetCode_350 {
                 }
             }
         }
-        
+
         return Arrays.copyOfRange(intersection, 0, index);
     }
 
