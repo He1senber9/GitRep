@@ -80,6 +80,30 @@ public class LeetCode_309 {
         return Math.max(dp[len-1][1], dp[len-1][2]);
     }
 
+    /**
+     * 解法三：
+     * 状态机解法
+     * @param prices
+     * @return
+     */
+    private int maxProfit2(int[] prices) {
+        if(prices == null || prices.length < 2) {
+            return 0;
+        }
+        int len = prices.length;
+        int rest = 0;
+        int hold = Integer.MIN_VALUE; // 当前持有
+        int sold = 0; // 当前可卖
+        for(int n = 0; n < len; n ++) {
+            int preHold = hold;
+            int preSold = sold;
+            hold = Math.max(preHold, rest - prices[n]);
+            sold = preSold + prices[n];
+            rest = Math.max(rest, preHold);
+        }
+        return Math.max(rest, sold);
+    }
+
     static class TestCase {
         public static int ANS = 3;
         public static int[] PRICES = {1,2,3,0,2}; // {-1,1,0,-1,1}
