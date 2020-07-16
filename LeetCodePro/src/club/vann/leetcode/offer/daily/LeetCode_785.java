@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：判断二分图</p>
@@ -57,13 +60,34 @@ public class LeetCode_785 {
 
     /**
      * 解法一：
-     *
+     * graph[i] i 与元素互斥，即如果存在一个集合P，里面元素包含 i 与 graph[i]中的任意元素，即不能构成二分图
      * @param graph
      * @return
      */
     private boolean isBipartite(int[][] graph) {
-
-        return false;
+        int len = graph.length;
+        int[] dp = new int[len];
+        int flag = 1; // 接下来要被染的颜色
+        for(int i = 0; i < len; i ++) {
+            if(dp[i] == 0 || dp[i] == flag) {
+                dp[i] = flag;
+                // 对应的元素需要被染成反色
+                flag = flag * -1;
+                for(int index = 0; index < graph[i].length; index ++) {
+                    int point = graph[i][index];
+                    if(dp[point] == 0 || dp[point] == flag) {
+                        dp[point] = flag;
+                        continue;
+                    } else {
+                        return false;
+                    }
+                }
+                flag = flag * -1;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     static class TestCase {
