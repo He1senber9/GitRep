@@ -44,29 +44,14 @@ import club.vann.leetcode.common.TreeNode;
 public class LeetCode_28 {
 
 	public static void main(String[] args) {
-//		TreeNode node = new TreeNode(1);
-//		TreeNode node_left = new TreeNode(2);
-//		TreeNode node_right = new TreeNode(2);
-//		TreeNode node_left_left = new TreeNode(3);
-//		TreeNode node_left_right = new TreeNode(4);
-//		TreeNode node_right_left = new TreeNode(4);
-//		TreeNode node_right_right = new TreeNode(3);
-//		
-//		node.left = node_left;
-//		node.right = node_right;
-//		node_left.left = node_left_left;
-//		node_left.right = node_left_right;
-//		node_right.left = node_right_left;
-//		node_right.right = node_right_right;
-		
 		TreeNode node = new TreeNode(1);
 		TreeNode node_left = new TreeNode(2);
 		TreeNode node_right = new TreeNode(2);
-		TreeNode node_left_left = new TreeNode(2);
-		TreeNode node_left_right = null;
-		TreeNode node_right_left = new TreeNode(2);
-		TreeNode node_right_right = null;
-		
+		TreeNode node_left_left = new TreeNode(3);
+		TreeNode node_left_right = new TreeNode(4);
+		TreeNode node_right_left = new TreeNode(4);
+		TreeNode node_right_right = new TreeNode(3);
+
 		node.left = node_left;
 		node.right = node_right;
 		node_left.left = node_left_left;
@@ -74,9 +59,24 @@ public class LeetCode_28 {
 		node_right.left = node_right_left;
 		node_right.right = node_right_right;
 		
-		LeetCode_28 leetCode = new LeetCode_28();
-		boolean result = leetCode.isSymmetric(node);
-		System.out.println("Result[false]" + result);
+//		TreeNode node = new TreeNode(1);
+//		TreeNode node_left = new TreeNode(2);
+//		TreeNode node_right = new TreeNode(2);
+//		TreeNode node_left_left = new TreeNode(2);
+//		TreeNode node_left_right = null;
+//		TreeNode node_right_left = new TreeNode(2);
+//		TreeNode node_right_right = null;
+//
+//		node.left = node_left;
+//		node.right = node_right;
+//		node_left.left = node_left_left;
+//		node_left.right = node_left_right;
+//		node_right.left = node_right_left;
+//		node_right.right = node_right_right;
+//
+//		LeetCode_28 leetCode = new LeetCode_28();
+//		boolean result = leetCode.isSymmetric(node);
+//		System.out.println("Result[false]" + result);
 	}
 
 	/**
@@ -93,29 +93,21 @@ public class LeetCode_28 {
 		if(root == null) {
 			return true;
 		}
-		
-		Stack<TreeNode> stackLeft = new Stack<TreeNode>();
-		Stack<TreeNode> stackRight = new Stack<TreeNode>();
-		
-		stackLeft.push(root.left);
-		stackRight.push(root.right);
-		
-		while(!stackLeft.isEmpty() && !stackRight.isEmpty()) {
-			TreeNode nodeLeft = stackLeft.pop();
-			TreeNode nodeRight = stackLeft.pop();
-			if(nodeLeft.val != nodeRight.val) {
-				return false;
-			}
-			
-			stackLeft.push(nodeLeft.left);
-			stackLeft.push(nodeLeft.right);
-			stackRight.push(nodeRight.right);
-			stackRight.push(nodeRight.left);
+		return isSymmetric(root.left, root.right);
+	}
+
+	private boolean isSymmetric(TreeNode left, TreeNode right) {
+		if(left == null && right == null) {
+			return true;
 		}
-		
-		if(!stackLeft.isEmpty() || !stackRight.isEmpty()) {
-			
+
+		if(left == null || right == null) {
+			return false;
 		}
-		return true;
+
+		if(left.val != right.val) {
+			return false;
+		}
+		return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
 	}
 }
