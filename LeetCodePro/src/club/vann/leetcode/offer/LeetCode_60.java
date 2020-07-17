@@ -54,8 +54,13 @@ public class LeetCode_60 {
     private double[] twoSum(int n) {
         int size = 6*n - 1*n + 1;
         double[] res = new double[size];
-        for(int m = 0; m < size; m ++) {
-            res[m] = Math.pow(1.0/6, n);
+        int left = (size+1) / 2;
+        int right = (size%2 == 0) ? left + 1 : left;
+        while(left >= 0 && right < size) {
+            res[left] = Math.pow(1.0/6*left, n);
+            res[right] = Math.pow(1.0/6*left, n);
+            left --;
+            right ++;
         }
         return res;
     }
