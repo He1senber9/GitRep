@@ -26,14 +26,10 @@ public class LeetCode_5464 {
      * @return
      */
     private int numWaterBottles(int numBottles, int numExchange) {
-        int res = numBottles; // 已经喝的酒
-        int pow = numBottles/numExchange; // 可以换的酒
-        int v = numBottles%numExchange;
-        while(pow > 0) {
-            res += pow;
-            int avl = pow+v;
-            pow = avl/numExchange;
-            v = avl%numExchange;
+        int res = numBottles;
+        while(numBottles >= numExchange) {
+            res += numBottles/numExchange;
+            numBottles = numBottles/numExchange + numBottles%numExchange;
         }
         return res;
     }
