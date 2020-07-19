@@ -48,37 +48,25 @@ public class LeetCode_312 {
      */
     public int maxCoins(int[] nums) {
         int len = nums.length;
+        int[] arrays = new int[len+2];
+        arrays[0] = arrays[len+1] = 1;
         for(int n = 0; n < len; n ++) {
-            // 尝试以每一格为起点
-            maxCoins(nums, n);
+            arrays[n+1] = nums[n];
         }
-        return 0;
-    }
-
-    private int maxCoins(int[] nums, int index) {
-        if(nums[index] == Integer.MIN_VALUE) {
-            return 0;
+        int[][] dp = new int[len+2][len+2];
+        for(int i = len-1; i >= 0; i --) {
+            for(int j = i+2; j <= len+1; j ++) {
+                for(int k = i+1; k < j; k ++) {
+                    dp[i][j] = Math.max(dp[i][j], (dp[i][k]+dp[k][j]+arrays[i]*arrays[k]*arrays[j]));
+                }
+            }
         }
-        int left = index-1, right = index+1;
-        while(left >= 0 && nums[left] == Integer.MIN_VALUE) {
-            left --;
-        }
-
-        while(right < nums.length && nums[right] == Integer.MIN_VALUE) {
-            right ++;
-        }
-        int leftVal = left >= 0 ? nums[left] : 1;
-        int rightVal = right < nums.length ? nums[right] : 1;
-
-        res += leftVal * nums[index] * rightVal;
-        nums[index] = Integer.MIN_VALUE;
-
-        return 0;
+        return dp[0][len+1];
     }
 
     static class TestCase {
         public static int ANS = 167;
-        public static int[] nums = {};
+        public static int[] nums = {3,1,5,8};
 
         public static int ANS1 = 167;
         public static int[] nums1 = {1,2,3,4,5,6};
