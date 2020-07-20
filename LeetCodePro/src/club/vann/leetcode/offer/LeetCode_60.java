@@ -52,17 +52,17 @@ public class LeetCode_60 {
      * @return
      */
     private double[] twoSum(int n) {
-        int size = 6*n - 1*n + 1;
-        double[] res = new double[size];
-        int left = (size+1) / 2;
-        int right = (size%2 == 0) ? left + 1 : left;
-        while(left >= 0 && right < size) {
-            res[left] = Math.pow(1.0/6*left, n);
-            res[right] = Math.pow(1.0/6*left, n);
-            left --;
-            right ++;
+        double[] pre = {1/6d, 1/6d, 1/6d, 1/6d, 1/6d, 1/6d};
+        for(int i = 2; i <= n; i ++) {
+            double[] tmp = new double[i*5+1];
+            for(int j = 0; j < pre.length; j ++) {
+                for(int t = 0; t < 6; t ++) {
+                    tmp[j+t] += pre[j]/6;
+                }
+            }
+            pre = tmp;
         }
-        return res;
+        return pre;
     }
 
     static class TestCase {
