@@ -34,6 +34,7 @@ public class LeetCode_96 {
         System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numTrees2(TestCase.N));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numTrees2(TestCase.N1));
         System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.numTrees2(TestCase.N2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.numTrees2(TestCase.N3));
     }
 
     /**
@@ -98,5 +99,8 @@ public class LeetCode_96 {
 
         public static final int ANS2 = 2;
         public static final int N2 = 2;
+
+        public static final int ANS3 = 42;
+        public static final int N3 = 5;
     }
 }
