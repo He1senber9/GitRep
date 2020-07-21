@@ -40,7 +40,7 @@ public class LeetCode_56_II {
     public static void main(String[] args) {
         LeetCode_56_II leetCode = new LeetCode_56_II();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.singleNumber(TestCase.NUMS));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.singleNumber1(TestCase.NUMS));
     }
 
     /**
@@ -61,6 +61,36 @@ public class LeetCode_56_II {
                 res = k;
                 break;
             }
+        }
+        return res;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @return
+     */
+    private int singleNumber1(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return 0;
+        }
+        int len = nums.length;
+        int[] base = new int[32];
+        int res = 0;
+        for(int num : nums) {
+            int tag = 1;
+            for(int n = 31; n >= 0 ; n --) {
+                if((num & tag) == tag) {
+                    base[n] ++;
+                }
+                tag = tag << 1;
+            }
+        }
+
+        for(int n = 0; n < 32; n ++) {
+            res = res << 1;
+            res += base[n] % 3;
         }
         return res;
     }
