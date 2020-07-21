@@ -31,9 +31,9 @@ public class LeetCode_96 {
     public static void main(String[] args) {
         LeetCode_96 leetCode = new LeetCode_96();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numTrees(TestCase.N));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numTrees(TestCase.N1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.numTrees(TestCase.N2));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numTrees2(TestCase.N));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numTrees2(TestCase.N1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.numTrees2(TestCase.N2));
     }
 
     /**
@@ -64,6 +64,29 @@ public class LeetCode_96 {
             C = C * 2 * (2 * i + 1) / (i + 2);
         }
         return (int) C;
+    }
+
+    private int numTrees2(int n) {
+
+        return numTrees2(1, n);
+    }
+
+    private int numTrees2(int begin, int end) {
+        if(begin >= end) {
+            return 1;
+        }
+
+        int res = 0;
+        for(int n = begin; n <= end; n ++) {
+            if(n==begin) {
+                res += numTrees2(n+1, end);
+            } else if(n == end) {
+                res += numTrees2(begin, n-1);
+            } else {
+                res += numTrees2(begin, n-1) * numTrees2(n+1, end);
+            }
+        }
+        return res;
     }
 
     static class TestCase {
