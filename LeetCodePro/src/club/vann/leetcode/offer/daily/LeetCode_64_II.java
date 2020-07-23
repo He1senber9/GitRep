@@ -10,7 +10,7 @@ public class LeetCode_64_II {
     public static void main(String[] args) {
         LeetCode_64_II leetCode = new LeetCode_64_II();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.minPathSum(TestCase.GRID));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.minPathSum1(TestCase.GRID));
     }
 
     /**
@@ -37,6 +37,34 @@ public class LeetCode_64_II {
 
         }
         return grid[lenY-1][lenX-1];
+    }
+
+    /**
+     * 解法二：
+     *
+     * 滚动数组
+     *
+     * @param grid
+     * @return
+     */
+    private int minPathSum1(int[][] grid) {
+        int lenY = grid.length;
+        int lenX =grid[0].length;
+        int[] dp = new int[lenX];
+        dp[0] = grid[0][0];
+        for(int y = 0; y < lenY; y ++) {
+            for(int x = 0; x <lenX; x ++) {
+                if(x==0 && y > 0) {
+                    dp[x] = dp[x] + grid[y][0];
+                } else if(y == 0 && x > 0) {
+                    dp[x] = dp[x-1] + grid[0][x];
+                } else if(x > 0) {
+                    dp[x] = Math.min(dp[x], dp[x-1]) + grid[y][x];
+                }
+            }
+        }
+
+        return dp[lenX-1];
     }
 
     static class TestCase {
