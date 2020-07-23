@@ -54,25 +54,15 @@ public class LeetCode_174 {
         int lenY = dungeon.length;
         int lenX = dungeon[0].length;
 
-        // dp[y][x][0] 所需最小初始值，dp[y][x][1] 生命值
-        int[][][] dp = new int[lenY][lenX][2];
+        // dp[y][x]
+        int[][] dp = new int[lenY+1][lenX+1];
         for(int y = 0; y < lenY; y ++) {
             for(int x = 0; x < lenX; x ++) {
-                if(x==0 && y==0) {
-                    dp[y][x][0] = dungeon[y][x] < 0 ? 1-dungeon[y][x] : 1;
-                } else if(x == 0) {
-                    dp[y][x][0] = dungeon[y][x] < 0 ? Math.max(dp[y-1][x][0] - dungeon[y][x], dp[y-1][x][0]) : dp[y-1][x][0];
-                } else if(y == 0) {
-                    dp[y][x][0] = dungeon[y][x] < 0 ? Math.max(dp[y][x-1][0] - dungeon[y][x], dp[y][x-1][0]) : dp[y][x-1][0];
-                } else {
-                    int v1 = dungeon[y][x] < 0 ? Math.max(dp[y-1][x][0] - dungeon[y][x], dp[y-1][x][0])  : dp[y-1][x][0];
-                    int v2 = dungeon[y][x] < 0 ? Math.max(dp[y][x-1][0] - dungeon[y][x], dp[y][x-1][0]) : dp[y][x-1][0];
-                    dp[y][x][0] = Math.min(v1,v2);
-                }
-                dp[y][x][1] = dp[y][x][0] + dungeon[y][x];
+
             }
         }
-        return dp[lenY-1][lenX-1][0];
+
+        return 0;
     }
     
     static class TestCase {
