@@ -41,7 +41,7 @@ public class LeetCode_174 {
     public static void main(String[] args) {
         LeetCode_174 leetCode = new LeetCode_174();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.calculateMinimumHP(TestCase.DUNGEON));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.calculateMinimumHP1(TestCase.DUNGEON));
     }
 
     /**
@@ -53,18 +53,69 @@ public class LeetCode_174 {
     private int calculateMinimumHP(int[][] dungeon) {
         int lenY = dungeon.length;
         int lenX = dungeon[0].length;
+        return calculateMinimumHP(dungeon, lenY, lenX, 0, 0);
+    }
 
-        // dp[y][x]
-        int[][] dp = new int[lenY+1][lenX+1];
-        for(int y = 0; y < lenY; y ++) {
-            for(int x = 0; x < lenX; x ++) {
-
-            }
+    private int calculateMinimumHP(int[][] dungeon, int lenY, int lenX, int y, int x) {
+        // 到达终点
+        if(y==lenY-1 && x==lenX-1) {
+            return Math.max(1-dungeon[y][x], 1);
         }
 
-        return 0;
+        // 边界
+        if(y==lenY-1) {
+            return Math.max(calculateMinimumHP(dungeon, lenY, lenX, y, x+1)-dungeon[y][x], 1);
+        }
+
+        // 边界
+        if(x==lenX-1) {
+            return Math.max(calculateMinimumHP(dungeon, lenY, lenX, y+1, x)-dungeon[y][x], 1);
+        }
+
+        int val = Math.min(calculateMinimumHP(dungeon, lenY, lenX, y+1, x), calculateMinimumHP(dungeon, lenY, lenX, y, x+1));
+        return Math.max(val-dungeon[y][x], 1);
     }
-    
+
+    /**
+     * 解法二
+     *
+     * @param dungeon
+     * @return
+     */
+    private int calculateMinimumHP1(int[][] dungeon) {
+        int lenY = dungeon.length;
+        int lenX = dungeon[0].length;
+        int[][] dp = new int[lenY][lenX];
+
+        return calculateMinimumHP1(dungeon, dp, lenY, lenX, 0, 0);
+    }
+
+    private int calculateMinimumHP1(int[][] dungeon, int[][] dp, int lenY, int lenX, int y, int x) {
+        // 到达终点
+        if(y==lenY-1 && x==lenX-1) {
+            return Math.max(1-dungeon[y][x], 1);
+        }
+
+        if(dp[y][x] > 0) {
+            return dp[y][x];
+        }
+
+        int res = 0;
+        // 边界
+        if(y==lenY-1) {
+            res = Math.max(calculateMinimumHP(dungeon, lenY, lenX, y, x+1)-dungeon[y][x], 1);
+        } else if(x==lenX-1) {
+            res = Math.max(calculateMinimumHP(dungeon, lenY, lenX, y+1, x)-dungeon[y][x], 1);
+        } else {
+            int val1 = calculateMinimumHP(dungeon, lenY, lenX, y+1, x);
+            int val2 = calculateMinimumHP(dungeon, lenY, lenX, y, x+1);
+            int val = Math.min(val1, val2);
+            res = Math.max(val-dungeon[y][x], 1);
+        }
+
+        return dp[y][x] = res;
+    }
+
     static class TestCase {
         public static int ANS = 7;
         public static int[][] DUNGEON = {{-2,-3,3},{-5,-10,1},{10,30,-5}};
