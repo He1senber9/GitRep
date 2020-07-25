@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Arrays;
+
 /**
  * <p>难度：Hard</p>
  * <p>题目：分割数组的最大值</p>
@@ -39,9 +41,9 @@ public class LeetCode_410 {
     public static void main(String[] args) {
         LeetCode_410 leetCode = new LeetCode_410();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.splitArray(TestCase.NUMS, TestCase.M));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.splitArray(TestCase.NUMS1, TestCase.M1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.splitArray(TestCase.NUMS2, TestCase.M2));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.splitArray1(TestCase.NUMS, TestCase.M));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.splitArray1(TestCase.NUMS1, TestCase.M1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.splitArray1(TestCase.NUMS2, TestCase.M2));
     }
 
     /**
@@ -91,6 +93,41 @@ public class LeetCode_410 {
             }
         }
         return cnt <= m;
+    }
+
+    /**
+     * 解法二：
+     *
+     * 动态规划
+     *
+     * @param nums
+     * @param m
+     * @return
+     */
+    private int splitArray1(int[] nums, int m) {
+        int len = nums.length;
+        int[][] dp = new int[len+1][m+1];
+
+        int[] arrays = new int[len+1];
+        arrays[0] = nums[0];
+        for(int n = 0; n < len; n ++) {
+            arrays[n+1] = arrays[n] +nums[n];
+        }
+
+        for (int i = 0; i <= len; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+
+        dp[0][0] = 0;
+        for(int i = 1; i <= len; i ++) {
+            for(int j = 1; j <= Math.min(i, m); j ++) {
+                for(int x = j-1; x < i; x ++) {
+                    int prev = Math.max(dp[x][j-1], arrays[i]-arrays[x]);
+                    dp[i][j] = Math.min(dp[i][j], prev);
+                }
+            }
+        }
+        return dp[len][m];
     }
 
     static class TestCase {
