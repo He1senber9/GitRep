@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Map;
+
 /**
  * <p>难度：Easy</p>
  * <p>题目：判断子序列</p>
@@ -44,8 +47,8 @@ public class LeetCode_392 {
 //        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.isSubsequence(TestCase.STR, TestCase.TAR));
 //        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.isSubsequence(TestCase.STR1, TestCase.TAR1));
 //        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.isSubsequence(TestCase.STR2, TestCase.TAR2));
-//        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.isSubsequence(TestCase.STR3, TestCase.TAR3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.isSubsequence(TestCase.STR4, TestCase.TAR4));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.isSubsequence1(TestCase.STR3, TestCase.TAR3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.isSubsequence1(TestCase.STR4, TestCase.TAR4));
     }
 
     /**
@@ -89,6 +92,28 @@ public class LeetCode_392 {
         }
 
         return isSubsequence(s, indexS+1, t, newIndexT+1);
+    }
+
+    /**
+     * 解法二：
+     * 优化解法一代码，采用双指针优化。
+     * @param s
+     * @param t
+     * @return
+     */
+    private boolean isSubsequence1(String s, String t) {
+        int lenS = s.length();
+        int lenT = t.length();
+
+        int left = 0, right = 0;
+        while(left < lenS && right < lenT) {
+            if(s.charAt(left) == t.charAt(right)) {
+                left ++;
+            }
+            right ++;
+        }
+
+        return left==lenS;
     }
 
     static class TestCase {
