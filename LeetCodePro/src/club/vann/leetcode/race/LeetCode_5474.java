@@ -16,8 +16,38 @@ public class LeetCode_5474 {
 
     }
 
+    /**
+     * 解法一：
+     *
+     * @param root
+     * @param distance
+     * @return
+     */
     public int countPairs(TreeNode root, int distance) {
+
         return 0;
+    }
+
+    /**
+     * 计算某一结点左右子树深度和
+     * @param node
+     * @return
+     */
+    private int height(TreeNode node) {
+        if(node == null || (node.left == null && node.right == null)) {
+            return 0;
+        }
+
+        int left = 0;
+        if(node.left != null) {
+            left = 1 + height(node.left);
+        }
+
+        int right = 0;
+        if(node.right != null) {
+            right = 1 + height(node.right);
+        }
+        return left + right;
     }
 
     static class TestCase {

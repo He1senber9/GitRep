@@ -12,10 +12,10 @@ public class LeetCode_5473 {
     public static void main(String[] args) {
         LeetCode_5473 leetCode = new LeetCode_5473();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.minFlips1(TestCase.TARGET));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.minFlips1(TestCase.TARGET1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.minFlips1(TestCase.TARGET2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.minFlips1(TestCase.TARGET3));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.minFlips2(TestCase.TARGET));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.minFlips2(TestCase.TARGET1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.minFlips2(TestCase.TARGET2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.minFlips2(TestCase.TARGET3));
     }
 
     /**
@@ -57,6 +57,17 @@ public class LeetCode_5473 {
                     res ++;
                     tag *= -1;
                 }
+            }
+        }
+        return res;
+    }
+
+    private int minFlips2(String target) {
+        target = "0"+target;
+        int res = 0;
+        for(int i = 1; i < target.length(); i ++) {
+            if(target.charAt(i) != target.charAt(i-1)) {
+                res ++;
             }
         }
         return res;
