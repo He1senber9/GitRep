@@ -34,16 +34,18 @@ public class LeetCode_1263 {
 
         int target_y = 0, target_x = 0; // 标记目标位置
 
-        Node node;
+        Node node = new Node();
         // 先找到 箱子，人
         for(int y = 0; y < m; y ++) {
             for(int x = 0; x < n; x ++) {
                 if(grid[y][x] == 'B') {
-                    
+                    node.b_y = y;
+                    node.b_x = x;
                 }
 
                 if(grid[y][x] == 'S') {
-
+                    node.p_y = y;
+                    node.p_x = x;
                 }
 
                 if(grid[y][x] == 'T') {
@@ -64,12 +66,7 @@ public class LeetCode_1263 {
         int p_y;
         int p_x;
         int step;
-        Node(int b_y, int b_x, int p_y, int p_x, int step) {
-            this.b_y = b_y;
-            this.b_x = b_x;
-            this.p_y = p_y;
-            this.p_x = p_x;
-            this.step = step;
+        Node() {
         }
     }
 
