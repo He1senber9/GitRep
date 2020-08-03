@@ -85,7 +85,7 @@ public class LeetCode_35 {
             node.random = cur.random;
 
             pre.next = node;
-            pre.random = 
+            pre.random =
 
             pre = pre.next;
             cur = cur.next;
