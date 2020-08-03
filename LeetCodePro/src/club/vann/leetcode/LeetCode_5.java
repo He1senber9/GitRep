@@ -1,5 +1,7 @@
 package club.vann.leetcode;
 
+import com.sun.xml.internal.org.jvnet.mimepull.CleanUpExecutorFactory;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,37 +33,41 @@ public class LeetCode_5 {
         String result = "";
         LeetCode_5 leetCode = new LeetCode_5();
 
-//        s = "babad";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[bab] : " + result);
-//
-//        s = "cbbd";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[bb] : " + result);
-//
-//        s = "a";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[a] : " + result);
-//
-//        s = "aa";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[aa] : " + result);
-//
-//        s = "aaa";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[aaa] : " + result);
-//
-//        s = "abcda";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[a] : " + result);
-//
-//        s = "ac";
-//        result = leetCode.longestPalindrome2(s);
-//        System.out.println("Result[a] : " + result);
+        s = "babad";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[bab] : " + result);
+
+        s = "cbbd";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[bb] : " + result);
+
+        s = "a";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[a] : " + result);
+
+        s = "aa";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[aa] : " + result);
+
+        s = "aaa";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[aaa] : " + result);
+
+        s = "abcda";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[a] : " + result);
+
+        s = "ac";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[a] : " + result);
 
         s = "abb";
-        result = leetCode.longestPalindrome2(s);
+        result = leetCode.longestPalindrome3(s);
         System.out.println("Result[bb] : " + result);
+
+        s = "ac";
+        result = leetCode.longestPalindrome3(s);
+        System.out.println("Result[a] : " + result);
     }
 
     /**
@@ -192,5 +198,42 @@ public class LeetCode_5 {
 
         }
         return r-l+1;
+    }
+
+    /**
+     * 动态规划解法
+     * @param s
+     * @return
+     */
+    public String longestPalindrome3(String s) {
+        int len = s.length();
+
+        if(len == 1) {
+            return s;
+        }
+        boolean[][] dp = new boolean[len][len];
+
+        int maxLen = 1;
+        int index = 0;
+        for(int right = 1; right < len; right ++) {
+            for(int left = 0; left < right; left ++) {
+                if(s.charAt(left) != s.charAt(right)) {
+                    dp[left][right] = false;
+                } else {
+                    if(right-left < 3) {
+                        dp[left][right] = true;
+                    } else {
+                        dp[left][right] = dp[left+1][right-1];
+                    }
+                }
+
+                if(right-left+1 > maxLen && dp[left][right]) {
+                    maxLen = right-left+1;
+                    index = left;
+                }
+            }
+        }
+
+        return s.substring(index, index+maxLen);
     }
 }
