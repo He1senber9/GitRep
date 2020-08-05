@@ -34,10 +34,10 @@ package club.vann.leetcode.offer.daily;
 public class LeetCode_198 {
     public static void main(String[] args) {
         LeetCode_198 leetCode = new LeetCode_198();
-        System.out.println("Result["+TestCase.res+"] : " + leetCode.rob(TestCase.nums));
-        System.out.println("Result["+TestCase.res1+"] : " + leetCode.rob(TestCase.nums1));
-        System.out.println("Result["+TestCase.res2+"] : " + leetCode.rob(TestCase.nums2));
-        System.out.println("Result["+TestCase.res3+"] : " + leetCode.rob(TestCase.nums3));
+//        System.out.println("Result["+TestCase.res+"] : " + leetCode.rob1(TestCase.nums));
+        System.out.println("Result["+TestCase.res1+"] : " + leetCode.rob1(TestCase.nums1));
+        System.out.println("Result["+TestCase.res2+"] : " + leetCode.rob1(TestCase.nums2));
+        System.out.println("Result["+TestCase.res3+"] : " + leetCode.rob1(TestCase.nums3));
     }
 
     /**
@@ -75,6 +75,36 @@ public class LeetCode_198 {
             pre2 = max;
         }
         return max;
+    }
+
+    public int rob1(int[] nums) {
+        int len = nums.length;
+
+        if(len == 0) {
+            return 0;
+        }
+
+        if(len == 1) {
+            return nums[len-1];
+        }
+
+        if(len == 2) {
+            return Math.max(nums[0], nums[1]);
+        }
+
+        int[][] dp = new int[len][2];
+        dp[0][1] = nums[0];
+        dp[0][0] = 0;
+        dp[1][1] = nums[1];
+        dp[1][0] = nums[0];
+
+        int max = 0;
+        for(int i = 2; i < len; i ++) {
+            dp[i][0] = Math.max(dp[i-1][1], dp[i-1][0]);
+            dp[i][1] = dp[i-1][0] + nums[i];
+        }
+
+        return Math.max(dp[len-1][0], dp[len-1][1]);
     }
 
     static class TestCase {
