@@ -35,7 +35,7 @@ public class LeetCode_24 {
 		node4.next = node5;
 		
 		LeetCode_24 leetCode = new LeetCode_24();
-		ListNode node = leetCode.reverseList1(node1);
+		ListNode node = leetCode.reverseList2(node1);
 		System.out.println(node);
 	}
 
@@ -89,6 +89,28 @@ public class LeetCode_24 {
 		}
 
 		return curNode;
+	}
+
+	public ListNode reverseList2(ListNode head) {
+		if(head == null) {
+			return null;
+		}
+
+		if(head.next == null) {
+			return head;
+		}
+
+		ListNode pre = head;
+		ListNode cur = pre.next;
+		pre.next = null;
+		while(cur != null) {
+			ListNode temp = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = temp;
+		}
+
+		return pre;
 	}
 
 }
