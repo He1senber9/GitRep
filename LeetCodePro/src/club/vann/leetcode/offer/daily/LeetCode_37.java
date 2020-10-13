@@ -31,23 +31,24 @@ public class LeetCode_37 {
     }
 
     private boolean helper(char[][] board, int y, int x, char tag) {
-        for(int index = 0; index < 9; index ++) {
-            if(board[index][x] == tag) {
-                return false;
-            }
-
-            if(board[y][index] == tag) {
-                return false;
-            }
-        }
-
-        if(0<= y && y <= 2) {
-
-        } else if(3 <= y && y <= 5) {
-
-        } else {
-            
-        }
+//        for(int index = 0; index < 9; index ++) {
+//            if(board[index][x] == tag) {
+//                return false;
+//            }
+//
+//            if(board[y][index] == tag) {
+//                return false;
+//            }
+//        }
+//
+//        if(0<= y && y <= 2) {
+//
+//        } else if(3 <= y && y <= 5) {
+//
+//        } else {
+//
+//        }
+        return false;
     }
 
     static class TestCase {
