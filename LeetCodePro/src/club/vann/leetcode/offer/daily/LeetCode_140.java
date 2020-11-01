@@ -58,10 +58,10 @@ public class LeetCode_140 {
 
         List<String> result = null;
 
-        result = leetCode.wordBreak2(TestCase.STR, TestCase.WORDDICT);
-        result = leetCode.wordBreak2(TestCase.STR1, TestCase.WORDDICT1);
-        result = leetCode.wordBreak2(TestCase.STR2, TestCase.WORDDICT2);
-        result = leetCode.wordBreak2(TestCase.STR3, TestCase.WORDDICT3);
+        result = leetCode.wordBreak3(TestCase.STR, TestCase.WORDDICT);
+        result = leetCode.wordBreak3(TestCase.STR1, TestCase.WORDDICT1);
+        result = leetCode.wordBreak3(TestCase.STR2, TestCase.WORDDICT2);
+        result = leetCode.wordBreak3(TestCase.STR3, TestCase.WORDDICT3);
 
         System.out.println("Success");
     }
@@ -140,6 +140,52 @@ public class LeetCode_140 {
                     wordBreak.offerFirst(word);
                     wordBreaks.add(wordBreak);
                 }
+            }
+        }
+
+        map.put(index, wordBreaks);
+        return map.get(index);
+    }
+
+    /**
+     * 解法三：
+     * 优化
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public List<String> wordBreak3(String s, List<String> wordDict) {
+        Map<Integer, List<List<String>>> map = new HashMap<Integer, List<List<String>>>();
+        List<List<String>> wordBreaks = wordBreak3(s, wordDict, map, 0);
+        List<String> breakList = new LinkedList<String>();
+        for (List<String> wordBreak : wordBreaks) {
+            breakList.add(String.join(" ", wordBreak));
+        }
+        return breakList;
+    }
+
+    public List<List<String>> wordBreak3(String s, List<String> wordDict, Map<Integer, List<List<String>>> map, int index) {
+        if(map.containsKey(index)) {
+            return map.get(index);
+        }
+
+        List<List<String>> wordBreaks = new LinkedList<>();
+        if(index > s.length() - 1) {
+            wordBreaks.add(new ArrayList<>());
+        }
+
+        for(int i = index + 1; i <= s.length(); i ++) {
+            String word = s.substring(index, i);
+            if(!wordDict.contains(word)) {
+                continue;
+            }
+
+            List<List<String>> breakWord = wordBreak3(s, wordDict, map, i);
+
+            for(List<String> nextWord : breakWord) {
+                LinkedList<String> linkedList = new LinkedList<>(nextWord);
+                linkedList.addFirst(word);
+                wordBreaks.add(linkedList);
             }
         }
 
