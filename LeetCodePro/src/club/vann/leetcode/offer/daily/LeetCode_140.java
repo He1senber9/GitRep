@@ -58,10 +58,10 @@ public class LeetCode_140 {
 
         List<String> result = null;
 
-//        result = leetCode.wordBreak(TestCase.STR, TestCase.WORDDICT);
-//        result = leetCode.wordBreak(TestCase.STR1, TestCase.WORDDICT1);
-//        result = leetCode.wordBreak(TestCase.STR2, TestCase.WORDDICT2);
-        result = leetCode.wordBreak(TestCase.STR3, TestCase.WORDDICT3);
+        result = leetCode.wordBreak2(TestCase.STR, TestCase.WORDDICT);
+        result = leetCode.wordBreak2(TestCase.STR1, TestCase.WORDDICT1);
+        result = leetCode.wordBreak2(TestCase.STR2, TestCase.WORDDICT2);
+        result = leetCode.wordBreak2(TestCase.STR3, TestCase.WORDDICT3);
 
         System.out.println("Success");
     }
@@ -112,11 +112,8 @@ public class LeetCode_140 {
      * @return
      */
     public List<String> wordBreak2(String s, List<String> wordDict) {
-        // 记忆剪枝
         Map<Integer, List<List<String>>> map = new HashMap<Integer, List<List<String>>>();
-
-        List<List<String>> wordBreaks = backtrack(s, s.length(), new HashSet<String>(wordDict), 0, map);
-
+        List<List<String>> wordBreaks = wordBreak2(s, s.length(), new HashSet<String>(wordDict), 0, map);
         List<String> breakList = new LinkedList<String>();
         for (List<String> wordBreak : wordBreaks) {
             breakList.add(String.join(" ", wordBreak));
@@ -124,25 +121,29 @@ public class LeetCode_140 {
         return breakList;
     }
 
-    public List<List<String>> backtrack(String s, int length, Set<String> wordSet, int index, Map<Integer, List<List<String>>> map) {
-        if (!map.containsKey(index)) {
-            List<List<String>> wordBreaks = new LinkedList<List<String>>();
-            if (index == length) {
-                wordBreaks.add(new LinkedList<String>());
-            }
-            for (int i = index + 1; i <= length; i++) {
-                String word = s.substring(index, i);
-                if (wordSet.contains(word)) {
-                    List<List<String>> nextWordBreaks = backtrack(s, length, wordSet, i, map);
-                    for (List<String> nextWordBreak : nextWordBreaks) {
-                        LinkedList<String> wordBreak = new LinkedList<String>(nextWordBreak);
-                        wordBreak.offerFirst(word);
-                        wordBreaks.add(wordBreak);
-                    }
+    public List<List<String>> wordBreak2(String s, int length, Set<String> wordSet, int index, Map<Integer, List<List<String>>> map) {
+        if(map.containsKey(index)) {
+            return map.get(index);
+        }
+
+        List<List<String>> wordBreaks = new LinkedList<List<String>>();
+        if (index == length) {
+            wordBreaks.add(new LinkedList<String>());
+        }
+
+        for (int i = index + 1; i <= length; i++) {
+            String word = s.substring(index, i);
+            if (wordSet.contains(word)) {
+                List<List<String>> nextWordBreaks = wordBreak2(s, length, wordSet, i, map);
+                for (List<String> nextWordBreak : nextWordBreaks) {
+                    LinkedList<String> wordBreak = new LinkedList<String>(nextWordBreak);
+                    wordBreak.offerFirst(word);
+                    wordBreaks.add(wordBreak);
                 }
             }
-            map.put(index, wordBreaks);
         }
+
+        map.put(index, wordBreaks);
         return map.get(index);
     }
 
