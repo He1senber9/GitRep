@@ -1,8 +1,6 @@
 package club.vann.leetcode.offer.daily;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>难度：Hard</p>
@@ -60,9 +58,10 @@ public class LeetCode_140 {
 
         List<String> result = null;
 
-        result = leetCode.wordBreak(TestCase.STR, TestCase.WORDDICT);
-        result = leetCode.wordBreak(TestCase.STR1, TestCase.WORDDICT1);
-        result = leetCode.wordBreak(TestCase.STR2, TestCase.WORDDICT2);
+//        result = leetCode.wordBreak(TestCase.STR, TestCase.WORDDICT);
+//        result = leetCode.wordBreak(TestCase.STR1, TestCase.WORDDICT1);
+//        result = leetCode.wordBreak(TestCase.STR2, TestCase.WORDDICT2);
+        result = leetCode.wordBreak(TestCase.STR3, TestCase.WORDDICT3);
 
         System.out.println("Success");
     }
@@ -76,21 +75,16 @@ public class LeetCode_140 {
      */
     public List<String> wordBreak(String s, List<String> wordDict) {
         List<List<String>> result = new ArrayList<>();
-        List<String> list = new ArrayList<>();
+        LinkedList<String> list = new LinkedList<>();
         wordBreak(s, wordDict, result, list, 0);
 
         for(List<String> l : result) {
-            StringBuilder builder = new StringBuilder();
-            for(String str : l) {
-                builder.append(str + " ");
-            }
-            builder.subSequence(0, builder.length()-1);
-            list.add(builder.toString());
+            list.add(String.join(" ", l));
         }
         return list;
     }
 
-    public void wordBreak(String str, List<String> wordDict, List<List<String>> result, List<String> list, int index) {
+    public void wordBreak(String str, List<String> wordDict, List<List<String>> result, LinkedList<String> list, int index) {
         if(index > str.length() - 1) {
             result.add(new ArrayList<>(list));
             return;
@@ -103,10 +97,53 @@ public class LeetCode_140 {
                 continue;
             }
 
-            list.add(subStr);
+            list.addLast(subStr);
             wordBreak(str, wordDict, result, list, i);
-            list.remove(subStr);
+            list.pollLast();
         }
+    }
+
+
+    /**
+     * 解法二：
+     * 优化
+     * @param s
+     * @param wordDict
+     * @return
+     */
+    public List<String> wordBreak2(String s, List<String> wordDict) {
+        // 记忆剪枝
+        Map<Integer, List<List<String>>> map = new HashMap<Integer, List<List<String>>>();
+
+        List<List<String>> wordBreaks = backtrack(s, s.length(), new HashSet<String>(wordDict), 0, map);
+
+        List<String> breakList = new LinkedList<String>();
+        for (List<String> wordBreak : wordBreaks) {
+            breakList.add(String.join(" ", wordBreak));
+        }
+        return breakList;
+    }
+
+    public List<List<String>> backtrack(String s, int length, Set<String> wordSet, int index, Map<Integer, List<List<String>>> map) {
+        if (!map.containsKey(index)) {
+            List<List<String>> wordBreaks = new LinkedList<List<String>>();
+            if (index == length) {
+                wordBreaks.add(new LinkedList<String>());
+            }
+            for (int i = index + 1; i <= length; i++) {
+                String word = s.substring(index, i);
+                if (wordSet.contains(word)) {
+                    List<List<String>> nextWordBreaks = backtrack(s, length, wordSet, i, map);
+                    for (List<String> nextWordBreak : nextWordBreaks) {
+                        LinkedList<String> wordBreak = new LinkedList<String>(nextWordBreak);
+                        wordBreak.offerFirst(word);
+                        wordBreaks.add(wordBreak);
+                    }
+                }
+            }
+            map.put(index, wordBreaks);
+        }
+        return map.get(index);
     }
 
     static class TestCase {
@@ -118,5 +155,9 @@ public class LeetCode_140 {
 
         public static String STR2 = "catsandog";
         public static List<String> WORDDICT2 = Arrays.asList(new String[]{"cats", "dog", "sand", "and", "cat"});
+
+        public static String STR3 = "aaaaaaa";
+        public static List<String> WORDDICT3 = Arrays.asList(new String[]{"aaaa","aa","a"});
+
     }
 }
