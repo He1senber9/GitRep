@@ -1,5 +1,6 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,13 +69,44 @@ public class LeetCode_140 {
 
     /**
      * 解法一：
-     * 
+     *
      * @param s
      * @param wordDict
      * @return
      */
     public List<String> wordBreak(String s, List<String> wordDict) {
-        return null;
+        List<List<String>> result = new ArrayList<>();
+        List<String> list = new ArrayList<>();
+        wordBreak(s, wordDict, result, list, 0);
+
+        for(List<String> l : result) {
+            StringBuilder builder = new StringBuilder();
+            for(String str : l) {
+                builder.append(str + " ");
+            }
+            builder.subSequence(0, builder.length()-1);
+            list.add(builder.toString());
+        }
+        return list;
+    }
+
+    public void wordBreak(String str, List<String> wordDict, List<List<String>> result, List<String> list, int index) {
+        if(index > str.length() - 1) {
+            result.add(new ArrayList<>(list));
+            return;
+        }
+
+        int len = str.length();
+        for(int i = index+1; i <= len; i ++) {
+            String subStr = str.substring(index, i);
+            if(!wordDict.contains(subStr)) {
+                continue;
+            }
+
+            list.add(subStr);
+            wordBreak(str, wordDict, result, list, i);
+            list.remove(subStr);
+        }
     }
 
     static class TestCase {
