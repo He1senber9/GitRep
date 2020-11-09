@@ -75,10 +75,18 @@ public class LeetCode_122 {
 
     /**
      * 解法二
+     * 动态规划
      * @param prices
      * @return
      */
     public int maxProfit2(int[] prices) {
+        int len = prices.length;
+
+        // dp[i][j] 表示第 i 天进行 j 操作后的最大利润。
+        // dp[i][0]：第 i 天什么也不操作，dp[i][1]：第 i 天买入股票，dp[i][2]：第 i 天卖出股票。
+        // 转移方程:
+        // dp[i][0] = max(dp[i-1][0],dp[i-1][2])
+        // dp[i][1] = max(dp[i-1][0]-prices[i],dp[i-1][2]
         return 0;
     }
 
