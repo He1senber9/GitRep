@@ -48,7 +48,7 @@ public class LeetCode_922 {
 
     /**
      * 解法一：
-     * 
+     *
      * @param A
      * @return
      */
