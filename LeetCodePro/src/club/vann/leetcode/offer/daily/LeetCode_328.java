@@ -86,6 +86,16 @@ public class LeetCode_328 {
         return newHead;
     }
 
+    /**
+     * 解法二：
+     * 原地解法
+     * @param head
+     * @return
+     */
+    public ListNode oddEvenList1(ListNode head) {
+        return null;
+    }
+
     static class TestCase {
         public static ListNode NODE = ListNode.deserialize("[1,2,3,4,5]");
         public static ListNode NODE1 = ListNode.deserialize("[2,1,3,5,6,4,7]");
