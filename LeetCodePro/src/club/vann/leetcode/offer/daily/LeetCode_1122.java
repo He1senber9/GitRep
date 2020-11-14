@@ -43,7 +43,7 @@ public class LeetCode_1122 {
     public static void main(String[] args) {
         LeetCode_1122 leetCode = new LeetCode_1122();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.relativeSortArray(TestCase.PARAMS[0], TestCase.PARAMS[1])));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.relativeSortArray1(TestCase.PARAMS[0], TestCase.PARAMS[1])));
     }
 
     /**
@@ -64,6 +64,26 @@ public class LeetCode_1122 {
 
             return o1 - o2;
         }).mapToInt(o->o).toArray();
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param arr1
+     * @param arr2
+     * @return
+     */
+    public int[] relativeSortArray1(int[] arr1, int[] arr2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        for(int num : arr1) list.add(num);
+        for(int i = 0; i < arr2.length; i++) map.put(arr2[i], i);
+        Collections.sort(list, (x, y) -> {
+            if(map.containsKey(x) || map.containsKey(y)) return map.getOrDefault(x, 1001) - map.getOrDefault(y, 1001);
+            return x - y;
+        });
+        for(int i = 0; i < arr1.length; i++) arr1[i] = list.get(i);
+        return arr1;
     }
 
     static class TestCase {
