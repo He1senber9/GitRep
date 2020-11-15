@@ -43,10 +43,10 @@ public class LeetCode_402 {
     public static void main(String[] args) {
         LeetCode_402 leetCode = new LeetCode_402();
 
-//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.removeKdigits(TestCase.STR, TestCase.K));
-//        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.removeKdigits(TestCase.STR1, TestCase.K1));
-//        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.removeKdigits(TestCase.STR2, TestCase.K2));
-//        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.removeKdigits(TestCase.STR3, TestCase.K3));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.removeKdigits1(TestCase.STR, TestCase.K));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.removeKdigits1(TestCase.STR1, TestCase.K1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.removeKdigits1(TestCase.STR2, TestCase.K2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.removeKdigits1(TestCase.STR3, TestCase.K3));
         System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.removeKdigits(TestCase.STR4, TestCase.K4));
     }
 
@@ -94,6 +94,54 @@ public class LeetCode_402 {
         }
 
         return String.valueOf(ch);
+    }
+
+    /**
+     * 解法二：
+     * 贪心算法
+     * @param num
+     * @param k
+     * @return
+     */
+    public String removeKdigits1(String num, int k) {
+        if(num == null || num.length() == 0 || num.length() == k) {
+            return "0";
+        }
+
+        char[] ch = num.toCharArray();
+        int len = ch.length;
+        List<Character> list = new ArrayList<>();
+        for(char c : ch) {
+            list.add(c);
+        }
+
+        help(list, k);
+        char[] nums = new char[len-k];
+        int i = 0;
+        for(char c : list) {
+            nums[i++] = c;
+        }
+
+        int value = Integer.parseInt(String.valueOf(nums));
+        return String.valueOf(value);
+    }
+
+    private boolean help(List<Character> list, int limit) {
+        if(limit == 0) {
+            return true;
+        }
+
+        int len = list.size();
+        for(int i = 0; i < len-1; i ++) {
+            if(list.get(i) > list.get(i+1)) {
+                list.remove(i);
+                if(help(list, --limit)) {
+                    return true;
+                }
+            }
+        }
+        list.remove(len-1);
+        return true;
     }
 
     static class TestCase {
