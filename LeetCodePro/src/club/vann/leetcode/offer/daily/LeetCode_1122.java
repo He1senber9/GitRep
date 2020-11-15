@@ -44,6 +44,7 @@ public class LeetCode_1122 {
         LeetCode_1122 leetCode = new LeetCode_1122();
 
         System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.relativeSortArray1(TestCase.PARAMS[0], TestCase.PARAMS[1])));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.relativeSortArray1(TestCase.PARAMS1[0], TestCase.PARAMS1[1])));
     }
 
     /**
@@ -74,20 +75,39 @@ public class LeetCode_1122 {
      * @return
      */
     public int[] relativeSortArray1(int[] arr1, int[] arr2) {
+        int len1 = arr1.length;
+        int len2 = arr2.length;
+
         Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < len2; i ++) {
+            map.put(arr2[i], i);
+        }
+
         List<Integer> list = new ArrayList<>();
-        for(int num : arr1) list.add(num);
-        for(int i = 0; i < arr2.length; i++) map.put(arr2[i], i);
-        Collections.sort(list, (x, y) -> {
-            if(map.containsKey(x) || map.containsKey(y)) return map.getOrDefault(x, 1001) - map.getOrDefault(y, 1001);
+        for(int i = 0; i < len1; i ++) {
+            list.add(arr1[i]);
+        }
+
+        Collections.sort(list, (x, y) ->{
+            if(map.containsKey(x) || map.containsKey(y)) {
+                return map.getOrDefault(x, 1001) - map.getOrDefault(y, 1001);
+            }
+
             return x - y;
         });
-        for(int i = 0; i < arr1.length; i++) arr1[i] = list.get(i);
+
+        for(int i = 0; i < len1; i ++) {
+            arr1[i] = list.get(i);
+        }
+
         return arr1;
     }
 
     static class TestCase {
         public static int[] ANS = {2,2,2,1,4,3,3,9,6,7,19};
         public static int[][] PARAMS = {{2,3,1,3,2,4,6,7,9,2,19}, {2,1,4,3,9,6}};
+
+        public static int[] ANS1 = {943,715,427,790,860,722,225,320,846,550};
+        public static int[][] PARAMS1 = {{943,790,427,722,860,550,225,846,715,320}, {943,715,427,790,860,722,225,320,846,550}};
     }
 }
