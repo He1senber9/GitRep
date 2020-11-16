@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：根据身高重建队列</p>
@@ -29,8 +32,10 @@ public class LeetCode_406 {
     public static void main(String[] args) {
         LeetCode_406 leetCode = new LeetCode_406();
 
-        System.out.println("Result["+TestCase.ANS+"]" + leetCode.reconstructQueue(TestCase.PEOPLE));
-        System.out.println("Result["+TestCase.ANS1+"]" + leetCode.reconstructQueue(TestCase.PEOPLE1));
+        int[][] result = null;
+        result = leetCode.reconstructQueue(TestCase.PEOPLE);
+        result = leetCode.reconstructQueue(TestCase.PEOPLE1);
+        System.out.println("Success");
     }
 
     /**
@@ -40,7 +45,39 @@ public class LeetCode_406 {
      * @return
      */
     public int[][] reconstructQueue(int[][] people) {
-        return null;
+//        Arrays.sort(people, new Comparator<int[]>() {
+//            public int compare(int[] person1, int[] person2) {
+//                if (person1[0] != person2[0]) {
+//                    return person1[0] - person2[0];
+//                } else {
+//                    return person2[1] - person1[1];
+//                }
+//            }
+//        });
+
+        Arrays.sort(people, (int[] person1, int[] person2) -> {
+            if(person1[0] != person2[0]) {
+                return person1[0] - person2[0];
+            } else {
+                return person2[1] - person1[1];
+            }
+        });
+
+        int n = people.length;
+        int[][] ans = new int[n][];
+        for (int[] person : people) {
+            int spaces = person[1] + 1;
+            for (int i = 0; i < n; ++i) {
+                if (ans[i] == null) {
+                    --spaces;
+                    if (spaces == 0) {
+                        ans[i] = person;
+                        break;
+                    }
+                }
+            }
+        }
+        return ans;
     }
 
     static class TestCase {
