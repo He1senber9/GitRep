@@ -1,5 +1,7 @@
 package club.vann.leetcode;
 
+import java.util.Map;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：LRU缓存</p>
@@ -27,16 +29,83 @@ public class LeetCode_16_25 {
 
     class LRUCache {
 
-        public LRUCache(int capacity) {
+        private Map<Integer, LRULinkedNode> indexMap = null; //
+        private LRULinkedNode head, tail; // 顺序存放KV对
+        private int size;
+        private int capacity;
 
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            this.size = 0;
+
+            // 伪头部，伪末尾节点 在添加或者删除节点时就不需要判断相邻节点是否存在了
+            head = new LRULinkedNode();
+            tail = new LRULinkedNode();
+            head.next = tail;
+            tail.pre = head;
         }
 
         public int get(int key) {
-            return 0;
+            if(!indexMap.containsKey(key)) {
+                return -1;
+            }
+
+            LRULinkedNode node = indexMap.get(key);
+            // 将需要获取的节点移动到双向列表的头部
+            moveToHead(node);
+
+            return node.val;
         }
 
         public void put(int key, int value) {
+            if(indexMap.containsKey(key)) {
+                LRULinkedNode node = indexMap.get(key);
+                node.val = value;
+                moveToHead(indexMap.get(key));
+            } else {
+                LRULinkedNode node = new LRULinkedNode(key, value);
+                indexMap.put(key, node);
 
+                LRULinkedNode next = head.next;
+                head.next = node;
+                node.next = next;
+                next.pre = node;
+                node.pre = head;
+                ++size;
+
+                // 超出容量，需要删除尾节点
+                if(size > capacity) {
+                    LRULinkedNode pre = tail.pre.pre;
+                }
+            }
+        }
+
+        /**
+         * 移动到头节点
+         * @param node
+         */
+        private void moveToHead(LRULinkedNode node) {
+
+        }
+
+        /**
+         * 删除尾节点
+         */
+        private void removeTail() {
+
+        }
+
+        class LRULinkedNode {
+            int key;
+            int val;
+            LRULinkedNode pre;
+            LRULinkedNode next;
+
+            LRULinkedNode() {}
+            LRULinkedNode(int key, int value) {
+                this.key = key;
+                this.val = value;
+            }
         }
     }
 }
