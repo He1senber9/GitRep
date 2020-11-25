@@ -54,11 +54,12 @@ public class LeetCode_452 {
     public static void main(String[] args) {
         LeetCode_452 leetCode = new LeetCode_452();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.findMinArrowShots(TestCase.POINTS));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.findMinArrowShots(TestCase.POINTS1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.findMinArrowShots(TestCase.POINTS2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.findMinArrowShots(TestCase.POINTS3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.findMinArrowShots(TestCase.POINTS4));
+//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.findMinArrowShots(TestCase.POINTS));
+//        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.findMinArrowShots(TestCase.POINTS1));
+//        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.findMinArrowShots(TestCase.POINTS2));
+//        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.findMinArrowShots(TestCase.POINTS3));
+//        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.findMinArrowShots(TestCase.POINTS4));
+        System.out.println("Result["+TestCase.ANS5+"] : " + leetCode.findMinArrowShots(TestCase.POINTS5));
     }
 
     /**
@@ -74,6 +75,42 @@ public class LeetCode_452 {
 
         int n = points.length; // 总共 n 个气球
         boolean[] flag = new boolean[n]; // 第 n 个气球是否被扎爆
+
+        // 先升序排列points
+        Arrays.sort(points, (int[] x, int[] y) -> {
+            if(x[1] > y[1]) {
+                return 1;
+            } else if(x[1] < y[1]) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+
+        int ans = 0;
+        for(int i = 0; i < n; i ++) {
+            if(flag[i]) {
+                continue;
+            }
+
+            ans ++;
+            int o = i;
+            int p = o+1;
+            while(p < n && points[o][1] >= points[p][0]) {
+                flag[p] = true;
+                p ++;
+            }
+
+        }
+        return ans;
+    }
+
+    public int findMinArrowShots1(int[][] points) {
+        if(points == null || points.length == 0) {
+            return 0;
+        }
+
+        int n = points.length; // 总共 n 个气球
 
         // 先升序排列points
         Arrays.sort(points, (int[] x, int[] y) -> {
@@ -107,5 +144,8 @@ public class LeetCode_452 {
 
         public static int ANS4 = 1;
         public static int[][] POINTS4 = {{2,3},{2,3}};
+
+        public static int ANS5 = 2;
+        public static int[][] POINTS5 = {{-2147483646,-2147483645},{2147483646,2147483647}};
     }
 }
