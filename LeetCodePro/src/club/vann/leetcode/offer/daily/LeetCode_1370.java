@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Easy</p>
  * <p>题目：上升下降字符串</p>
@@ -62,7 +65,14 @@ package club.vann.leetcode.offer.daily;
  **/
 public class LeetCode_1370 {
     public static void main(String[] args) {
+        LeetCode_1370 leetCode = new LeetCode_1370();
 
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.sortString(TestCase.STR));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.sortString(TestCase.STR1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.sortString(TestCase.STR2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.sortString(TestCase.STR3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.sortString(TestCase.STR4));
+        System.out.println("Result["+TestCase.ANS5+"] : " + leetCode.sortString(TestCase.STR5));
     }
 
     /**
@@ -71,7 +81,36 @@ public class LeetCode_1370 {
      * @return
      */
     public String sortString(String s) {
-        return null;
+        Map<Character, Integer> map = new HashMap<>();
+        char[] ch = s.toCharArray();
+        int len = ch.length;
+
+        for(char c : ch) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int flag = 1; // 控制升序降序，默认升序
+        int tag = 0;
+        int i = 0;
+        while(!map.isEmpty()) {
+            if(tag == 26 || tag == -1) {
+                flag = flag * -1;
+            }
+
+            char c = (char) (tag + 'a');
+            if(map.containsKey(c)) {
+                ch[i++] = c;
+                int count = map.get(c);
+                if(count == 1) {
+                    map.remove(c);
+                } else {
+                    map.put(c, count - 1);
+                }
+            }
+
+            tag += flag * 1;
+        }
+        return new String(ch);
     }
 
     static class TestCase {
@@ -89,5 +128,8 @@ public class LeetCode_1370 {
 
         public static String ANS4 = "ops";
         public static String STR4 = "spo";
+
+        public static String ANS5 = "aaabbbcccddd";
+        public static String STR5 = "abcddcbaabcd";
     }
 }
