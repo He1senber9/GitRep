@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：四数相加II</p>
@@ -37,10 +40,10 @@ public class LeetCode_454 {
     public static void main(String[] args) {
         LeetCode_454 leetCode = new LeetCode_454();
 
-        System.out.println("Result["+TestCase.ANS+"] :" + leetCode.fourSumCount(TestCase.PARAMS[0], TestCase.PARAMS[1], TestCase.PARAMS[2], TestCase.PARAMS[3]));
-        System.out.println("Result["+TestCase.ANS1+"] :" + leetCode.fourSumCount(TestCase.PARAMS1[0], TestCase.PARAMS1[1], TestCase.PARAMS1[2], TestCase.PARAMS1[3]));
-        System.out.println("Result["+TestCase.ANS2+"] :" + leetCode.fourSumCount(TestCase.PARAMS2[0], TestCase.PARAMS2[1], TestCase.PARAMS2[2], TestCase.PARAMS2[3]));
-        System.out.println("Result["+TestCase.ANS3+"] :" + leetCode.fourSumCount(TestCase.PARAMS3[0], TestCase.PARAMS3[1], TestCase.PARAMS3[2], TestCase.PARAMS3[3]));
+        System.out.println("Result["+TestCase.ANS+"] :" + leetCode.fourSumCount1(TestCase.PARAMS[0], TestCase.PARAMS[1], TestCase.PARAMS[2], TestCase.PARAMS[3]));
+        System.out.println("Result["+TestCase.ANS1+"] :" + leetCode.fourSumCount1(TestCase.PARAMS1[0], TestCase.PARAMS1[1], TestCase.PARAMS1[2], TestCase.PARAMS1[3]));
+        System.out.println("Result["+TestCase.ANS2+"] :" + leetCode.fourSumCount1(TestCase.PARAMS2[0], TestCase.PARAMS2[1], TestCase.PARAMS2[2], TestCase.PARAMS2[3]));
+        System.out.println("Result["+TestCase.ANS3+"] :" + leetCode.fourSumCount1(TestCase.PARAMS3[0], TestCase.PARAMS3[1], TestCase.PARAMS3[2], TestCase.PARAMS3[3]));
     }
 
     private static int ans = 0;
@@ -80,6 +83,35 @@ public class LeetCode_454 {
         }
     }
 
+    /**
+     * 解法二：
+     *
+     * @param A
+     * @param B
+     * @param C
+     * @param D
+     * @return
+     */
+    public int fourSumCount1(int[] A, int[] B, int[] C, int[] D) {
+        int ans = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int a : A) {
+            for(int b : B) {
+                map.put(a+b, map.getOrDefault(a+b, 0) + 1);
+            }
+        }
+
+        for(int c : C) {
+            for(int d : D) {
+                if(map.containsKey(-(c+d))) {
+                    ans += map.get(-(c+d));
+                }
+            }
+        }
+
+        return ans;
+    }
+
     static class TestCase {
         public static int ANS = 2;
         public static int[][] PARAMS = {{1, 2}, {-2, -1}, {-1, 2}, {0, 2}};
@@ -90,7 +122,7 @@ public class LeetCode_454 {
         public static int ANS2 = 0;
         public static int[][] PARAMS2 = {{}, {}, {}, {}};
 
-        public static int ANS3 = 100000018;
+        public static int ANS3 = 100000000;
         public static int[][] PARAMS3 = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
     }
