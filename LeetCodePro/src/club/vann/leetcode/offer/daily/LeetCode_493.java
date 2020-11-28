@@ -33,9 +33,9 @@ public class LeetCode_493 {
     public static void main(String[] args) {
         LeetCode_493 leetCode = new LeetCode_493();
 
-//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.reversePairs(TestCase.NUMS));
-//        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.reversePairs(TestCase.NUMS1));
-//        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.reversePairs(TestCase.NUMS2));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.reversePairs(TestCase.NUMS));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.reversePairs(TestCase.NUMS1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.reversePairs(TestCase.NUMS2));
         System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.reversePairs(TestCase.NUMS3));
     }
 
@@ -55,7 +55,7 @@ public class LeetCode_493 {
 
         for(int i = 0; i < len-1; i ++) {
             for(int j = i+1; j < len; j ++) {
-                if(nums[i] <= nums[j] || (nums[i] - nums[j]) <= nums[j]) {
+                if((nums[i] - nums[j]) <= nums[j]) {
                     continue;
                 }
                 ans ++;
