@@ -28,7 +28,8 @@ public class LeetCode_327 {
     public static void main(String[] args) {
         LeetCode_327 leetCode = new LeetCode_327();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.countRangeSum(TestCase.NUMS, TestCase.LOWER, TestCase.UPPER));
+//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.countRangeSum(TestCase.NUMS, TestCase.LOWER, TestCase.UPPER));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.countRangeSum(TestCase.NUMS1, TestCase.LOWER1, TestCase.UPPER1));
     }
 
     /**
@@ -52,8 +53,9 @@ public class LeetCode_327 {
             }
 
             int sum = nums[i];
-            for(int j = i; j < len; j ++) {
-                if(lower <= sum + nums[j] && sum + nums[j] <= upper) {
+            for(int j = i+1; j < len; j ++) {
+                sum += nums[j];
+                if(lower <= sum && sum <= upper) {
                     ans ++;
                 }
             }
@@ -61,10 +63,28 @@ public class LeetCode_327 {
         return ans;
     }
 
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @param lower
+     * @param upper
+     * @return
+     */
+    public int countRangeSum1(int[] nums, int lower, int upper) {
+        return 0;
+    }
+
     static class TestCase {
         public static int ANS = 3;
         public static int[] NUMS = {-2,5,-1};
         public static int LOWER = -2;
         public static int UPPER = 2;
+
+        public static int ANS1 = 3;
+        public static int[] NUMS1 = {-2147483647,0,-2147483647,2147483647};
+        public static int LOWER1 = -564;
+        public static int UPPER1 = 3864;
+
     }
 }
