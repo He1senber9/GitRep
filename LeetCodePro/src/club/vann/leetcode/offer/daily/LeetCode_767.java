@@ -50,7 +50,9 @@ public class LeetCode_767 {
 
     /**
      * 解法一：
+     * 基于最大堆的贪心算法
      *
+     * 时间复杂度：O(n\log|\Sigma| + |\Sigma|)O(nlog∣Σ∣+∣Σ∣)
      * @param S
      * @return
      */
@@ -112,6 +114,17 @@ public class LeetCode_767 {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * 解法二
+     * 基于计数的贪心算法
+     *
+     * @param S
+     * @return
+     */
+    public String reorganizeString1(String S) {
+        return null;
     }
 
     static class TestCase {
