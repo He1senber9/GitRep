@@ -74,9 +74,51 @@ public class LeetCode_621 {
      * @return
      */
     public int leastInterval(char[] tasks, int n) {
-        int ans = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for(char c : tasks) {
+            map.put(c, map.getOrDefault(c, 0) + 1); // 记录每个字符出现的次数
+        }
 
-        return ans;
+        // 计算不在冷却中且剩余执行次数最多的字符
+        int type = map.size();
+        List<Integer> nextValid = new ArrayList<>(); // 不在冷却中的任务下一次执行时间
+        List<Integer> rest = new ArrayList<>(); // 剩余执行次数
+
+        Set<Map.Entry<Character, Integer>> entrySet = map.entrySet();
+        for(Map.Entry<Character, Integer> entry : entrySet) {
+            int value = entry.getValue();
+            nextValid.add(1);
+            rest.add(value);
+        }
+
+        int time = 0;
+        // 需要挑选不在冷却中且剩余执行次数最多的任务
+        for(int i = 0; i < tasks.length; i ++) {
+            time ++;
+
+            int minNextValid = Integer.MAX_VALUE;
+            for(int j = 0; j < type; j ++) {
+                if(rest.get(j) != 0) {
+                    minNextValid = Math.min(minNextValid, nextValid.get(j));
+                }
+            }
+
+            time = Math.max(time, minNextValid);
+            int best = -1;
+
+            for(int j = 0; j < type; j ++) {
+                if(rest.get(j) != 0 && nextValid.get(j) <= time) {
+                    if(best == -1 || rest.get(j) > rest.get(best)) {
+                        best = j;
+                    }
+                }
+            }
+
+            nextValid.set(best, time + n + 1);
+            rest.set(best, rest.get(best) - 1);
+        }
+
+        return time;
     }
 
     static class TestCase {
