@@ -69,6 +69,7 @@ public class LeetCode_621 {
 
     /**
      * 解法一：
+     * 时间复杂度：O(∣tasks∣⋅∣Σ∣)，空间复杂度：O(∣Σ∣)
      * @param tasks
      * @param n
      * @return
@@ -119,6 +120,17 @@ public class LeetCode_621 {
         }
 
         return time;
+    }
+
+    /**
+     * 解法二：
+     * 构造
+     * @param tasks
+     * @param n
+     * @return
+     */
+    public int leastInterval1(char[] tasks, int n) {
+        return 0;
     }
 
     static class TestCase {
