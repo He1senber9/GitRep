@@ -76,7 +76,7 @@ public class LeetCode_48 {
         // 辅助矩阵
         int[][] tags = new int[n][n];
         for(int y = 0; y < n; y ++) {
-            int newX = n-1 - y;
+            int newX = n - 1 - y;
             for(int x = 0; x < n; x ++) {
                 tags[x][newX] = matrix[y][x];
             }
