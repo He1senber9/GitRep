@@ -46,43 +46,43 @@ public class LeetCode_376 {
         System.out.println("Result["+TestCase.ANS+"] : " + leetCode.wiggleMaxLength(TestCase.NUMS));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.wiggleMaxLength(TestCase.NUMS1));
         System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.wiggleMaxLength(TestCase.NUMS2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.wiggleMaxLength(TestCase.NUMS3));
     }
 
     /**
      * 解法一：
+     * 采用动态规划思路
+     *
      * @param nums
      * @return
      */
     private int wiggleMaxLength(int[] nums) {
-        if(nums == null || nums.length <= 1) {
+        if(nums == null) {
             return 0;
         }
-
-        List<Integer> path1 = new ArrayList<>();
-        help(path1, nums, 0, 1);
-        List<Integer> path2 = new ArrayList<>();
-        help(path2, nums, 0, -1);
-
-        return Math.max(path1.size(), path2.size());
-    }
-
-    private void help(List<Integer> path, int[] nums, int index, int flag) {
-        if(index == nums.length) {
-            return;
+        int len = nums.length;
+        if(len < 2) {
+            return len;
         }
 
-        int len = nums.length;
-        for(int i = index; i < len; i ++) {
-            if(path.isEmpty()) {
-                path.add(nums[i]);
+        int[] up = new int[len];
+        int[] down = new int[len];
+        up[0] = down[0] = 1;
+
+        for(int i = 1; i < len; i ++) {
+            if(nums[i-1] > nums[i]) {
+                up[i] = up[i-1];
+                down[i] = Math.max(down[i-1], up[i-1]+1);
+            } else if(nums[i-1] < nums[i]){
+                up[i] = Math.max(up[i-1], down[i-1]+1);
+                down[i] = down[i-1];
             } else {
-                if(flag == 1) {
-
-                } else {
-
-                }
+                up[i] = up[i-1];
+                down[i] = down[i-1];
             }
         }
+
+        return Math.max(up[len-1], down[len-1]);
     }
 
     static class TestCase {
@@ -94,5 +94,8 @@ public class LeetCode_376 {
 
         public static int ANS2 = 2;
         public static int[] NUMS2 = {1,2,3,4,5,6,7,8,9};
+
+        public static int ANS3 = 1;
+        public static int[] NUMS3 = {0,0};
     }
 }
