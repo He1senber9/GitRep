@@ -39,17 +39,41 @@ public class LeetCode_135 {
         LeetCode_135 leetCode = new LeetCode_135();
 
         System.out.println("Result["+TestCase.ANS+"] : " + leetCode.candy(TestCase.RATINGS));
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.candy(TestCase.RATINGS));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.candy(TestCase.RATINGS1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.candy(TestCase.RATINGS2));
     }
 
     /**
      * 解法一：
-     *
+     *  两次扫描
      * @param ratings
      * @return
      */
     public int candy(int[] ratings) {
-        return 0;
+        int len = ratings.length;
+        int res = 0;
+
+        int[] left = new int[len];
+        for(int i = 0; i < len; i ++) {
+            if(i > 0 && ratings[i-1] < ratings[i]) {
+                left[i] = left[i-1] + 1;
+            } else {
+                left[i] = 1;
+            }
+        }
+
+        int right = 0;
+        for(int i = len-1; i >= 0; i --) {
+            if(i < len-1 && ratings[i] > ratings[i+1]) {
+                right ++;
+            } else {
+                right = 1;
+            }
+
+            res += Math.max(left[i], right);
+        }
+
+        return res;
     }
 
     static class TestCase {
@@ -58,5 +82,14 @@ public class LeetCode_135 {
 
         public static int ANS1 = 4;
         public static int[] RATINGS1 = {1,2,2};
+
+        public static int ANS2 = 6;
+        public static int[] RATINGS2 = {1,2,2,1};
+
+        public static int ANS3 = 6;
+        public static int[] RATINGS3 = {1,2,2,2};
+
+        public static int ANS4 = 6;
+        public static int[] RATINGS4 = {1,0,0,1};
     }
 }
