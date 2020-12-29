@@ -36,6 +36,12 @@ package club.vann.leetcode.offer.daily;
 public class LeetCode_330 {
     public static void main(String[] args) {
         LeetCode_330 leetCode = new LeetCode_330();
+
+//        System.out.println("Result["+ TestCase.ANS+"] : " + leetCode.minPatches(TestCase.NUMS, TestCase.N));
+//        System.out.println("Result["+ TestCase.ANS1+"] : " + leetCode.minPatches(TestCase.NUMS1, TestCase.N1));
+//        System.out.println("Result["+ TestCase.ANS2+"] : " + leetCode.minPatches(TestCase.NUMS2, TestCase.N2));
+        System.out.println("Result["+ TestCase.ANS3+"] : " + leetCode.minPatches(TestCase.NUMS3, TestCase.N3));
+        System.out.println("Result["+ TestCase.ANS4+"] : " + leetCode.minPatches(TestCase.NUMS4, TestCase.N4));
     }
 
     /**
@@ -46,7 +52,20 @@ public class LeetCode_330 {
      * @return
      */
     public int minPatches(int[] nums, int n) {
-        return 0;
+        int len = nums.length;
+        int res = 0;
+        long max = 1;
+        int index = 0;
+        while(max <= n) {
+            if(index < len && nums[index] <= max) {
+                max += nums[index++];
+            } else {
+                max += max;
+                res ++;
+            }
+        }
+
+        return res;
     }
 
     static class TestCase {
@@ -61,5 +80,13 @@ public class LeetCode_330 {
         public static int ANS2 = 0;
         public static int[] NUMS2 = {1,2,2};
         public static int N2 = 5;
+
+        public static int ANS3 = 0;
+        public static int[] NUMS3 = {1,2,31,33};
+        public static int N3 = 2147483647;
+
+        public static int ANS4 = 3;
+        public static int[] NUMS4 = {};
+        public static int N4 = 7;
     }
 }
