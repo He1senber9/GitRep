@@ -29,10 +29,11 @@ public class LeetCode_86 {
     public static void main(String[] args) {
         LeetCode_86 leetCode = new LeetCode_86();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.partition(TestCase.NODE, TestCase.X));
+//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.partition(TestCase.NODE, TestCase.X));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.partition(TestCase.NODE1, TestCase.X1));
         System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.partition(TestCase.NODE2, TestCase.X2));
         System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.partition(TestCase.NODE3, TestCase.X3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.partition(TestCase.NODE4, TestCase.X4));
     }
 
     /**
@@ -43,6 +44,37 @@ public class LeetCode_86 {
      * @return
      */
     public ListNode partition(ListNode head, int x) {
+        if(head == null) {
+            return head;
+        }
+
+        ListNode node0 = new ListNode(0);
+        node0.next = head;
+
+        ListNode pre = node0;
+        while(pre.next != null) {
+            ListNode cur = pre.next;
+            if(cur.val < x) {
+                pre.next = cur.next;
+                cur.next = null;
+
+                // 从头开始遍历
+                ListNode point = node0;
+                while(point.next.val < x && point.next != pre.next) {
+                    point = point.next;
+                }
+
+                ListNode temp = point.next;
+                point.next = cur;
+                cur.next = temp;
+                pre = cur;
+            }
+            pre = pre.next;
+        }
+        return node0.next;
+    }
+
+    private ListNode helper(ListNode begin, ListNode end, ListNode node) {
         return null;
     }
 
@@ -62,5 +94,13 @@ public class LeetCode_86 {
         public static ListNode ANS3 = ListNode.deserialize("[6,5,4,3,2,1,7]");
         public static ListNode NODE3 = ListNode.deserialize("[7,6,5,4,3,2,1]");
         public static int X3 = 7;
+
+        public static ListNode ANS4 = ListNode.deserialize("[1,2,3,6,5,7,8]");
+        public static ListNode NODE4 = ListNode.deserialize("[1,2,3,7,6,5,8]");
+        public static int X4 = 7;
+
+        public static ListNode ANS5 = ListNode.deserialize("[2,5,7,4]");
+        public static ListNode NODE5 = ListNode.deserialize("[7,5,2,4]");
+        public static int X5 = 4;
     }
 }
