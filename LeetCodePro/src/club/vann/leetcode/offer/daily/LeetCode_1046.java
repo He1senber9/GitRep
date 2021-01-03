@@ -80,7 +80,7 @@ public class LeetCode_1046 {
                 queue.offer(y-x);
             }
         }
-        
+
         return queue.isEmpty() ? 0 : queue.poll();
     }
 
