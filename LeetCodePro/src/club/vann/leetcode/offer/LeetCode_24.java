@@ -35,7 +35,7 @@ public class LeetCode_24 {
 		node4.next = node5;
 		
 		LeetCode_24 leetCode = new LeetCode_24();
-		ListNode node = leetCode.reverseList2(node1);
+		ListNode node = leetCode.reverseList3(TestCase.NODE);
 		System.out.println(node);
 	}
 
@@ -113,4 +113,33 @@ public class LeetCode_24 {
 		return pre;
 	}
 
+	/**
+	 * 解法四：
+	 *
+	 * @param head
+	 * @return
+	 */
+	private ListNode reverseList3(ListNode head) {
+		if(head == null) {
+			return head;
+		}
+
+		ListNode tag = reverseList(head.next);
+		if(tag == null) {
+			return head;
+		}
+
+		head.next = null;
+		ListNode temp = tag;
+		while(temp.next != null) {
+			temp = temp.next;
+		}
+
+		temp.next = head;
+		return tag;
+	}
+
+	static class TestCase {
+		public static ListNode NODE = ListNode.deserialize("[1,2,3,4,5]");
+	}
 }
