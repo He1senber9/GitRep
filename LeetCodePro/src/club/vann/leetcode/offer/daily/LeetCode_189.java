@@ -43,8 +43,8 @@ public class LeetCode_189 {
     public static void main(String[] args) {
         LeetCode_189 leetCode = new LeetCode_189();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.rotate(TestCase.NUMS, TestCase.K)));
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.rotate(TestCase.NUMS1, TestCase.K1)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.rotate1(TestCase.NUMS, TestCase.K)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.rotate1(TestCase.NUMS1, TestCase.K1)));
     }
 
     /**
@@ -72,8 +72,33 @@ public class LeetCode_189 {
      */
     public int[] rotate1(int[] nums, int k) {
         int n = nums.length;
-
+        // k = 1时，相当于将[0,n-1]翻转，然后再将[1,n-1]翻转。
+        k = k%n;
+        // 先整体翻转
+        reverse(nums, 0, n);
+        reverse(nums, 0, k);
+        reverse(nums,k, n);
         return nums;
+    }
+
+    /**
+     * 翻转数组。
+     * 翻转区间[begin,end)
+     * @param nums
+     * @param begin
+     * @param end
+     */
+    private void reverse(int[] nums, int begin, int end) {
+        int mid = (begin + end) / 2;
+        int len = end - begin;
+        while(begin < end) {
+            int temp = nums[begin];
+            nums[begin] = nums[end-1];
+            nums[end-1] = temp;
+
+            begin ++;
+            end --;
+        }
     }
 
     /**
