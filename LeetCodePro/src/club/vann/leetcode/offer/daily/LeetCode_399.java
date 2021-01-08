@@ -157,6 +157,28 @@ public class LeetCode_399 {
         return resArray;
     }
 
+    /**
+     * 解法二：
+     * 并查集
+     * @param equations
+     * @param values
+     * @param queries
+     * @return
+     */
+    public double[] calcEquation1(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        int n = values.length;
+
+        return null;
+    }
+
+    private void join(int[] parent, int x, int y) {
+
+    }
+
+    private int find(int[] parent, int index) {
+        return 0;
+    }
+
     static class TestCase {
 //        public static double[] ANS = {6.00000,0.50000,-1.00000,1.00000,-1.00000};
 //        public static List<List<String>> EQUATIONS = asList("[[a,b],[b,c]]");
