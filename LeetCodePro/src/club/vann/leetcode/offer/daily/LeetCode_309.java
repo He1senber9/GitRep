@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Arrays;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：佳买卖股票时机含冷冻期</p>
@@ -28,11 +30,11 @@ public class LeetCode_309 {
     public static void main(String[] args) {
         LeetCode_309 leetCode = new LeetCode_309();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.maxProfit1(TestCase.PRICES));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.maxProfit1(TestCase.PRICES1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.maxProfit1(TestCase.PRICES2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.maxProfit1(TestCase.PRICES3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.maxProfit1(TestCase.PRICES4));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.maxProfit(TestCase.PRICES));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.maxProfit(TestCase.PRICES1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.maxProfit(TestCase.PRICES2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.maxProfit(TestCase.PRICES3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.maxProfit(TestCase.PRICES4));
     }
 
     /**
@@ -42,8 +44,20 @@ public class LeetCode_309 {
      * @return
      */
     private int maxProfit(int[] prices) {
+        int n = prices.length;
+        if(n <= 1) {
+            return 0;
+        }
 
-        return 0;
+        int[][] dp = new int[n][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+
+        for(int i = 1; i < n; i ++) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], (i>=2 ? dp[i-2][0] : 0)  - prices[i]);
+        }
+        return dp[n-1][0];
     }
 
     /**
