@@ -1,7 +1,6 @@
 package club.vann.leetcode.offer.daily;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>难度：Meidum</p>
@@ -72,7 +71,72 @@ public class LeetCode_1202 {
      * @return
      */
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
-        return null;
+        if(s == null || s.length() == 0) {
+            return s;
+        }
+
+        char[] ch = s.toCharArray();
+        int len = ch.length;
+
+        // 并查集
+        int[] parent = new int[len];
+        for(int i = 0; i < len; i ++) {
+            parent[i] = i;
+        }
+
+        for(List<Integer> list : pairs) {
+            int x = list.get(0);
+            int y = list.get(1);
+            union(parent, x, y);
+        }
+
+        HashMap<Integer, PriorityQueue<Character>> map = new HashMap<>();
+
+        for(int i = 0; i < len; i ++) {
+            int root = find(parent, i);
+            if(map.containsKey(root)) {
+                PriorityQueue<Character> queue = map.get(root);
+                queue.offer(ch[i]);
+            } else {
+                PriorityQueue<Character> queue = new PriorityQueue<>();
+                queue.offer(ch[i]);
+                map.put(root, queue);
+            }
+        }
+
+        for(int i = 0; i < len; i ++) {
+            int root = find(parent, i);
+            ch[i] = map.get(root).poll();
+        }
+        return new String(ch);
+    }
+
+    /**
+     * 路径压缩， 遍历过程中的所有父节点直接指向根节点，
+     * 减少后续查找次数
+     * @param parent
+     * @param x
+     * @return
+     */
+    private int find(int[] parent, int x) {
+        if(parent[x] != x) {
+            parent[x] = find(parent, parent[x]);
+        }
+        return parent[x];
+    }
+
+    /**
+     * 合并两个节点。
+     *
+     * @param parent
+     * @param x
+     * @param y
+     */
+    private void union(int[] parent, int x, int y) {
+        int parentX = find(parent, x);
+        int parentY = find(parent, y);
+        parent[parentX] = parentY;
+//        parent[find(parent, x)] = find(parent, y);
     }
 
     static class TestCase {
