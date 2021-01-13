@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.*;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：冗余链接</p>
@@ -48,25 +50,91 @@ public class LeetCode_684 {
     public static void main(String[] args) {
         LeetCode_684 leetCode = new LeetCode_684();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.findRedundantConnection(TestCase.EDGES));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.findRedundantConnection(TestCase.EDGES1));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES)));
+        System.out.println("Result["+Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES1)));
+        System.out.println("Result["+Arrays.toString(TestCase.ANS2)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES2)));
     }
 
     /**
      * 解法一：
-     *
+     * 采用并查集。
      * @param edges
      * @return
      */
     public int[] findRedundantConnection(int[][] edges) {
-        return null;
+        int n = edges.length;
+        // 统计边关系。
+        List<List<Integer>> path = new ArrayList<>();
+        for(int i = 0; i < n+1; i ++) {
+            path.add(new ArrayList<Integer>());
+        }
+        // 分析题意：要删除的是属于环形的边，如果有多个，那就删除的是出现最晚的那一条。
+        int[] inCounts = new int[n+1];
+        for(int[] edge : edges) {
+            int start = edge[0];
+            int end = edge[1];
+            inCounts[start] ++;
+            inCounts[end] ++;
+            path.get(start).add(end);
+            path.get(end).add(start);
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i = 1; i < n+1; i ++) {
+            if(inCounts[i] == 1) {
+                queue.offer(i);
+            }
+        }
+
+        while(!queue.isEmpty()) {
+            int point = queue.poll();
+            inCounts[point] --;
+            List<Integer> ends = path.get(point);
+            for(int end : ends) {
+                inCounts[end] --;
+                if(inCounts[end] == 1) {
+                    queue.offer(end);
+                }
+            }
+        }
+
+        // 经过上一步处理后剩下的节点组成环形。
+        // 需要看剩下环形的边在入参中出现的顺序，取最后一个出现的即可
+        int index = 0;
+        for(int i = 1; i <= n; i ++) {
+            if(inCounts[i] != 2) {
+                continue;
+            }
+
+            int start = i;
+            int end = i;
+            List<Integer> ends = path.get(start);
+            for(int j : ends) {
+                if(inCounts[j] == 0) {
+                    continue;
+                }
+                end = j;
+
+                for(int t = 0; t < n; t ++) {
+                    if((start == edges[t][0] && end == edges[t][1]) || (start == edges[t][1] && end == edges[t][0])) {
+                        index = Math.max(index, t);
+                    }
+                }
+            }
+
+
+        }
+        return edges[index];
     }
 
     static class TestCase {
-        public static int[] ANS = {};
-        public static int[][] EDGES = {};
+        public static int[] ANS = {2,3};
+        public static int[][] EDGES = {{1,2},{1,3},{2,3}};
 
-        public static int[] ANS1 = {};
-        public static int[][] EDGES1 = {};
+        public static int[] ANS1 = {1,4};
+        public static int[][] EDGES1 = {{1, 2}, {2, 3}, {3, 4}, {1, 4}, {1, 5}};
+
+        public static int[] ANS2 = {4,10};
+        public static int[][] EDGES2 = {{9, 10}, {5, 8}, {2, 6}, {1, 5}, {3, 8}, {4, 9}, {8, 10}, {4, 10}, {6, 8}, {7, 9}};
     }
 }
