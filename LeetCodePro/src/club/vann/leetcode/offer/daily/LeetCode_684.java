@@ -50,14 +50,14 @@ public class LeetCode_684 {
     public static void main(String[] args) {
         LeetCode_684 leetCode = new LeetCode_684();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES)));
-        System.out.println("Result["+Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES1)));
-        System.out.println("Result["+Arrays.toString(TestCase.ANS2)+"] : " + Arrays.toString(leetCode.findRedundantConnection(TestCase.EDGES2)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.findRedundantConnection1(TestCase.EDGES)));
+        System.out.println("Result["+Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.findRedundantConnection1(TestCase.EDGES1)));
+        System.out.println("Result["+Arrays.toString(TestCase.ANS2)+"] : " + Arrays.toString(leetCode.findRedundantConnection1(TestCase.EDGES2)));
     }
 
     /**
      * 解法一：
-     * 采用并查集。
+     * 采用bfs。
      * @param edges
      * @return
      */
@@ -125,6 +125,56 @@ public class LeetCode_684 {
 
         }
         return edges[index];
+    }
+
+    /**
+     * 解法二：
+     * 采用并查集。
+     *
+     * @param edges
+     * @return
+     */
+    public int[] findRedundantConnection1(int[][] edges) {
+        int n = edges.length;
+        // 有 n 个顶点，初始每个顶点属于不同的连通分量
+        int[] parent = new int[n+1];
+        for(int i = 0; i <= n; i ++) {
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < n; i ++) {
+            int x = edges[i][0];
+            int y = edges[i][1];
+            int rootX = find(parent, x);
+            int rootY = find(parent, y);
+            if(rootX != rootY) {
+                union(parent, x, y);
+            } else {
+                return edges[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 合并顶点的连通分量。
+     * @param parent
+     * @param x
+     * @param y
+     */
+    private void union(int[] parent, int x, int y) {
+        int rootX = find(parent, x);
+        int rootY = find(parent, y);
+        if(rootX != rootY) {
+            parent[rootX] = rootY;
+        }
+    }
+
+    private int find(int[] parent, int x) {
+        if(x != parent[x]) {
+            parent[x] = find(parent, parent[x]);
+        }
+        return parent[x];
     }
 
     static class TestCase {
