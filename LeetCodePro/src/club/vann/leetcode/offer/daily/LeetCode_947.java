@@ -1,7 +1,9 @@
 package club.vann.leetcode.offer.daily;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>难度：Medium</p>
@@ -60,13 +62,13 @@ public class LeetCode_947 {
     public static void main(String[] args) {
         LeetCode_947 leetCode = new LeetCode_947();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.removeStones(TestCase.STONES));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.removeStones(TestCase.STONES1));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.removeStones1(TestCase.STONES));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.removeStones1(TestCase.STONES1));
     }
 
     /**
      * 解法一：
-     * 回溯算法。
+     * dfs 时间复杂度：O(n²)，空间复杂度：O(n²)。
      * @param stones
      * @return
      */
@@ -106,24 +108,50 @@ public class LeetCode_947 {
     }
 
     /**
-     * 如果坐标[y,x]对应的横竖轴上只有当前点为1，则返回false。
-     * @param tags
-     * @param n
-     * @param y
-     * @param x
+     * 解法一：
+     * 并查集。
+     * @param stones
      * @return
      */
-    private boolean isValid(int[][] tags, int n, int y, int x) {
-        for(int i = 0; i < n; i ++) {
-            if(i != y && tags[i][x] == 1) {
-                return true;
-            }
-
-            if(i != x && tags[y][x] == 1) {
-                return true;
-            }
+    public int removeStones1(int[][] stones) {
+        UnionFind unionFind = new UnionFind();
+        // n 个石头
+        int n = stones.length;
+        for(int[] stone : stones) {
+            unionFind.union(stone[0], stone[1]+10001);
         }
-        return false;
+        return n - unionFind.count;
+    }
+
+    private class UnionFind {
+        private Map<Integer, Integer> parent;
+        private int count;
+
+        public UnionFind() {
+            this.parent = new HashMap<>();
+        }
+
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+
+            if(rootX == rootY) {
+                return;
+            }
+            parent.put(rootX, rootY);
+            count --;
+        }
+
+        private int find(int x) {
+            if(!parent.containsKey(x)) {
+                parent.put(x, x);
+                count ++;
+            }
+            if(x != parent.get(x)) {
+                parent.put(x, find(parent.get(x)));
+            }
+            return parent.get(x);
+        }
     }
 
     static class TestCase {
