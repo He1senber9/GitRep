@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：移除最多的同行或同列石头</p>
@@ -68,14 +71,69 @@ public class LeetCode_947 {
      * @return
      */
     public int removeStones(int[][] stones) {
-        return 0;
+        // 总共有n个石头
+        int n = stones.length;
+
+        // 记录起止点集合
+        List<List<Integer>> path = new ArrayList<>();
+        for(int i = 0; i < n; i ++) {
+            path.add(new ArrayList<Integer>());
+            for(int j = 0; j < n; j ++) {
+                if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    path.get(i).add(j);
+                }
+            }
+        }
+
+        boolean[] visited = new boolean[n];
+        int num = 0;
+        for(int i = 0; i < n; i ++) {
+            if(!visited[i]) {
+                num ++;
+                dfs(path, visited, i);
+            }
+        }
+        return n - num;
+    }
+
+    private void dfs(List<List<Integer>> path, boolean[] visited, int x) {
+        visited[x] = true;
+        for(int y : path.get(x)) {
+            if(!visited[y]) {
+                dfs(path, visited, y);
+            }
+        }
+    }
+
+    /**
+     * 如果坐标[y,x]对应的横竖轴上只有当前点为1，则返回false。
+     * @param tags
+     * @param n
+     * @param y
+     * @param x
+     * @return
+     */
+    private boolean isValid(int[][] tags, int n, int y, int x) {
+        for(int i = 0; i < n; i ++) {
+            if(i != y && tags[i][x] == 1) {
+                return true;
+            }
+
+            if(i != x && tags[y][x] == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static class TestCase {
         public static int ANS = 5;
-        public static int[][] STONES = {};
+        public static int[][] STONES = {{0, 0}, {0, 1}, {1, 0}, {1, 2}, {2, 1}, {2, 2}};
 
-        public static int ANS1 = 5;
-        public static int[][] STONES1 = {};
+        public static int ANS1 = 3;
+        public static int[][] STONES1 = {{0, 0}, {0, 2}, {1, 1}, {2, 0}, {2, 2}};
+
+        public static int ANS2 = 0;
+        public static int[][] STONES2 = {{0, 0}};
     }
 }
