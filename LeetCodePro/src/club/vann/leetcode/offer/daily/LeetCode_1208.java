@@ -51,22 +51,81 @@ public class LeetCode_1208 {
     public static void main(String[] args) {
         LeetCode_1208 leetCode = new LeetCode_1208();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.equalSubstring(TestCase.S, TestCase.T, TestCase.MAXCOST));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.equalSubstring(TestCase.S1, TestCase.T1, TestCase.MAXCOST1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.equalSubstring(TestCase.S2, TestCase.T2, TestCase.MAXCOST2));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.equalSubstring1(TestCase.S, TestCase.T, TestCase.MAXCOST));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.equalSubstring1(TestCase.S1, TestCase.T1, TestCase.MAXCOST1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.equalSubstring1(TestCase.S2, TestCase.T2, TestCase.MAXCOST2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.equalSubstring1(TestCase.S3, TestCase.T3, TestCase.MAXCOST3));
     }
 
     /**
      * 解法一：
-     *
+     * 暴力解法，时间复杂度：O(n^2)
      * @param s
      * @param t
      * @param maxCost
      * @return
      */
     public int equalSubstring(String s, String t, int maxCost) {
+        char[] char_s = s.toCharArray();
+        char[] char_t = t.toCharArray();
+        int len = char_s.length;
 
-        return 0;
+        int res = 0;
+        int begin = 0;
+        while(begin < len) {
+            int cost = 0;
+            int end = begin;
+            while(end < len) {
+                int a = char_s[end] - 'a';
+                int b = char_t[end] - 'a';
+                int delt = Math.abs(a - b);
+                if(delt + cost <= maxCost) {
+                    cost += delt;
+                    end ++;
+                } else {
+                    break;
+                }
+            }
+            begin ++;
+            res = Math.max(res, end-begin+1);
+        }
+        return res;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param s
+     * @param t
+     * @param maxCost
+     * @return
+     */
+    public int equalSubstring1(String s, String t, int maxCost) {
+        char[] char_s = s.toCharArray();
+        char[] char_t = t.toCharArray();
+        int len = char_s.length;
+
+        int[] diff = new int[len];
+        for(int i = 0; i < len; i ++) {
+            diff[i] = Math.abs(char_s[i]-char_t[i]);
+        }
+
+        // 双指针
+        int start = 0, end = 0;
+        int maxLen = 0;
+        int sum = 0;
+        while(end < len) {
+            sum += diff[end];
+            while(sum > maxCost) {
+                sum -= diff[start];
+                start ++;
+            }
+
+            maxLen = Math.max(maxLen, end-start+1);
+            end ++;
+        }
+
+        return maxLen;
     }
 
     static class TestCase {
@@ -85,9 +144,9 @@ public class LeetCode_1208 {
         public static String T2 = "acde";
         public static int MAXCOST2 = 0;
 
-        public static int ANS3 = 3;
+        public static int ANS3 = 0;
         public static String S3 = "abcd";
-        public static String T3 = "bcdf";
+        public static String T3 = "efgh";
         public static int MAXCOST3 = 3;
     }
 }
