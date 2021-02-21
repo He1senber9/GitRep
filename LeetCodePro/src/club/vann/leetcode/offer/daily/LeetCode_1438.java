@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.TreeMap;
 
@@ -102,7 +104,42 @@ public class LeetCode_1438 {
      * @return
      */
     public int longestSubarray1(int[] nums, int limit) {
-        return 0;
+        int len = nums.length;
+        Deque<Integer> maxQueue = new LinkedList<>();
+        Deque<Integer> minQueue = new LinkedList<>();
+
+        int left = 0, right = 0;
+        int res = 0;
+
+        while(right < len) {
+
+            while(!maxQueue.isEmpty() && maxQueue.peekLast() < nums[right]) {
+                maxQueue.pollLast();
+            }
+
+            while(!minQueue.isEmpty() && minQueue.peekLast() > nums[right]) {
+                minQueue.pollLast();
+            }
+
+            maxQueue.offerLast(nums[right]);
+            minQueue.offerLast(nums[right]);
+
+            while(!maxQueue.isEmpty() && !minQueue.isEmpty() && maxQueue.peekFirst() - minQueue.peekFirst() > limit) {
+                int val = nums[left];
+                if(val == maxQueue.peekFirst()) {
+                    maxQueue.pollFirst();
+                }
+
+                if(val == minQueue.peekFirst()) {
+                    minQueue.pollFirst();
+                }
+                left ++;
+            }
+
+            res = Math.max(res, right-left+1);
+            right ++;
+        }
+        return res;
     }
 
     static class TestCase {
