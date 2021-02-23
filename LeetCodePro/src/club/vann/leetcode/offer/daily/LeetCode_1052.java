@@ -40,9 +40,9 @@ public class LeetCode_1052 {
     public static void main(String[] args) {
         LeetCode_1052 leetCode = new LeetCode_1052();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.maxSatisfied2(TestCase.CUSTOMERS, TestCase.GRUMPY, TestCase.X));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.maxSatisfied2(TestCase.CUSTOMERS1, TestCase.GRUMPY1, TestCase.X1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.maxSatisfied2(TestCase.CUSTOMERS2, TestCase.GRUMPY2, TestCase.X2));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.maxSatisfied3(TestCase.CUSTOMERS, TestCase.GRUMPY, TestCase.X));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.maxSatisfied3(TestCase.CUSTOMERS1, TestCase.GRUMPY1, TestCase.X1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.maxSatisfied3(TestCase.CUSTOMERS2, TestCase.GRUMPY2, TestCase.X2));
     }
 
     /**
@@ -147,43 +147,43 @@ public class LeetCode_1052 {
         }
         return res;
     }
-//
-//    /**
-//     * 解法四：
-//     *
-//     * @param customers
-//     * @param grumpy
-//     * @param X
-//     * @return
-//     */
-//    public int maxSatisfied3(int[] customers, int[] grumpy, int X) {
-//        int len = customers.length;
-//        int res = 0;
-//        // 记录前缀和
-//        int[] pre = new int[len+1];
-//        for(int i = 0; i < len; i ++) {
-//            if(grumpy[i] == 0) {
-//                pre[i+1] = pre[i] + customers[i];
-//            } else {
-//                pre[i+1] = pre[i];
-//            }
-//        }
-//
-//        for(int i = 0; i <= len-X; i ++) {
-//            //区间[0，i-1]
-//            int sum1 = pre[i];
-//            //区间[i,i+X-1]
-//            int sum2 = 0;
-//            for(int j = i; j <= i+X-1; j ++) {
-//                sum2 += customers[j];
-//            }
-//            //区间[i+X,len-1]
-//            int sum3 = pre[len] - pre[i+X];
-//
-//            res = Math.max(res, sum1+sum2+sum3);
-//        }
-//        return res;
-//    }
+
+    /**
+     * 解法四：
+     *
+     * @param customers
+     * @param grumpy
+     * @param X
+     * @return
+     */
+    public int maxSatisfied3(int[] customers, int[] grumpy, int X) {
+        int len = customers.length;
+        int res = 0;
+        // 记录前缀和
+        int[] pre = new int[len+1];
+        for(int i = 0; i < len; i ++) {
+            if(grumpy[i] == 0) {
+                pre[i+1] = pre[i] + customers[i];
+            } else {
+                pre[i+1] = pre[i];
+            }
+        }
+
+        for(int i = 0; i <= len-X; i ++) {
+            //区间[0，i-1]
+            int sum1 = pre[i];
+            //区间[i,i+X-1]
+            int sum2 = 0;
+            for(int j = i; j <= i+X-1; j ++) {
+                sum2 += customers[j];
+            }
+            //区间[i+X,len-1]
+            int sum3 = pre[len] - pre[i+X];
+
+            res = Math.max(res, sum1+sum2+sum3);
+        }
+        return res;
+    }
 
 
     static class TestCase {
