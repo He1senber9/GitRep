@@ -1,7 +1,6 @@
 package club.vann.leetcode.offer.daily;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>难度：Hard</p>
@@ -55,7 +54,7 @@ public class LeetCode_1178 {
         LeetCode_1178 leetCode = new LeetCode_1178();
 
         List<Integer> result = null;
-        result = leetCode.findNumOfValidWords(TestCase.WORDS, TestCase.PUZZLES);
+        result = leetCode.findNumOfValidWords1(TestCase.WORDS, TestCase.PUZZLES);
         System.out.println("Success");
     }
 
@@ -111,6 +110,64 @@ public class LeetCode_1178 {
             count ++;
         }
         return count;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param words
+     * @param puzzles
+     * @return
+     */
+    public List<Integer> findNumOfValidWords1(String[] words, String[] puzzles) {
+        List<Integer> result = new ArrayList<>();
+
+        Map<Integer, Integer> wordMap = new HashMap<>();
+        for(String word : words) {
+            // 单词对应的二进制数
+            int bit = getBit(word);
+            // 谜语的第一个字符对应的二进制数，比如c就是100
+            wordMap.put(bit, wordMap.getOrDefault(bit, 0) + 1);
+        }
+
+        for(int i = 0; i < puzzles.length; i ++) {
+            String puzzle = puzzles[i];
+            // 当前谜语的二进制数
+            int bit = getBit(puzzle);
+            int first = getBit(puzzle.charAt(0)+"");
+
+            int n = bit;
+            result.add(0);
+            // 遍历puzzle的所有字母组合，当n=0时终止遍历
+            while(n > 0) {
+                // 按位都是1才为1，否则为0，即n这个组合包含puzzle的首字母
+                // 而且n这个组合在map中有值，即有单词长n这样，值累加给res[i]
+                if ((n & first) != 0 && wordMap.getOrDefault(n, 0) > 0) {
+
+                    int val = result.get(i);
+                    val += wordMap.getOrDefault(n, 0);
+                    result.set(i, val);
+                }
+                // n-1 AND puzzleBit，生成一个puzzleBit的新的子集合
+                n = (n - 1) & bit;
+            }
+        }
+        return result;
+    }
+
+    private int getBit(String word) {
+        int res = 0;
+        char[] ch = word.toCharArray();
+        int len = ch.length;
+        for(char c : ch) {
+            // a在最低位，求出当前字符的偏移位
+            int offset = c - 'a';
+            // 将二进制的1左移offset位，右边用0填充
+            int status = 1 << offset;
+            // 按位或，该位至少有一个1时，才为1（出现过），否则为0
+            res = res | status;
+        }
+        return res;
     }
 
     static class TestCase {
