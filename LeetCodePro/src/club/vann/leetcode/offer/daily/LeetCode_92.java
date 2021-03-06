@@ -30,7 +30,7 @@ public class LeetCode_92 {
     public static void main(String[] args) {
         LeetCode_92 leetCode = new LeetCode_92();
 
-//        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.reverseBetween(TestCase.HEAD, TestCase.M, TestCase.N));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.reverseBetween(TestCase.HEAD, TestCase.M, TestCase.N));
         System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.reverseBetween(TestCase.HEAD1, TestCase.M1, TestCase.N1));
     }
 
@@ -38,35 +38,26 @@ public class LeetCode_92 {
         // 虚拟头节点
         ListNode node0 = new ListNode(0);
         node0.next = head;
-
-        int index = 1;
         ListNode pre = node0;
-        ListNode cur = node0.next;
 
-        while(index < left) {
-            cur = cur.next;
-            pre = pre.next;
-            index ++;
-        }
-
-        ListNode next = cur.next;
-        Stack<ListNode> stack = new Stack<>();
-        while(index <= right) {
-            cur.next = null;
-            stack.push(cur);
-
-            cur = next;
-            next = next.next;
-            index ++;
-        }
-
-        while(!stack.isEmpty()) {
-            pre.next = stack.pop();
+        for(int i = 0; i < left-1; i ++) {
             pre = pre.next;
         }
 
-        pre.next = cur;
+        ListNode cur = pre.next;
+        ListNode next = null;
+        for(int i = left; i < right; i ++) {
+            next = cur.next;
+            cur.next = next.next;
+            next.next = pre.next;
+            pre.next = next;
+        }
+
         return node0.next;
+    }
+
+    private ListNode reverse(ListNode cur, int k) {
+        return null;
     }
 
     static class TestCase {
