@@ -34,40 +34,44 @@ public class LeetCode_5 {
         LeetCode_5 leetCode = new LeetCode_5();
 
         s = "babad";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[bab] : " + result);
 
         s = "cbbd";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[bb] : " + result);
 
         s = "a";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[a] : " + result);
 
         s = "aa";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[aa] : " + result);
 
         s = "aaa";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[aaa] : " + result);
 
         s = "abcda";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[a] : " + result);
 
         s = "ac";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[a] : " + result);
 
         s = "abb";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[bb] : " + result);
 
         s = "ac";
-        result = leetCode.longestPalindrome3(s);
+        result = leetCode.longestPalindrome4(s);
         System.out.println("Result[a] : " + result);
+
+        s = "aacabdkacaa";
+        result = leetCode.longestPalindrome4(s);
+        System.out.println("Result[aca] : " + result);
     }
 
     /**
@@ -235,5 +239,42 @@ public class LeetCode_5 {
         }
 
         return s.substring(index, index+maxLen);
+    }
+
+    public String longestPalindrome4(String s) {
+        if(s == null || s.length() == 0) {
+            return "";
+        }
+
+        char[] ch = s.toCharArray();
+        int n = ch.length;
+
+        boolean[][] dp = new boolean[n][n];
+        int maxLen = 0;
+        int begin = 0;
+
+        for(int right = 0; right < n; right ++) {
+            for(int left = 0; left <= right; left ++) {
+                if(ch[left] == ch[right]) {
+                    if(left == right) {
+                        dp[left][right] = true;
+                    } else if(right-left==1) {
+                        dp[left][right] = true;
+                    } else {
+                        dp[left][right] = dp[left+1][right-1];
+                    }
+
+                    if(dp[left][right] && right-left+1 > maxLen) {
+                        maxLen = right-left+1;
+                        begin = left;
+                    }
+                } else {
+                    dp[left][right] = false;
+                }
+            }
+        }
+
+        String ans = s.substring(begin, begin+maxLen);
+        return ans;
     }
 }
