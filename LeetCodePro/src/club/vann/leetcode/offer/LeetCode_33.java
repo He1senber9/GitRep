@@ -61,7 +61,25 @@ public class LeetCode_33 {
      */
     public boolean verifyPostorder(int[] postorder) {
 
-        return false;
+        return verifyPostorder(postorder, 0, postorder.length-1);
+    }
+
+    private boolean verifyPostorder(int[] postorder, int left, int right) {
+        if(left >= right) {
+            return true;
+        }
+
+        int point = left;
+        while(postorder[point] < postorder[right]) {
+            point ++;
+        }
+
+        int mid = point;
+        while(postorder[point] > postorder[right]) {
+            point ++;
+        }
+
+        return point == right && verifyPostorder(postorder, left, mid-1) && verifyPostorder(postorder, mid, right-1);
     }
 
     static class TestCase {
