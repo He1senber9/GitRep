@@ -66,11 +66,11 @@ public class LeetCode_91 {
     public static void main(String[] args) {
         LeetCode_91 leetCode = new LeetCode_91();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numDecodings1(TestCase.STR));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numDecodings1(TestCase.STR1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.numDecodings1(TestCase.STR2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.numDecodings1(TestCase.STR3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.numDecodings1(TestCase.STR4));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numDecodings2(TestCase.STR));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numDecodings2(TestCase.STR1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.numDecodings2(TestCase.STR2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.numDecodings2(TestCase.STR3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.numDecodings2(TestCase.STR4));
     }
 
     /**
@@ -133,6 +133,33 @@ public class LeetCode_91 {
         }
 
         return dp[n];
+    }
+
+    /**
+     * 解法三：
+     *
+     * @param s
+     * @return
+     */
+    public int numDecodings2(String s) {
+        int n = s.length();
+        int left = 0, right = 1;
+        int ans = 0;
+
+        for(int i = 1; i <= n; i ++) {
+            ans = 0;
+            if(s.charAt(i-1) != '0') {
+                ans += right;
+            }
+
+            if(i > 1 && s.charAt(i-2) != '0' && ((s.charAt(i-2)-'0')*10 + (s.charAt(i-1)-'0') <= 26)) {
+                ans += left;
+            }
+            left = right;
+            right = ans;
+        }
+
+        return ans;
     }
 
     static class TestCase {
