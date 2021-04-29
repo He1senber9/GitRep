@@ -46,11 +46,11 @@ public class LeetCode_403 {
     public static void main(String[] args) {
         LeetCode_403 leetCode = new LeetCode_403();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.canCross(TestCase.STONES));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.canCross(TestCase.STONES1));
-        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.canCross(TestCase.STONES2));
-        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.canCross(TestCase.STONES3));
-        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.canCross(TestCase.STONES4));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.canCross1(TestCase.STONES));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.canCross1(TestCase.STONES1));
+        System.out.println("Result["+TestCase.ANS2+"] : " + leetCode.canCross1(TestCase.STONES2));
+        System.out.println("Result["+TestCase.ANS3+"] : " + leetCode.canCross1(TestCase.STONES3));
+        System.out.println("Result["+TestCase.ANS4+"] : " + leetCode.canCross1(TestCase.STONES4));
     }
 
     /**
@@ -84,6 +84,37 @@ public class LeetCode_403 {
             }
         }
         return memo[i][lastDis] = false;
+    }
+
+    /**
+     * 解法二:
+     * @param stones
+     * @return
+     */
+    public boolean canCross1(int[] stones) {
+        int n = stones.length;
+        boolean[][] dp = new boolean[n][n];
+        dp[0][0] = true;
+
+        for(int i = 1; i < n; i ++) {
+            if(stones[i] - stones[i-1] > i) {
+                return false;
+            }
+        }
+
+        for(int i = 1; i < n; i ++) {
+            for(int j = i-1; j >= 0; j --) {
+                int k = stones[i] - stones[j];
+                if(k > j + 1) {
+                    break;
+                }
+                dp[i][k] = dp[j][k-1] || dp[j][k] || dp[j][k+1];
+                if(i == n-1 && dp[i][k]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     static class TestCase {
