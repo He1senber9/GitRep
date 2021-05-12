@@ -55,8 +55,8 @@ public class LeetCode_1310 {
     public static void main(String[] args) {
         LeetCode_1310 leetCode = new LeetCode_1310();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS) +"] : " + Arrays.toString(leetCode.xorQueries(TestCase.ARR, TestCase.QUERIES)));
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS1) +"] : " + Arrays.toString(leetCode.xorQueries(TestCase.ARR1, TestCase.QUERIES1)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS) +"] : " + Arrays.toString(leetCode.xorQueries1(TestCase.ARR, TestCase.QUERIES)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS1) +"] : " + Arrays.toString(leetCode.xorQueries1(TestCase.ARR1, TestCase.QUERIES1)));
     }
 
     /**
@@ -84,7 +84,36 @@ public class LeetCode_1310 {
         return ans;
     }
 
+    /**
+     * 解法二：
+     *
+     * @param arr
+     * @param queries
+     * @return
+     */
+    public int[] xorQueries1(int[] arr, int[][] queries) {
+        int m = arr.length;
+        int[] sumPre = new int[m];
+        sumPre[0] = arr[0];
+        for(int i = 1; i < m; i ++) {
+            sumPre[i] = sumPre[i-1] ^ arr[i];
+        }
 
+        int n = queries.length;
+        int[] ans = new int[n];
+        for(int i = 0; i < n; i ++) {
+            int[] query = queries[i];
+            int begin = query[0];
+            int end = query[1];
+
+            if(begin == 0) {
+                ans[i] = sumPre[end];
+            } else {
+                ans[i] = sumPre[begin-1] ^ sumPre[end];
+            }
+        }
+        return ans;
+    }
 
     static class TestCase {
         public static int[] ANS = {2,7,14,8};
