@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Hard</p>
  * <p>题目：元素和为目标值的子矩阵数量</p>
@@ -65,28 +68,34 @@ public class LeetCode_1074 {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        // 前缀和
-        int[][] sums = new int[m][n];
-        sums[0][0] = matrix[0][0];
-        for(int i = 1; i < m; i ++) {
-            sums[i][0] = sums[i-1][0] + matrix[i][0];
-        }
-        for(int j = 1; j < m; j ++) {
-            sums[0][j] = sums[0][j-1] + matrix[0][j];
-        }
-
-        for(int i = 1; i < m; i ++) {
-            for(int j = 1; j < n; j ++) {
-                sums[i][j] = sums[i-1][j] + sums[i][j-1] - sums[i-1][j-1] + matrix[i][j];
-            }
-        }
-
+        int ans = 0;
         for(int i = 0; i < m; i ++) {
-            for(int j = 0; j < n; j ++) {
+            int[] sums = new int[n];
+            for(int j = i; j < m; j ++) {
+                for(int t = 0; t < n; t ++) {
+                    sums[t] += matrix[j][t];
+                }
 
+                ans += findCount(sums, target);
             }
         }
-        return 0;
+
+        return ans;
+    }
+
+    private int findCount(int[] nums, int target) {
+        int count = 0, sum = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        for(int i = 0; i < nums.length; i ++) {
+            sum += nums[i];
+            if(map.containsKey(sum-target)) {
+                count += map.get(sum-target);
+            }
+
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        return count;
     }
 
     static class TestCase {
