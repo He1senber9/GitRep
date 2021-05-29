@@ -1,5 +1,8 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>难度：Medium</p>
  * <p>题目：和为K的子数组</p>
@@ -51,6 +54,59 @@ public class LeetCode_560 {
             }
         }
         return ans;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int subarraySum1(int[] nums, int k) {
+        int n = nums.length;
+
+        // 前缀和
+        int[] pre = new int[n];
+        pre[0] = nums[0];
+        for(int i = 1; i < n; i ++) {
+            pre[i] = pre[i-1] + nums[i];
+        }
+
+        int count = 0;
+        int sum = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        // 区间[i, j] 的和 sum[i,j] = pre[j] (i==0) or sum[i,j] = pre[j]-pre[i-1](i>0)
+        for(int i = 0; i < n; i ++) {
+            sum = pre[i];
+            if(map.containsKey(sum-k)) {
+                count += map.get(sum-k);
+            }
+
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
+
+    public int subarraySum2(int[] nums, int k) {
+        int n = nums.length;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+
+        int count = 0, pre = 0;
+        for(int i = 0; i < n; i ++) {
+            pre += nums[i];
+            if(map.containsKey(pre-k)) {
+                count += map.get(pre-k);
+            }
+
+            map.put(pre, map.getOrDefault(pre, 0) + 1);
+        }
+
+        return count;
     }
 
     static class TestCase {
