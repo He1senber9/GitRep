@@ -37,8 +37,8 @@ public class LeetCode_416 {
     public static void main(String[] args) {
         LeetCode_416 leetCode = new LeetCode_416();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.canPartition(TestCase.NUMS));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.canPartition(TestCase.NUMS1));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.canPartition1(TestCase.NUMS));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.canPartition1(TestCase.NUMS1));
     }
 
     /**
@@ -77,6 +77,41 @@ public class LeetCode_416 {
         }
 
         return (dp[n][tag] == tag);
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @return
+     */
+    public boolean canPartition1(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        for(int i = 0; i < n; i ++) {
+            sum = sum + nums[i];
+        }
+
+        if(sum % 2 != 0) {
+            return false;
+        }
+
+        int tag = sum/2;
+
+        // dp[i][j]表示前 i 个元素和不超过j的最大元素和
+        int[][] dp = new int[2][tag+1];
+
+        for(int i = 1; i <= n; i ++) {
+            int val = nums[i-1];
+            for(int j = 0; j <= tag; j ++) {
+                dp[i&1][j] = dp[(i-1)&1][j];
+                if(j >= val) {
+                    dp[i&1][j] = Math.max(dp[i&1][j], dp[(i-1)&1][j-val] + val);
+                }
+            }
+        }
+
+        return (dp[n&1][tag] == tag);
     }
 
     static class TestCase {
