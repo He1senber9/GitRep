@@ -3,10 +3,12 @@ package club.vann.leetcode.offer.daily;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * <p>难度：Hard</p>
@@ -53,8 +55,8 @@ public class LeetCode_815 {
     public static void main(String[] args) {
         LeetCode_815 leetCode = new LeetCode_815();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numBusesToDestination(TestCase.ROUTES, TestCase.SOURCE, TestCase.TARGET));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numBusesToDestination(TestCase.ROUTES1, TestCase.SOURCE1, TestCase.TARGET1));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.numBusesToDestination1(TestCase.ROUTES, TestCase.SOURCE, TestCase.TARGET));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.numBusesToDestination1(TestCase.ROUTES1, TestCase.SOURCE1, TestCase.TARGET1));
     }
 
     /**
@@ -108,6 +110,65 @@ public class LeetCode_815 {
             }
         }
         return ret == Integer.MAX_VALUE ? -1 : ret;
+    }
+
+    public int numBusesToDestination1(int[][] routes, int source, int target) {
+        if(source == target) {
+            return 0;
+        }
+
+        int n = routes.length;
+        // K: 车站， V:该车站经过的公交车
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int bus = 0; bus < n; bus ++) {
+            int[] sites = routes[bus];
+            for(int site: sites) {
+                List<Integer> buses = map.getOrDefault(site, new ArrayList<Integer>());
+                buses.add(bus);
+                map.put(site, buses);
+            }
+        }
+
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        linkedList.add(source);
+
+        Set<Integer> vis = new HashSet<>();
+
+        int count = 0;
+        while(!linkedList.isEmpty()) {
+            count ++;
+            int size = linkedList.size();
+
+            // 从当前车站扩展，都是不用换乘的站点
+            // 循环结束，没有找到target说明需要换乘一次，count++
+            for(int i = 0; i < size; i ++) {
+                int curSite = linkedList.poll();
+
+                // 所有经过 curSite 的车
+                List<Integer> buses = map.get(curSite);
+                for(int bus : buses) {
+                    if(vis.contains(bus)) {
+                        continue;
+                    }
+
+                    vis.add(bus);
+
+                    for(int nextSite : routes[bus]) {
+                        if(nextSite == target) {
+                            return count;
+                        }
+
+                        if(nextSite == curSite) {
+                            continue;
+                        }
+
+                        linkedList.add(nextSite);
+                    }
+                }
+            }
+        }
+
+        return -1;
     }
 
     static class TestCase {
