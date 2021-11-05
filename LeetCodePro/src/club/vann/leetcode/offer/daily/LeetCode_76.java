@@ -1,7 +1,5 @@
 package club.vann.leetcode.offer.daily;
 
-import sun.jvm.hotspot.opto.HaltNode;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;

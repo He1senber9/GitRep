@@ -49,18 +49,57 @@ public class LeetCode_685 {
     public static void main(String[] args) {
         LeetCode_685 leetCode = new LeetCode_685();
 
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + leetCode.findRedundantDirectedConnection(TestCase.EDGES));
-        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + leetCode.findRedundantDirectedConnection(TestCase.EDGES));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS)+"] : " + Arrays.toString(leetCode.findRedundantDirectedConnection(TestCase.EDGES)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS1)+"] : " + Arrays.toString(leetCode.findRedundantDirectedConnection(TestCase.EDGES1)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS2)+"] : " + Arrays.toString(leetCode.findRedundantDirectedConnection(TestCase.EDGES2)));
+        System.out.println("Result["+ Arrays.toString(TestCase.ANS3)+"] : " + Arrays.toString(leetCode.findRedundantDirectedConnection(TestCase.EDGES3)));
     }
 
     /**
      * 解法一：
-     *
      * @param edges
      * @return
      */
     public int[] findRedundantDirectedConnection(int[][] edges) {
+        int n = edges.length;
+        // 统计每个节点的入度
+        int[] inCounts = new int[n+1];
+        for(int[] edge : edges) {
+            int parent = edge[0];
+            int child = edge[1];
+            inCounts[child] ++;
+        }
+
+        int index = 0;
+        // 一定有一个节点的入度为2
+        for(int i = n-1; i >= 0; i --) {
+            int tag = edges[i][1];
+            if(tag == 2) {
+                index = i;
+            }
+        }
+
         return null;
+    }
+
+    //
+    private boolean isTreeByRemove(int[][] edges, int index) {
+        return false;
+    }
+
+    private void union(int[] parent, int x, int y) {
+        int rootX = find(parent, x);
+        int rootY = find(parent, y);
+        if(rootX != rootY) {
+            parent[rootY] = rootX;
+        }
+    }
+
+    private int find(int[] parent, int x) {
+        if(x != parent[x]) {
+            parent[x] = find(parent, parent[x]);
+        }
+        return parent[x];
     }
 
     static class TestCase {
@@ -69,5 +108,11 @@ public class LeetCode_685 {
 
         public static int[] ANS1 = {4,1};
         public static int[][] EDGES1 = {{1, 2}, {2, 3}, {3, 4}, {4, 1}, {1, 5}};
+
+        public static int[] ANS2 = {4,10};
+        public static int[][] EDGES2 = {{9, 10}, {5, 8}, {2, 6}, {1, 5}, {3, 8}, {4, 9}, {8, 10}, {4, 10}, {6, 8}, {7, 9}};
+
+        public static int[] ANS3 = {2,1};
+        public static int[][] EDGES3 = {{2, 1}, {3, 1}, {4, 2}, {1, 4}};
     }
 }

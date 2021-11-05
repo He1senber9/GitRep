@@ -1,5 +1,7 @@
 package club.vann.leetcode.offer.daily;
 
+import java.util.PriorityQueue;
+
 /**
  * <p>难度：Midum</p>
  * <p>题目：字符串转换整数 (atoi)</p>
@@ -80,6 +82,8 @@ public class LeetCode_8 {
     }
 
     private int myAtoi(String str) {
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(0);
         int result = 0;
 
         if(str == null) {

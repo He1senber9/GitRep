@@ -14,14 +14,23 @@ import java.util.List;
 public class LeetCode_4 {
 
 	public static void main(String[] args) {
-		int[] nums1 = {1, 3};
-		int[] nums2 = {2};
-		
+//		int[] nums1 = {1, 3};
+//		int[] nums2 = {2};
+
 //		int[] nums1 = {3};
 //		int[] nums2 = {-2, -1};
+
+//        int[] nums1 = {1,2,3};
+//        int[] nums2 = {1,2,3,4};
+
+//        int[] nums1 = {1,2};
+//        int[] nums2 = {3,4};
+
+        int[] nums1 = {};
+        int[] nums2 = {2,3};
 		
 		LeetCode_4 leetCode = new LeetCode_4();
-		double result = leetCode.findMedianSortedArrays2(nums1, nums2);
+		double result = leetCode.findMedianSortedArrays4(nums1, nums2);
 		System.out.println("The result : " + result);
 	}
 	
@@ -126,6 +135,130 @@ public class LeetCode_4 {
     	} else {
     		return findK(nums1, indexM, nums2, indexN+k/2, k-k/2);
     	}
+    }
+
+    /**
+     * 解法四：
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays3(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+
+        int[] arr = new int[m+n];
+        int index1 = 0, index2 = 0;
+        int index = 0;
+
+        while(index1 < m || index2 < n) {
+            if(index1 < m && index2 < n) {
+                if(nums1[index1] <= nums2[index2]) {
+                    arr[index] = nums1[index1];
+                    index ++;
+                    index1 ++;
+                } else {
+                    arr[index] = nums2[index2];
+                    index ++;
+                    index2 ++;
+                }
+            } else if(index1 < m){
+                arr[index] = nums1[index1];
+                index ++;
+                index1 ++;
+            } else {
+                arr[index] = nums2[index2];
+                index ++;
+                index2 ++;
+            }
+        }
+
+        double ans = 0.0;
+        if((m+n) % 2 == 0) {
+            ans =  ((double) (arr[(m+n-1)/2] + arr[(m+n-1)/2+1]))/ 2;
+        } else {
+            ans = arr[(m+n-1)/2];
+        }
+        return ans;
+    }
+
+    /**
+     * 解法五：
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public double findMedianSortedArrays4(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+
+        int index1 = 0, index2 = 0;
+        int index = -1;
+
+        int mid1 = (m+n)%2==0 ? (m+n-1)/2 : (m+n-1)/2;
+        int mid2 = (m+n)%2==0 ? (m+n-1)/2+1 : (m+n-1)/2;
+        double sum = 0.0;
+        while(index1 < m || index2 < n) {
+            if(index1 < m && index2 < n) {
+                if(nums1[index1] <= nums2[index2]) {
+                    index ++;
+
+                    if(index == mid1) {
+                        sum += (double) nums1[index1];
+                        mid1 = -1;
+                    }
+
+                    if(index == mid2) {
+                        sum += (double) nums1[index1];
+                        break;
+                    }
+
+                    index1 ++;
+                } else {
+                    index ++;
+
+                    if(index == mid1) {
+                        sum += (double) nums2[index2];
+                        mid1 = -1;
+                    }
+
+                    if(index == mid2) {
+                        sum += (double) nums2[index2];
+                        break;
+                    }
+
+                    index2 ++;
+                }
+            } else if(index1 < m) {
+                index ++;
+                if(index == mid1) {
+                    sum += (double) nums1[index1];
+                    mid1 = -1;
+                }
+
+                if(index == mid2) {
+                    sum += (double) nums1[index1];
+                    break;
+                }
+                index1 ++;
+            } else {
+                index ++;
+                if(index == mid1) {
+                    sum += (double) nums2[index2];
+                    mid1 = -1;
+                }
+
+                if(index == mid2) {
+                    sum += (double) nums2[index2];
+                    break;
+                }
+                index2 ++;
+            }
+        }
+
+        return sum/2;
     }
 
 }

@@ -44,8 +44,8 @@ public class LeetCode_486 {
     public static void main(String[] args) {
         LeetCode_486 leetCode = new LeetCode_486();
 
-        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.PredictTheWinner(TestCase.NUMS));
-        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.PredictTheWinner(TestCase.NUMS1));
+        System.out.println("Result["+TestCase.ANS+"] : " + leetCode.PredictTheWinner1(TestCase.NUMS));
+        System.out.println("Result["+TestCase.ANS1+"] : " + leetCode.PredictTheWinner1(TestCase.NUMS1));
     }
 
     /**
@@ -67,6 +67,28 @@ public class LeetCode_486 {
         int one = nums[start] * turn + helper(nums, start+1, end, -1*turn);
         int two = nums[end] * turn + helper(nums, start, end-1, -1*turn);
         return Math.max(one*turn, two*turn) * turn;
+    }
+
+    /**
+     * 解法二：
+     *
+     * @param nums
+     * @return
+     */
+    public boolean PredictTheWinner1(int[] nums) {
+        int n = nums.length;
+        // dp[i][j]表示为 区间[i,j]先手时可以获得的净分数
+        int[][] dp = new int[n][n];
+        for(int i = 0; i < n; i ++) {
+            dp[i][i] = nums[i];
+        }
+
+        for(int j = 1; j < n; j ++) {
+            for(int i = j-1; i >= 0; i --) {
+                dp[i][j] = Math.max(nums[i]-dp[i+1][j], nums[j]-dp[i][j-1]);
+            }
+        }
+        return dp[0][n-1]>0;
     }
 
     static class TestCase {

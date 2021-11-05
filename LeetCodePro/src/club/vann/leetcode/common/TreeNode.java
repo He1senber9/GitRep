@@ -52,7 +52,8 @@ public class TreeNode {
 		Queue<TreeNode> queue = new LinkedList();
 		queue.add(root);
 		while(!queue.isEmpty()){
-			TreeNode cur = queue.remove();
+//			TreeNode cur = queue.remove();
+			TreeNode cur = queue.poll();
 			if(cur == null){
 				res.append("null,");
 			}else{
